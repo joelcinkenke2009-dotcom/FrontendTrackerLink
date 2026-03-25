@@ -1,0 +1,1 @@
+export const apiUrl = "https://back-end-tracker-yhwf.onrender.com"
