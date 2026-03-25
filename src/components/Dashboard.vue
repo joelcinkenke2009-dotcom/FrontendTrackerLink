@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue';
-import { apiUrl } from './config/env';
+import { apiUrl } from '@/config/env';
 
 const data = ref([])
 const url = ref("")

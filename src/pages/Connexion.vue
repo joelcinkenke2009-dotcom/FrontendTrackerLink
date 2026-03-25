@@ -1,5 +1,5 @@
 <script setup>
-import { apiUrl } from '@/components/config/env';
+import { apiUrl } from '@/config/env';
 import { ref } from 'vue';
 const view = ref(false)
 const password = ref("")

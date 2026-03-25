@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { apiUrl } from "./config/env";
+import { apiUrl } from "@/config/env";
 
 const connect = ref([])
 fetch(apiUrl + "/ISCONNECTED", { credentials: 'include' })
@@ -25,8 +25,7 @@ const started = () => {
         Créez des liens courts uniques, modifiez-les à volonté, et obtenez des statistiques détaillées
         sur les clics, par type d'appareil. Nous vous offrons un contrôle total et une transparence absolue.
       </p>
-      <button @click="started" style="text-decoration: none; text-decoration: line-through;" class="modern-button"
-        :disabled="connect.connected">Commencer maintenant</button>
+      <button @click="started" style="text-decoration: none;" class="modern-button" :disabled="connect.connected">Commencer maintenant</button>
     </section>
 
     <!-- Section fonctionnalités -->
