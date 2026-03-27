@@ -7,7 +7,6 @@ const url = ref("")
 const modify = ref(false)
 const date = ref([])
 const verify = ref(false)
-const message = ref("")
 
 fetch(apiUrl + "/isActive", { credentials: 'include' })
   .then(req => req.json())
@@ -30,64 +29,64 @@ onMounted(() => {
   fecthItems()
 })
 
-const senddata = async (e) => {
-  const response = await fetch('/api/protected/createLink', {
-    method: "Post",
-    headers: {
-      'Content-Type': "application/json"
-    },
-    body: JSON.stringify({ urlCreate: url.value })
-  })
-  if (!response.ok) {
-    message.value = "Ce lien a été déjà enregistré"
-    setTimeout(() => {
-      verify.value = false
-      message.value = ""
-    }, 2500)
-  }
-  url.value = ""
-  fecthItems()
-  e.preventDefault()
-}
+// const senddata = async (e) => {
+//   const response = await fetch('/api/protected/createLink', {
+//     method: "Post",
+//     headers: {
+//       'Content-Type': "application/json"
+//     },
+//     body: JSON.stringify({ urlCreate: url.value })
+//   })
+//   if (!response.ok) {
+//     message.value = "Ce lien a été déjà enregistré"
+//     setTimeout(() => {
+//       verify.value = false
+//       message.value = ""
+//     }, 2500)
+//   }
+//   url.value = ""
+//   fecthItems()
+//   e.preventDefault()
+// }
 
-const deletedata = async (e) => {
-  await fetch('/api/protected/delete', {
-    method: "Post",
-    headers: {
-      'Content-Type': "application/json"
-    },
-    body: JSON.stringify({ slugDelete: e.target.value })
-  })
-  const confirm = window.confirm("Cette action est irreversible")
-  if (confirm) {
-    fecthItems()
-    e.preventDefault()
-  }
-}
+// const deletedata = async (e) => {
+//   await fetch('/api/protected/delete', {
+//     method: "Post",
+//     headers: {
+//       'Content-Type': "application/json"
+//     },
+//     body: JSON.stringify({ slugDelete: e.target.value })
+//   })
+//   const confirm = window.confirm("Cette action est irreversible")
+//   if (confirm) {
+//     fecthItems()
+//     e.preventDefault()
+//   }
+// }
 
-const verifylink = async (e) => {
-  verify.value = true
-  const response = await fetch('/api/protected/verifyLink', {
-    method: "Post",
-    headers: {
-      'Content-Type': "application/json"
-    },
-    body: JSON.stringify({ link: e.target.value })
-  })
-  if (!response.ok) {
-    message.value = "Le lien " + e.target.value + " est invalide"
-    setTimeout(() => {
-      verify.value = false
-      message.value = ""
-    }, 2500)
-    return
-  }
-  message.value = "Le lien " + e.target.value + " est valide"
-  setTimeout(() => {
-    verify.value = false
-    message.value = ""
-  }, 2500)
-}
+// const verifylink = async (e) => {
+//   verify.value = true
+//   const response = await fetch('/api/protected/verifyLink', {
+//     method: "Post",
+//     headers: {
+//       'Content-Type': "application/json"
+//     },
+//     body: JSON.stringify({ link: e.target.value })
+//   })
+//   if (!response.ok) {
+//     message.value = "Le lien " + e.target.value + " est invalide"
+//     setTimeout(() => {
+//       verify.value = false
+//       message.value = ""
+//     }, 2500)
+//     return
+//   }
+//   message.value = "Le lien " + e.target.value + " est valide"
+//   setTimeout(() => {
+//     verify.value = false
+//     message.value = ""
+//   }, 2500)
+// }
 
 const activeModify = () => {
   modify.value = !modify.value
@@ -115,11 +114,27 @@ export default {
       });
     }
   }, mounted() {
-    const error = this.$route.query.error;
+    const error = this.$route.query.status;
     if (error === "405") {
       this.errorMessage = "Paiement echoué veuillez réessayé plus tard"
       alert(this.errorMessage)
+    }    
+    if (error === "500") {
+      this.errorMessage = "Ce lien a été déjà enregistré"
+      alert(this.errorMessage)
     }
+    if (error === "200") {
+      this.errorMessage = "le lien est valide"
+      alert(this.errorMessage)
+    }
+    if (error === "404") {
+      this.errorMessage = "le lien est invalide"
+      alert(this.errorMessage)
+    }
+    if (error === "409") {
+      this.errorMessage = "Timeout"
+      alert(this.errorMessage)
+    } 
   }
 }
 
@@ -129,11 +144,11 @@ export default {
     <h4 v-if="date.date_limite" style="color: #1dda17;">Votre abonnement est valide jusqu'au {{ date.date_limite }}</h4>
     <h4 v-else-if="date.expire" style="color: red;">Votre abonnement a expiré depuis le {{ date.expire }}</h4>
     <div class="card form-section">
-      <form class="createdLink" @submit.prevent="senddata">
+      <form class="createdLink" method="post" :action="apiUrl + '/protected/createLink'">
         <div class="input-group">
-          <input type="text" required v-model="url" placeholder="Entrez votre lien (ex: google.com)"
+          <input type="text" required v-model="url" name="url" placeholder="Entrez votre lien (ex: google.com)"
             class="modern-input" autocomplete="off" :disabled="data.Paiement">
-          <button class="modern-button" :disabled="data.Paiement || data.login">Créer un lien</button>
+          <button class="modern-button" :disabled="data.Paiement || data.login" type="submit">Créer un lien</button>
         </div>
       </form>
     </div>
@@ -157,18 +172,18 @@ export default {
         <button @click="activeModify" class="modern-button" style="margin-bottom: 25px;">Modifier</button>
         <form :action="apiUrl + '/protected/modify'" method="post" v-if="modify" class="form">
           <select name="urlModify" id="" class="select" required>
-            <option :value="value.Link" v-for="value in data" class="option">{{ value.Link }}</option>
+            <option :value="value.Link"  v-for="value in data" class="option">{{ value.Link }}</option>
           </select>
           <input type="text" name="valueModify" required autocomplete="off" class="input"
             placeholder="Entre votre nouveau lien">
           <button type="submit">Modifier</button>
         </form>
       </div>
-      <div v-if="message" class="message-prin">
+      <!-- <div v-if="message" class="message-prin">
         <div class="message-case">
           <h4 class="message">{{ message }}</h4>
         </div>
-      </div>
+      </div> -->
       <div v-if="copied" class="message-prin">
         <div class="message-case-copied">
           <h4 class="message">{{ copied }}</h4>
@@ -208,12 +223,15 @@ export default {
                   <button class="modern-button-variante" @click="copyText(item.UrlGenerate)" style="font-size: 1.6rem;">📑</button>
                 </td>
                 <td style="text-align: center;">
-                  <button class="modern-button-variante" :disabled="verify" @click="verifylink($event)"
-                    :value="item.Link" style="font-size: 1.7rem;">🔍</button>
+                  <form :action="apiUrl + '/protected/verifyLink'" method="post">
+                    <button class="modern-button-variante" :disabled="verify" @click="verifylink($event)"
+                    :value="item.Link" name="link" style="font-size: 1.7rem;">🔍</button>
+                  </form>
                 </td>
                 <td style="text-align: center;">
-                  <button @click="deletedata($event)" class="modern-button-delete"
-                    :value="item.Slug" style="font-size: 1.6rem;">🗑️</button>
+                  <form :action="apiUrl + '/protected/delete'" method="post">
+                    <button class="modern-button-delete" :value="item.Slug" name="slug" style="font-size: 1.6rem;">🗑️</button>
+                  </form>
                 </td>
               </tr>
             </tbody>
