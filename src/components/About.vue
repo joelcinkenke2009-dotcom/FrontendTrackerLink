@@ -103,7 +103,7 @@ const started = () => {
         </div>
         <div class="feature-card">
           <div class="feature-icon">💼</div>
-          <p> Possibilité de <strong>s'abonner en mobile money ou carte bancaire</strong>, a partir de 5000FCFA et 10$</p>
+          <p> Possibilité de <strong>s'abonner en mobile money ou carte bancaire</strong>, a partir de 5000FCFA ou 10$</p>
         </div>
       </div>
     </section>
