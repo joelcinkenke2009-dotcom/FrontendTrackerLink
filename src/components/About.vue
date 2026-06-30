@@ -19,7 +19,7 @@ const started = () => {
     <section class="hero">
       <h1 class="hero-title">📊 Tracker<span style="color: #3b82f6;">Link</span></h1>
       <p class="hero-subtitle">
-        La plateforme intelligente pour raccourcir, suivre et analyser vos liens
+        Le traqueur de liens ultra-simplifié pour les marketeurs et e-commerçants.
       </p>
       <p class="hero-description">
         Créez des liens courts uniques, modifiez-les à volonté, et obtenez des statistiques détaillées
