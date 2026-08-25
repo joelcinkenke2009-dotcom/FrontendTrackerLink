@@ -6,7 +6,7 @@ const data = ref(null);
 const date = ref({});
 const appId = metaApp;
 const config = config_id;
-const redirectApp = encodeURIComponent("https://trackerlink.netlify.app/");
+const redirectApp = encodeURIComponent(apiUrl);
 
 const connectMeta = () => {
   const metaUrl = `https://www.facebook.com/v19.0/dialog/oauth?client_id=${appId}&redirect_uri=${redirectApp}&config_id=${config}&response_type=code`;
