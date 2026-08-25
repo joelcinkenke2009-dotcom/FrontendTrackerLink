@@ -1,67 +1,95 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { apiUrl } from '@/config/env';
 
-const nav = ref(false)
-const connect = ref([])
+const isNavOpen = ref(false);
+const connect = ref({ connected: false });
 
 const toggleNav = () => {
-  nav.value = !nav.value
-}
+  isNavOpen.value = !isNavOpen.value;
+};
 
-fetch(apiUrl + "/ISCONNECTED",{credentials: 'include'})
-.then(req => req.json())
-.then(res => {
-  connect.value = res
-  console.log(connect.value.connected);
-  
-})
+const checkAuthStatus = async () => {
+  try {
+    const res = await fetch(`${apiUrl}/ISCONNECTED`, { credentials: 'include' });
+    connect.value = await res.json();
+  } catch (err) {
+    console.error('Erreur lors de la vérification de connexion:', err);
+  }
+};
 
+onMounted(() => {
+  checkAuthStatus();
+});
 </script>
+
 <template>
-  <header style="margin: 0;">
-    <div class="logo navbar">
-      <h2 style="font-size: 1.5rem;">Tracker<span style="font-size: 1.5rem;">Link</span></h2>
-      <img src="../../Hamburger.png" alt="" width="54px" height="54px" srcset="" style="cursor: pointer;" @click="toggleNav">
+  <header class="header-container">
+    <div class="logo-navbar">
+      <h2 class="brand-title">AD<span>Pulse</span></h2>
+      <button 
+        class="hamburger-btn" 
+        :aria-expanded="isNavOpen"
+        aria-label="Menu de navigation"
+        @click="toggleNav"
+      >
+        <img src="../../Hamburger.png" alt="" width="42" height="42" />
+      </button>
     </div>
-    <nav class="nav-menu" :class="{'active' : nav}">
-      <a style="font-size: 17px;" href="/" class="nav-link">Accueil</a>
-      <a style="font-size: 17px;" href="/dashboard" class="nav-link">Dashboard</a>
-      <p style="font-size: 17px;" class="nav-co" v-if="connect.connected">Connected</p>
-      <a style="font-size: 17px;" href="/inscription" class="nav-link btn-connexion" v-else>Connexion</a>
+
+    <nav class="nav-menu" :class="{ 'active': isNavOpen }">
+      <RouterLink to="/" class="nav-link" @click="isNavOpen = false">Accueil</RouterLink>
+      <RouterLink to="/dashboard" class="nav-link" @click="isNavOpen = false">Link Track</RouterLink>
+      <RouterLink to="/dashboardADS" class="nav-link" @click="isNavOpen = false">AD Auditor</RouterLink>
+      
+      <span v-if="connect.connected" class="nav-co">Connecté</span>
+      <RouterLink v-else to="/inscription" class="nav-link btn-connexion" @click="isNavOpen = false">
+        Connexion
+      </RouterLink>
     </nav>
   </header>
 </template>
 
 <style scoped>
-*{
-  font-family: poppins,sans-serif;
+.header-container {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
 }
 
-
-.navbar {
+.logo-navbar {
   display: flex;
+  border-radius:  20px 20px 0 0;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 5%;
-  background-color: #0f172a;
+  background: linear-gradient(to right, #11097a, #0f172a);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
-/* Style du Logo */
-.logo h2 {
-  color:  #f8fafc;
+.brand-title {
+  color: #f8fafc;
   font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: -1px;
+  margin: 0;
 }
 
-.logo span {
-  color:  #3b82f6;
+.brand-title span {
+  color: #3b82f6;
   margin-left: 2px;
+}
+
+.hamburger-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
 }
 
 /* Menu de navigation */
@@ -70,46 +98,47 @@ fetch(apiUrl + "/ISCONNECTED",{credentials: 'include'})
   justify-content: space-around;
   align-items: center;
   gap: 2rem;
+  border-radius: 0 0 20px 20px;
   background-color: #0f172a;
-  padding: 20px;
-  border-radius: 5px;
-  margin-top: -100px;
-  transition: 200ms;
-  
+  padding: 0 20px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: max-height 0.3s ease-out, opacity 0.2s ease-out, padding 0.3s ease, visibility 0.3s;
 }
 
-.active{
-  margin-top: 0px;
-  transition: 250ms;
+.nav-menu.active {
+  max-height: 300px;
+  padding: 20px;
+  opacity: 1;
+  visibility: visible;
 }
 
 .nav-link {
-  color: #dddee0; /* Gris doux */
+  color: #dddee0;
   text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
+  font-weight: 600;
   font-size: 0.95rem;
-}
-
-.nav-co{
-  color: rgb(6, 241, 6); /* Gris doux */
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  font-size: 0.95rem;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .nav-link:hover {
-  color:  #f8fafc;
+  color: #f8fafc;
 }
 
-/* Bouton Connexion spécifique */
+.nav-co {
+  color: #22c55e;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* Bouton Connexion */
 .btn-connexion {
-  background-color: #3b82f6; ;
-  color: white !important;
+  background-color: #3b82f6;
+  color: #ffffff !important;
   padding: 0.6rem 1.2rem;
   border-radius: 8px;
-  transition: all 0.3s ease;
 }
 
 .btn-connexion:hover {
@@ -118,21 +147,19 @@ fetch(apiUrl + "/ISCONNECTED",{credentials: 'include'})
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
-/* --- RESPONSIVE --- */
+/* Responsive Mobile */
 @media (max-width: 768px) {
-  *{
-    font-size: 18px;
-  }
-  .navbar {
+  .logo-navbar {
     padding: 1rem 1.5rem;
   }
   
-  .nav-menu {
-    gap: 1rem;
-  }
-  
-  .logo h2 {
+  .brand-title {
     font-size: 1.2rem;
+  }
+
+  .nav-menu {
+    flex-direction: column;
+    gap: 1.2rem;
   }
 }
 </style>

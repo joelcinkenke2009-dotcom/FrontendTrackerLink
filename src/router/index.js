@@ -1,5 +1,8 @@
 import About from '@/components/About.vue'
+import AdAuditor from '@/components/AdAuditor.vue'
+import ConnAdmins from '@/components/ConnAdmins.vue'
 import Dashboard from '@/components/Dashboard.vue'
+import DashboardAdmins from '@/components/DashboardAdmins.vue'
 import Connexion from '@/pages/Connexion.vue'
 import Inscription from '@/pages/inscription.vue'
 import { createRouter, createWebHistory } from 'vue-router'
@@ -26,6 +29,21 @@ const router = createRouter({
       path:"/dashboard",
       name:"principalPage",
       component: Dashboard
+    },
+    {
+      path:"/connexion/admins",
+      name:"principalAdmins",
+      component: ConnAdmins
+    },
+    {
+      path:"/dashboard/admins",
+      name:"principalDash",
+      component: DashboardAdmins
+    },
+    {
+      path:"/dashboardADS",
+      name:"dashboardADS",
+      component: AdAuditor
     },
   ],
 })

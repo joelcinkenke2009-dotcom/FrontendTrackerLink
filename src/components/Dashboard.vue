@@ -1,195 +1,190 @@
 <script setup>
 import { onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
 import { apiUrl } from '@/config/env';
 
-const data = ref([])
-const url = ref("")
-const modify = ref(false)
-const date = ref([])
-const verify = ref(false)
+const route = useRoute();
 
-fetch(apiUrl + "/isActive", { credentials: 'include' })
-  .then(req => req.json())
-  .then((res) => {
-    date.value = res
-  })
+// États réactifs
+const data = ref([]);
+const url = ref('');
+const modify = ref(false);
+const date = ref({});
+const verify = ref(false);
+const message = ref('');
+const copied = ref('');
 
-const fecthItems = async () => {
-  await fetch(apiUrl + "/protected/data", { credentials: "include" })
-    .then(req => req.json())
-    .then(value => {
-      data.value = value
-      if (value == null) {
-        data.value = []
-      }
-    })
-}
-
-onMounted(() => {
-  fecthItems()
-})
-
-// const senddata = async (e) => {
-//   const response = await fetch('/api/protected/createLink', {
-//     method: "Post",
-//     headers: {
-//       'Content-Type': "application/json"
-//     },
-//     body: JSON.stringify({ urlCreate: url.value })
-//   })
-//   if (!response.ok) {
-//     message.value = "Ce lien a été déjà enregistré"
-//     setTimeout(() => {
-//       verify.value = false
-//       message.value = ""
-//     }, 2500)
-//   }
-//   url.value = ""
-//   fecthItems()
-//   e.preventDefault()
-// }
-
-// const deletedata = async (e) => {
-//   await fetch('/api/protected/delete', {
-//     method: "Post",
-//     headers: {
-//       'Content-Type': "application/json"
-//     },
-//     body: JSON.stringify({ slugDelete: e.target.value })
-//   })
-//   const confirm = window.confirm("Cette action est irreversible")
-//   if (confirm) {
-//     fecthItems()
-//     e.preventDefault()
-//   }
-// }
-
-// const verifylink = async (e) => {
-//   verify.value = true
-//   const response = await fetch('/api/protected/verifyLink', {
-//     method: "Post",
-//     headers: {
-//       'Content-Type': "application/json"
-//     },
-//     body: JSON.stringify({ link: e.target.value })
-//   })
-//   if (!response.ok) {
-//     message.value = "Le lien " + e.target.value + " est invalide"
-//     setTimeout(() => {
-//       verify.value = false
-//       message.value = ""
-//     }, 2500)
-//     return
-//   }
-//   message.value = "Le lien " + e.target.value + " est valide"
-//   setTimeout(() => {
-//     verify.value = false
-//     message.value = ""
-//   }, 2500)
-// }
-
-const activeModify = () => {
-  modify.value = !modify.value
-}
-
-</script>
-
-<script>
-export default {
-  data() {
-    return {
-      errorMessage: '',
-      copied:""
-    }
-  },
-  methods: {
-    copyText(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        this.copied = "Copié!";
-        setTimeout(() => {
-          this.copied = "" 
-        },1000)
-      }).catch(err => {
-        console.error('Erreur lors de la copie : ', err);
-      });
-    }
-  }, mounted() {
-    const error = this.$route.query.status;
-    if (error === "405") {
-      this.errorMessage = "Paiement echoué veuillez réessayé plus tard"
-      alert(this.errorMessage)
-    }    
-    if (error === "500") {
-      this.errorMessage = "Ce lien a été déjà enregistré"
-      alert(this.errorMessage)
-    }
-    if (error === "200") {
-      this.errorMessage = "le lien est valide"
-      alert(this.errorMessage)
-    }
-    if (error === "404") {
-      this.errorMessage = "le lien est invalide"
-      alert(this.errorMessage)
-    }
-    if (error === "409") {
-      this.errorMessage = "Timeout"
-      alert(this.errorMessage)
-    } 
+// Récupération de l'état d'abonnement
+const fetchDate = async () => {
+  try {
+    const res = await fetch(`${apiUrl}/isActive`, { credentials: 'include' });
+    date.value = await res.json();
+  } catch (err) {
+    console.error('Erreur fetchDate:', err);
   }
-}
+};
 
+// Récupération de la liste des liens
+const fetchItems = async () => {
+  try {
+    const res = await fetch(`${apiUrl}/protected/data`, { credentials: 'include' });
+    const value = await res.json();
+    data.value = value || [];
+  } catch (err) {
+    console.error('Erreur fetchItems:', err);
+    data.value = [];
+  }
+};
+
+// Pressea-papier (Copier)
+const copyText = async (text) => {
+  try {
+    await navigator.clipboard.writeText(text);
+    copied.value = 'Copié !';
+    setTimeout(() => {
+      copied.value = '';
+    }, 1000);
+  } catch (err) {
+    console.error('Erreur lors de la copie : ', err);
+  }
+};
+
+// Basculer l'affichage du formulaire de modification
+const activeModify = () => {
+  modify.value = !modify.value;
+};
+
+// Vérification de lien via AJAX
+const verifyLink = async (linkValue) => {
+  verify.value = true;
+  try {
+    const response = await fetch(`${apiUrl}/protected/verifyLink`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ link: linkValue }),
+      credentials: 'include'
+    });
+
+    if (!response.ok) {
+      message.value = `Le lien ${linkValue} est invalide`;
+    } else {
+      message.value = `Le lien ${linkValue} est valide`;
+    }
+  } catch (err) {
+    console.error('Erreur verifyLink:', err);
+  } finally {
+    setTimeout(() => {
+      verify.value = false;
+      message.value = '';
+    }, 2500);
+  }
+};
+
+// Exécution au montage
+onMounted(async () => {
+  await Promise.all([fetchItems(), fetchDate()]);
+
+  // Traitement des notifications issues des query params (URL)
+  const status = route.query.status;
+  const statusMessages = {
+    '405': 'Paiement échoué, veuillez réessayer plus tard',
+    '500': 'Ce lien a déjà été enregistré',
+    '200': 'Le lien est valide',
+    '404': 'Le lien est invalide',
+    '409': 'Timeout'
+  };
+
+  if (status && statusMessages[status]) {
+    alert(statusMessages[status]);
+  }
+});
 </script>
+
 <template>
   <div id="principal" class="main-wrapper" style="min-height: 65vh;">
-    <h4 v-if="date.date_limite" style="color: #1dda17;">Votre abonnement est valide jusqu'au {{ date.date_limite }}</h4>
-    <h4 v-else-if="date.expire" style="color: red;">Votre abonnement a expiré depuis le {{ date.expire }}</h4>
+    <!-- Statut d'abonnement -->
+    <h4 v-if="date.date_limite" class="alert-banner success">
+      Votre abonnement est valide jusqu'au {{ date.date_limite }}
+    </h4>
+    <h4 v-else-if="date.expire" class="alert-banner danger">
+      Votre abonnement a expiré depuis le {{ date.expire }}
+    </h4>
+
+    <!-- Formulaire principal de création -->
     <div class="card form-section">
-      <form class="createdLink" method="post" :action="apiUrl + '/protected/createLink'">
+      <form class="createdLink" method="post" :action="`${apiUrl}/protected/createLink`">
         <div class="input-group">
-          <input type="text" required v-model="url" name="url" placeholder="Entrez votre lien (ex: google.com)"
-            class="modern-input" autocomplete="off" :disabled="data.Paiement">
-          <button class="modern-button" :disabled="data.Paiement || data.login" type="submit">Créer un lien</button>
+          <input
+            v-model="url"
+            type="text"
+            required
+            name="url"
+            placeholder="Entrez votre lien (ex: google.com)"
+            class="modern-input"
+            autocomplete="off"
+            :disabled="!!data.Paiement"
+          >
+          <button class="modern-button" :disabled="!!data.Paiement || !!data.login" type="submit">
+            Créer un lien
+          </button>
         </div>
       </form>
     </div>
-    <div v-if="data.login">
-      <div class="card">
-        <h3>{{ data.login }}</h3>
-        <br>
-        <a href="/inscription" class="button" style="text-decoration: none;">Commencer maintenant</a>
-      </div>
+
+    <!-- Vues conditionnelles selon l'état du serveur -->
+    <div v-if="data.login" class="card">
+      <h3>{{ data.login }}</h3>
+      <br>
+      <a href="/inscription" class="button" style="text-decoration: none;">Commencer maintenant</a>
     </div>
+
     <div v-else-if="data.Paiement" class="card">
       <h3>{{ data.Paiement }}</h3>
       <div style="display: flex; justify-content: flex-end;">
-        <form :action="apiUrl + '/paiement/initialisation'" method="post">
+        <form :action="`${apiUrl}/paiement/initialisation`" method="post">
           <button class="button" type="submit">Souscrire maintenant</button>
         </form>
       </div>
     </div>
+
+    <!-- Affichage principal des données -->
     <div v-else>
       <div>
-        <button @click="activeModify" class="modern-button" style="margin-bottom: 25px;">Modifier</button>
-        <form :action="apiUrl + '/protected/modify'" method="post" v-if="modify" class="form">
-          <select name="urlModify" id="" class="select" required>
-            <option :value="value.Link"  v-for="value in data" class="option">{{ value.Link }}</option>
+        <button class="modern-button" style="margin-bottom: 25px;" @click="activeModify">
+          Modifier
+        </button>
+        <form v-if="modify" :action="`${apiUrl}/protected/modify`" method="post" class="form">
+          <select name="urlModify" class="select" required>
+            <option v-for="(value, idx) in data" :key="idx" :value="value.Link" class="option">
+              {{ value.Link }}
+            </option>
           </select>
-          <input type="text" name="valueModify" required autocomplete="off" class="input"
-            placeholder="Entre votre nouveau lien">
+          <input
+            type="text"
+            name="valueModify"
+            required
+            autocomplete="off"
+            class="input"
+            placeholder="Entrez votre nouveau lien"
+          >
           <button type="submit">Modifier</button>
         </form>
       </div>
-      <!-- <div v-if="message" class="message-prin">
+
+      <!-- Messages de notification -->
+      <div v-if="message" class="message-prin">
         <div class="message-case">
           <h4 class="message">{{ message }}</h4>
         </div>
-      </div> -->
+      </div>
+
       <div v-if="copied" class="message-prin">
         <div class="message-case-copied">
           <h4 class="message">{{ copied }}</h4>
         </div>
       </div>
       
+      <!-- Tableau des liens -->
       <div id="div-data" class="card table-section">
         <h2 class="table-title">Vos Liens Récents</h2>
         <div class="table-container">
@@ -204,8 +199,8 @@ export default {
                 <th>Clicks mobile</th>
                 <th>Clicks pc</th>
                 <th>Copier</th>
-                <th>Verification</th>
-                <th>Suppresion</th>
+                <th>Vérification</th>
+                <th>Suppression</th>
               </tr>
             </thead>
             <tbody>
@@ -220,17 +215,20 @@ export default {
                 <td class="col-click"><strong>{{ item.ClickMobile }}</strong></td>
                 <td class="col-click"><strong>{{ item.ClickPC }}</strong></td>
                 <td style="text-align: center;">
-                  <button class="modern-button-variante" @click="copyText(item.UrlGenerate)" style="font-size: 1.6rem;">📑</button>
+                  <button class="modern-button-variante" style="font-size: 1.6rem;" @click="copyText(item.UrlGenerate)">
+                    📑
+                  </button>
                 </td>
                 <td style="text-align: center;">
-                  <form :action="apiUrl + '/protected/verifyLink'" method="post">
-                    <button class="modern-button-variante" :disabled="verify" @click="verifylink($event)"
-                    :value="item.Link" name="link" style="font-size: 1.7rem;">🔍</button>
-                  </form>
+                  <button class="modern-button-variante" :disabled="verify" style="font-size: 1.7rem;" @click="verifyLink(item.Link)">
+                    🔍
+                  </button>
                 </td>
                 <td style="text-align: center;">
-                  <form :action="apiUrl + '/protected/delete'" method="post">
-                    <button class="modern-button-delete" :value="item.Slug" name="slug" style="font-size: 1.6rem;">🗑️</button>
+                  <form :action="`${apiUrl}/protected/delete`" method="post">
+                    <button class="modern-button-delete" :value="item.Slug" name="slug" style="font-size: 1.6rem;">
+                      🗑️
+                    </button>
                   </form>
                 </td>
               </tr>
@@ -241,12 +239,12 @@ export default {
     </div>
   </div>
 </template>
+
 <style scoped>
-/* Bouton principal "Modifier" */
 .message {
   color: #e0e7ff;
   text-align: center;
-  font-family: poppins, sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 700;
 }
 
@@ -262,6 +260,7 @@ export default {
   z-index: 2;
   box-shadow: 0 4px 15px #0f172a;
 }
+
 .message-case-copied {
   background: linear-gradient(135deg, #1e1b4b 0%, #2d2a5e 100%);
   top: 50%;
@@ -274,6 +273,7 @@ export default {
   z-index: 2;
   box-shadow: 0 4px 15px #0f172a;
 }
+
 .message-prin {
   position: relative;
   display: flex;
@@ -305,7 +305,6 @@ export default {
   transform: scale(0.98);
 }
 
-/* Conteneur du formulaire (s'affiche dynamiquement) */
 .form {
   margin-top: 1.5rem;
   background: white;
@@ -325,14 +324,12 @@ export default {
     opacity: 0;
     transform: translateY(-10px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-/* Étiquette visuelle (optionnelle – ici non présente dans le HTML, mais peut être ajoutée) */
 .form::before {
   content: "Modifier un lien existant";
   font-size: 1.1rem;
@@ -341,7 +338,6 @@ export default {
   margin-bottom: 0.25rem;
 }
 
-/* Sélecteur de lien */
 .select {
   width: 100%;
   padding: 0.75rem 1rem;
@@ -363,7 +359,6 @@ export default {
   box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
 }
 
-/* Champ de texte */
 .input {
   width: 100%;
   padding: 0.75rem 1rem;
@@ -381,7 +376,6 @@ export default {
   box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
 }
 
-/* Bouton de soumission du formulaire */
 .form button[type="submit"] {
   background: #10b981;
   color: white;
@@ -394,40 +388,53 @@ export default {
   transition: background 0.2s, box-shadow 0.2s;
   box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.3);
   align-self: flex-start;
-  /* pour éviter qu'il prenne toute la largeur */
   min-width: 140px;
 }
+
+.alert-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.alert-banner.success {
+  background-color: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.alert-banner.danger {
+  background-color: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
 
 .form button[type="submit"]:hover {
   background: #059669;
   box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.4);
 }
 
-/* Style pour les options du select (facultatif, dépend du navigateur) */
 .option {
   background: white;
   color: #1e293b;
   padding: 0.5rem;
 }
 
-/* Petit plus : espacement et alignement */
-.form>* {
+.form > * {
   margin: 0;
 }
 
-/* Conteneur Principal */
 .main-wrapper {
   font-family: 'Inter', -apple-system, sans-serif;
   padding: 20px;
   background-color: #f8fafc;
 }
 
-.active {
-  margin-top: 0px;
-  transition: 200ms;
-}
-
-/* Cartes (Formulaire et Tableau) */
 .card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
@@ -444,11 +451,10 @@ export default {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   margin-bottom: 24px;
   padding: 10px;
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 500px;
 }
 
-/* Style du Formulaire */
 .input-group {
   display: flex;
   gap: 12px;
@@ -477,6 +483,7 @@ export default {
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s;
+  padding: 4px 8px;
 }
 
 .modern-button-variante:hover {
@@ -501,7 +508,7 @@ export default {
 .modern-button:disabled {
   text-decoration: line-through;
   background-color: #9ca3af;
-  opacity: 9;
+  opacity: 0.9;
 }
 
 .modern-button-delete {
@@ -513,13 +520,13 @@ export default {
   font-weight: 700;
   cursor: pointer;
   transition: background 0.2s;
+  padding: 4px 8px;
 }
 
 .modern-button-delete:hover {
   background-color: #dc2626;
 }
 
-/* Style du Tableau */
 .table-title {
   font-size: 18px;
   color: #2a6df4;
@@ -528,7 +535,6 @@ export default {
 
 .table-container {
   overflow-x: auto;
-  /* Rend le tableau responsive */
 }
 
 .dashbord-table {
@@ -555,7 +561,6 @@ export default {
   font-size: 14px;
 }
 
-/* Petits détails visuels */
 .badge-slug {
   background: #eff6ff;
   color: #3b82f6;
@@ -565,16 +570,6 @@ export default {
   font-weight: bold;
 }
 
-/* 
-.truncate {
-  display: inline-block;
-  max-width: 200px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-} */
-
-/* Responsive Mobile */
 @media (max-width: 640px) {
   .form {
     padding: 1.2rem;
@@ -592,7 +587,8 @@ export default {
   .modern-button {
     width: 100%;
   }
-  .message-case-copied{
+
+  .message-case-copied {
     width: 20%;
   }
 
