@@ -24,16 +24,492 @@ const started = () => {
       </div>
       <h1 class="hero-title">📊 AD<span class="brand-blue">Pulse</span></h1>
       <p class="hero-subtitle">
-        La plateforme intelligente pour auditer vos publicités et suivre vos liens dynamiques.
+        Optimisez vos dépenses publicitaires et maximisez le retour sur investissement
       </p>
       <p class="hero-description">
-        Analysez vos campagnes en un clin d'œil : identifiez les publicités rentables en <strong>vert</strong> et coupez le gaspillage en <strong>rouge</strong>. Créez, modifiez et suivez vos liens dynamiques avec des statistiques précises par appareil.
+        Analysez l'efficacité de vos campagnes Meta Ads en un coup d'œil. Identifiez immédiatement les annonces rentables en <span class="tag-green">Vert</span> et stoppez le gaspillage en <span class="tag-red">Rouge</span> tout en suivant vos conversions par appareil.
       </p>
       <div class="hero-action">
         <button 
           @click="started" 
           class="modern-button" 
           :disabled="connect.connected"
+        >
+          {{ connect.connected ? 'Déjà connecté' : 'Commencer gratuitement →' }}
+        </button>
+      </div>
+    </section>
+
+    <!-- Section Fonctionnalités -->
+    <section class="features-section">
+      <div class="section-header">
+        <h2 class="section-title">Des fonctionnalités conçues pour votre croissance</h2>
+        <p class="section-subtitle">Tout ce dont vous avez besoin pour maximiser votre ROAS sans perte de temps.</p>
+      </div>
+
+      <div class="features-grid">
+        <!-- Carte 1 -->
+        <div class="feature-card">
+          <div class="icon-wrapper red-bg">🚨</div>
+          <h3 class="feature-title">Alerte anti-gaspillage</h3>
+          <p class="feature-text">
+            Un tableau de bord clair qui segmente automatiquement vos annonces : les plus rentables apparaissent en <strong>vert</strong>, et celles à couper en <strong>rouge</strong>.
+          </p>
+        </div>
+
+        <!-- Carte 2 -->
+        <div class="feature-card">
+          <div class="icon-wrapper blue-bg">🔗</div>
+          <h3 class="feature-title">Suivi de lien dynamique</h3>
+          <p class="feature-text">
+            Créez et surveillez tous vos liens d'acquisition. Chaque URL est pistée pour offrir une traçabilité précise de l'origine de vos clics.
+          </p>
+        </div>
+
+        <!-- Carte 3 -->
+        <div class="feature-card">
+          <div class="icon-wrapper yellow-bg">✏️</div>
+          <h3 class="feature-title">Modification flexible</h3>
+          <p class="feature-text">
+            Redirigez vos liens à tout moment sans modifier vos annonces actives et sans perdre votre historique de données. Idéal pour ajuster vos offres.
+          </p>
+        </div>
+
+        <!-- Carte 4 -->
+        <div class="feature-card">
+          <div class="icon-wrapper purple-bg">📱</div>
+          <h3 class="feature-title">Statistiques par appareil</h3>
+          <p class="feature-text">
+            Identifiez précisément l'origine de votre trafic : segmentation automatique entre Mobile et Desktop pour affiner vos tunnels de conversion.
+          </p>
+        </div>
+
+        <!-- Carte 5 : Offre Découverte -->
+        <div class="feature-card highlight-card">
+          <div class="icon-wrapper green-bg">🎁</div>
+          <h3 class="feature-title">Offre de bienvenue</h3>
+          <p class="feature-text">Lors de votre <strong>première inscription</strong>, bénéficiez de :</p>
+          <ul class="feature-list">
+            <li><span class="check-icon">✓</span> 14 jours d'essai totalement gratuit</li>
+            <li><span class="check-icon">✓</span> Accès complet à toutes les fonctionnalités</li>
+            <li><span class="check-icon">✓</span> Configuration rapide sans carte bancaire</li>
+          </ul>
+        </div>
+
+        <!-- Carte 6 : Tarification -->
+        <div class="feature-card highlight-card">
+          <div class="icon-wrapper emerald-bg">💼</div>
+          <h3 class="feature-title">Paiement flexible</h3>
+          <p class="feature-text">
+            Abonnez-vous en toute simplicité par <strong>Mobile Money</strong> ou <strong>Carte Bancaire</strong> à partir de <strong>30$ / mois</strong>. Sans engagement.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Pourquoi Nous Choisir -->
+    <section class="why-card">
+      <div class="why-content">
+        <div class="why-text">
+          <h2>🚀 Pourquoi AD<span class="brand-blue">Pulse</span> est fait pour vous</h2>
+          <p>
+            <strong>ADPulse</strong> est né d'un constat simple : la plupart des annonceurs et solopreneurs perdent une part importante de leur budget dans des publicités inefficaces et des liens mal attribués.
+          </p>
+          <p>
+            Grâce à notre audit automatisé (Code couleur Vert / Rouge), vous identifiez immédiatement les campagnes à couper pour réallouer votre budget sur celles qui génèrent du résultat.
+          </p>
+          <p>
+            Chaque lien généré bénéficie d'un <strong>slug propre et court</strong>. Vous conservez le contrôle total sur vos destinations tout en préservant l'historique complet de vos conversions.
+          </p>
+
+          <div class="why-cta-wrapper">
+            <button @click="started" class="modern-button secondary" :disabled="connect.connected">
+              Tester la plateforme maintenant →
+            </button>
+          </div>
+        </div>
+
+        <div class="why-image">
+          <div class="stats-card">
+            <div class="stats-icon">📈</div>
+            <div class="stats-number">+150%</div>
+            <div class="stats-label">de clics analysés et rentabilisés</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</template>
+
+<style scoped>
+/* Reset & Base Container */
+.about-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hero Section */
+.hero-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 64px 28px;
+  text-align: center;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.03), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  margin-bottom: 56px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  margin-bottom: 24px;
+  border: 1px solid #dbeafe;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #2563eb;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(37, 99, 235, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+}
+
+.hero-title {
+  font-size: 48px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.brand-blue {
+  color: #2563eb;
+}
+
+.hero-subtitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.hero-description {
+  max-width: 680px;
+  margin: 0 auto 36px auto;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #64748b;
+}
+
+.tag-green {
+  color: #15803d;
+  background-color: #f0fdf4;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  border: 1px solid #dcfce7;
+}
+
+.tag-red {
+  color: #b91c1c;
+  background-color: #fef2f2;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  border: 1px solid #fee2e2;
+}
+
+.hero-action {
+  display: flex;
+  justify-content: center;
+}
+
+/* Features Grid */
+.features-section {
+  margin-bottom: 64px;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 30px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 10px 0;
+  letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+  color: #64748b;
+  font-size: 16px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.feature-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.05);
+  border-color: #cbd5e1;
+}
+
+.icon-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.red-bg { background-color: #fef2f2; }
+.blue-bg { background-color: #eff6ff; }
+.yellow-bg { background-color: #fefce8; }
+.purple-bg { background-color: #faf5ff; }
+.green-bg { background-color: #f0fdf4; }
+.emerald-bg { background-color: #ecfdf5; }
+
+.feature-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 10px 0;
+}
+
+.feature-text {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.highlight-card {
+  background: #fafafa;
+  border-color: #cbd5e1;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0 0;
+}
+
+.feature-list li {
+  font-size: 13.5px;
+  color: #334155;
+  font-weight: 500;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.check-icon {
+  color: #16a34a;
+  font-weight: 800;
+}
+
+/* Why Section */
+.why-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 48px 40px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.03);
+}
+
+.why-content {
+  display: flex;
+  gap: 48px;
+  align-items: center;
+}
+
+.why-text {
+  flex: 3;
+}
+
+.why-text h2 {
+  font-size: 28px;
+  font-weight: 800;
+  margin: 0 0 20px 0;
+  letter-spacing: -0.02em;
+}
+
+.why-text p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #475569;
+  margin-bottom: 16px;
+}
+
+.why-cta-wrapper {
+  margin-top: 28px;
+}
+
+.why-image {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.stats-card {
+  background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
+  color: #ffffff;
+  padding: 36px 28px;
+  border-radius: 16px;
+  text-align: center;
+  width: 100%;
+  max-width: 280px;
+  box-shadow: 0 12px 24px -6px rgba(15, 23, 42, 0.25);
+  border: 1px solid #334155;
+}
+
+.stats-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.stats-number {
+  font-size: 40px;
+  font-weight: 800;
+  color: #60a5fa;
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+
+.stats-label {
+  font-size: 13px;
+  color: #94a3b8;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+/* Boutons */
+.modern-button {
+  background-color: #2563eb;
+  color: #ffffff;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.modern-button:hover:not(:disabled) {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+}
+
+.modern-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.modern-button.secondary {
+  background-color: #eff6ff;
+  color: #2563eb;
+  box-shadow: none;
+  border: 1px solid #dbeafe;
+}
+
+.modern-button.secondary:hover:not(:disabled) {
+  background-color: #dbeafe;
+  box-shadow: none;
+}
+
+.modern-button:disabled {
+  background-color: #94a3b8;
+  color: #f1f5f9;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.8;
+}
+
+/* Responsive Mobile */
+@media (max-width: 768px) {
+  .about-container {
+    padding: 20px 16px;
+  }
+
+  .hero-card {
+    padding: 40px 20px;
+    border-radius: 16px;
+    margin-bottom: 40px;
+  }
+
+  .hero-title {
+    font-size: 34px;
+  }
+
+  .hero-subtitle {
+    font-size: 17px;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .why-card {
+    padding: 32px 20px;
+  }
+
+  .why-content {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .stats-card {
+    max-width: 100%;
+  }
+
+  .modern-button {
+    width: 100%;
+  }
+}
+</style>
         >
           {{ connect.connected ? 'Déjà connecté' : 'Commencer gratuitement' }}
         </button>
