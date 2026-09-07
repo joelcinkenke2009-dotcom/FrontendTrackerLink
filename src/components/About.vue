@@ -510,7 +510,9 @@ const started = () => {
   }
 }
 </style>
-        >
+    <section>
+      <div>
+        <button>
           {{ connect.connected ? 'Déjà connecté' : 'Commencer gratuitement' }}
         </button>
       </div>
