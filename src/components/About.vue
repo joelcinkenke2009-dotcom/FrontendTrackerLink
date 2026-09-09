@@ -2,21 +2,16 @@
 import { ref } from "vue";
 import { apiUrl } from "@/config/env";
 
-// Initialisation sous forme d'objet plutôt que de tableau vide
-const connect = ref({ connected: false });
-
+const connect = ref([])
 fetch(apiUrl + "/ISCONNECTED", { credentials: 'include' })
   .then(req => req.json())
   .then(res => {
-    connect.value = res;
+    connect.value = res
   })
-  .catch(err => {
-    console.error("Erreur de vérification de connexion :", err);
-  });
 
 const started = () => {
-  window.location.href = "/inscription";
-};
+  window.location.href = "/inscription"
+}
 </script>
 
 <template>
@@ -25,14 +20,14 @@ const started = () => {
     <!-- Hero Section -->
     <section class="hero-card">
       <div class="hero-badge">
-        <span class="pulse-dot"></span> Solution d'audit & tracking Meta Ads
+        <span class="pulse-dot"></span> Ne laissez plus Meta brûler votre budget
       </div>
       <h1 class="hero-title">📊 AD<span class="brand-blue">Pulse</span></h1>
       <p class="hero-subtitle">
-        Optimisez vos dépenses publicitaires et maximisez votre retour sur investissement
+        Identifiez les publicités qui vous font perdre de l'argent et multipliez votre ROAS Meta Ads.
       </p>
       <p class="hero-description">
-        Analysez l'efficacité de vos campagnes Meta Ads en un coup d'œil. Identifiez immédiatement les annonces rentables en <span class="tag-green">Vert</span> et stoppez le gaspillage en <span class="tag-red">Rouge</span> tout en suivant vos conversions par appareil.
+        Un tableau de bord ultra-simple pour auditer vos campagnes en temps réel : coupez instantanément les annonces dans le <strong>rouge</strong>, réallouez votre budget sur ce qui fonctionne en <strong>vert</strong>, et suivez vos conversions réelles par appareil.
       </p>
       <div class="hero-action">
         <button 
@@ -40,7 +35,7 @@ const started = () => {
           class="modern-button" 
           :disabled="connect.connected"
         >
-          {{ connect.connected ? 'Déjà connecté' : 'Commencer gratuitement →' }}
+          {{ connect.connected ? 'Accéder au tableau de bord' : 'Tester gratuitement pendant 14 jours' }}
         </button>
       </div>
     </section>
@@ -48,65 +43,65 @@ const started = () => {
     <!-- Section Fonctionnalités -->
     <section class="features-section">
       <div class="section-header">
-        <h2 class="section-title">Des fonctionnalités conçues pour votre croissance</h2>
-        <p class="section-subtitle">Tout ce dont vous avez besoin pour maximiser votre ROAS sans perte de temps.</p>
+        <h2 class="section-title">Tout ce dont vous avez besoin pour maximiser votre rentabilité</h2>
+        <p class="section-subtitle">Prenez des décisions éclairées sans perdre des heures dans l'Ads Manager.</p>
       </div>
 
       <div class="features-grid">
         <!-- Carte 1 -->
         <div class="feature-card">
           <div class="icon-wrapper red-bg">🚨</div>
-          <h3 class="feature-title">Alerte anti-gaspillage</h3>
+          <h3 class="feature-title">Audit Visuel Rouge / Vert</h3>
           <p class="feature-text">
-            Un tableau de bord clair qui segmente automatiquement vos annonces : les plus rentables apparaissent en <strong>vert</strong>, et celles à couper en <strong>rouge</strong>.
+            Détection automatique des publicités non rentables. Les annonces qui performent apparaissent en <strong>vert</strong>, celles qui gaspillent votre budget passent au <strong>rouge</strong> pour une décision immédiate.
           </p>
         </div>
 
         <!-- Carte 2 -->
         <div class="feature-card">
           <div class="icon-wrapper blue-bg">🔗</div>
-          <h3 class="feature-title">Suivi de lien dynamique</h3>
+          <h3 class="feature-title">Tracking par Liens Dynamiques</h3>
           <p class="feature-text">
-            Créez et surveillez tous vos liens d'acquisition. Chaque URL est pistée pour offrir une traçabilité précise de l'origine de vos clics.
+            Créez des liens d'acquisition courts et personnalisés pour chaque visuel. Ne dépendez plus de l'attribution incertaine de Meta et vérifiez la provenance exacte de vos clics.
           </p>
         </div>
 
         <!-- Carte 3 -->
         <div class="feature-card">
           <div class="icon-wrapper yellow-bg">✏️</div>
-          <h3 class="feature-title">Modification flexible</h3>
+          <h3 class="feature-title">Redirection Instantanée</h3>
           <p class="feature-text">
-            Redirigez vos liens à tout moment sans modifier vos annonces actives et sans perdre votre historique de données. Idéal pour ajuster vos offres.
+            Changez l'URL de destination de vos annonces actives en un clic sans modifier vos campagnes publicitaires ni perdre votre historique de clics.
           </p>
         </div>
 
         <!-- Carte 4 -->
         <div class="feature-card">
           <div class="icon-wrapper purple-bg">📱</div>
-          <h3 class="feature-title">Statistiques par appareil</h3>
+          <h3 class="feature-title">Segmentation Mobile vs Desktop</h3>
           <p class="feature-text">
-            Identifiez précisément l'origine de votre trafic : segmentation automatique entre Mobile et Desktop pour affiner vos tunnels de conversion.
+            Identifiez quel appareil convertit réellement. Évitez de payer pour du trafic Desktop coûteux si 90 % de vos ventes se font sur Mobile.
           </p>
         </div>
 
         <!-- Carte 5 : Offre Découverte -->
         <div class="feature-card highlight-card">
           <div class="icon-wrapper green-bg">🎁</div>
-          <h3 class="feature-title">Offre de bienvenue</h3>
-          <p class="feature-text">Lors de votre <strong>première inscription</strong>, bénéficiez de :</p>
+          <h3 class="feature-title">Testez Sans Risque</h3>
+          <p class="feature-text">Démarrez dès aujourd'hui avec notre offre d'essai :</p>
           <ul class="feature-list">
-            <li><span class="check-icon">✓</span> 14 jours d'essai totalement gratuits</li>
-            <li><span class="check-icon">✓</span> Accès complet à toutes les fonctionnalités</li>
-            <li><span class="check-icon">✓</span> Configuration rapide sans carte bancaire</li>
+            <li>✓ 14 jours d'essai gratuit complet</li>
+            <li>✓ Aucune carte bancaire requise</li>
+            <li>✓ Configuration rapide en moins de 3 minutes</li>
           </ul>
         </div>
 
         <!-- Carte 6 : Tarification -->
         <div class="feature-card highlight-card">
           <div class="icon-wrapper emerald-bg">💼</div>
-          <h3 class="feature-title">Paiement flexible</h3>
+          <h3 class="feature-title">Abonnement Flexible</h3>
           <p class="feature-text">
-            Abonnez-vous en toute simplicité par <strong>Mobile Money</strong> ou <strong>Carte Bancaire</strong> à partir de <strong>30 $ / mois</strong>. Sans engagement.
+            Paiement sécurisé par <strong>Mobile Money</strong> ou <strong>Carte Bancaire</strong> à partir de <strong>30 $ / mois</strong>. Annulable en un clic à tout moment.
           </p>
         </div>
       </div>
@@ -116,29 +111,29 @@ const started = () => {
     <section class="why-card">
       <div class="why-content">
         <div class="why-text">
-          <h2>🚀 Pourquoi AD<span class="brand-blue">Pulse</span> est fait pour vous</h2>
+          <h2>🚀 Reprenez le contrôle de vos dépenses publicitaires</h2>
           <p>
-            <strong>ADPulse</strong> est né d'un constat simple : la plupart des annonceurs et solopreneurs perdent une part importante de leur budget dans des publicités inefficaces et des liens mal attribués.
+            Jusqu'à <strong>30 % du budget Meta Ads</strong> est souvent dépensé dans des publicités à faible rendement sans que vous ne m'en aperceviez à temps.
           </p>
           <p>
-            Grâce à notre audit automatisé (Code couleur Vert / Rouge), vous identifiez immédiatement les campagnes à couper pour réallouer votre budget sur celles qui génèrent du résultat.
+            <strong>ADPulse</strong> simplifie l'analyse de vos performances : un coup d'œil suffit pour repérer les fuites de budget et réaffecter vos capitaux vers vos meilleurs visuels.
           </p>
           <p>
-            Chaque lien généré bénéficie d'un <strong>slug propre et court</strong>. Vous conservez le contrôle total sur vos destinations tout en préservant l'historique complet de vos conversions.
+            Alliez puissance d'audit et précision de tracking grâce à des <strong>liens dynamiques personnalisés</strong> qui protègent votre coût par acquisition (CPA).
           </p>
 
           <div class="why-cta-wrapper">
             <button @click="started" class="modern-button secondary" :disabled="connect.connected">
-              Tester la plateforme maintenant →
+              Lancer mon essai gratuit de 14 jours →
             </button>
           </div>
         </div>
 
         <div class="why-image">
           <div class="stats-card">
-            <div class="stats-icon">📈</div>
-            <div class="stats-number">+150%</div>
-            <div class="stats-label">de clics analysés et rentabilisés</div>
+            <div class="stats-icon">📉</div>
+            <div class="stats-number">-30%</div>
+            <div class="stats-label">de budget publicitaire gaspillé économisé</div>
           </div>
         </div>
       </div>
@@ -148,25 +143,23 @@ const started = () => {
 </template>
 
 <style scoped>
-/* Reset & Base Container */
 .about-container {
-  max-width: 1140px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 20px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  padding: 32px 16px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   color: #0f172a;
-  -webkit-font-smoothing: antialiased;
 }
 
-/* Hero Section */
+/* Hero Section moderne */
 .hero-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 20px;
-  padding: 64px 28px;
+  border-radius: 24px;
+  padding: 60px 24px;
   text-align: center;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.03), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
-  margin-bottom: 56px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  margin-bottom: 48px;
 }
 
 .hero-badge {
@@ -179,8 +172,7 @@ const started = () => {
   font-weight: 600;
   padding: 6px 14px;
   border-radius: 9999px;
-  margin-bottom: 24px;
-  border: 1px solid #dbeafe;
+  margin-bottom: 20px;
 }
 
 .pulse-dot {
@@ -188,23 +180,14 @@ const started = () => {
   height: 8px;
   background-color: #2563eb;
   border-radius: 50%;
-  box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7); }
-  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(37, 99, 235, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
 }
 
 .hero-title {
-  font-size: 48px;
+  font-size: 42px;
   font-weight: 800;
   color: #0f172a;
   margin: 0 0 16px 0;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 .brand-blue {
@@ -216,95 +199,67 @@ const started = () => {
   font-weight: 600;
   color: #334155;
   margin-bottom: 16px;
-  line-height: 1.4;
 }
 
 .hero-description {
-  max-width: 680px;
-  margin: 0 auto 36px auto;
+  max-width: 720px;
+  margin: 0 auto 32px auto;
   font-size: 15px;
   line-height: 1.6;
   color: #64748b;
 }
 
-.tag-green {
-  color: #15803d;
-  background-color: #f0fdf4;
-  padding: 2px 8px;
-  border-radius: 6px;
-  font-weight: 600;
-  border: 1px solid #dcfce7;
-}
-
-.tag-red {
-  color: #b91c1c;
-  background-color: #fef2f2;
-  padding: 2px 8px;
-  border-radius: 6px;
-  font-weight: 600;
-  border: 1px solid #fee2e2;
-}
-
-.hero-action {
-  display: flex;
-  justify-content: center;
-}
-
-/* Features Grid */
+/* Grille des fonctionnalités */
 .features-section {
-  margin-bottom: 64px;
+  margin-bottom: 48px;
 }
 
 .section-header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 36px;
 }
 
 .section-title {
-  font-size: 30px;
-  font-weight: 800;
+  font-size: 28px;
+  font-weight: 700;
   color: #0f172a;
-  margin: 0 0 10px 0;
-  letter-spacing: -0.02em;
+  margin: 0 0 8px 0;
 }
 
 .section-subtitle {
   color: #64748b;
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px;
+  gap: 20px;
 }
 
 .feature-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 16px;
-  padding: 28px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-  display: flex;
-  flex-direction: column;
+  padding: 24px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .feature-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.05);
-  border-color: #cbd5e1;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
 }
 
 .icon-wrapper {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .red-bg { background-color: #fef2f2; }
@@ -315,10 +270,10 @@ const started = () => {
 .emerald-bg { background-color: #ecfdf5; }
 
 .feature-title {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
-  color: #0f172a;
-  margin: 0 0 10px 0;
+  color: #1e293b;
+  margin: 0 0 8px 0;
 }
 
 .feature-text {
@@ -328,44 +283,31 @@ const started = () => {
   margin: 0;
 }
 
-.highlight-card {
-  background: #fafafa;
-  border-color: #cbd5e1;
-}
-
 .feature-list {
   list-style: none;
   padding: 0;
-  margin: 16px 0 0 0;
+  margin: 12px 0 0 0;
 }
 
 .feature-list li {
-  font-size: 13.5px;
+  font-size: 13px;
   color: #334155;
   font-weight: 500;
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  margin-bottom: 6px;
 }
 
-.check-icon {
-  color: #16a34a;
-  font-weight: 800;
-}
-
-/* Why Section */
+/* Section "Pourquoi nous choisir" */
 .why-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 20px;
-  padding: 48px 40px;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.03);
+  border-radius: 24px;
+  padding: 40px 32px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
 .why-content {
   display: flex;
-  gap: 48px;
+  gap: 40px;
   align-items: center;
 }
 
@@ -374,21 +316,20 @@ const started = () => {
 }
 
 .why-text h2 {
-  font-size: 28px;
-  font-weight: 800;
-  margin: 0 0 20px 0;
-  letter-spacing: -0.02em;
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0 0 16px 0;
 }
 
 .why-text p {
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.7;
   color: #475569;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .why-cta-wrapper {
-  margin-top: 28px;
+  margin-top: 24px;
 }
 
 .why-image {
@@ -398,112 +339,77 @@ const started = () => {
 }
 
 .stats-card {
-  background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
   color: #ffffff;
-  padding: 36px 28px;
-  border-radius: 16px;
+  padding: 32px 24px;
+  border-radius: 20px;
   text-align: center;
   width: 100%;
   max-width: 280px;
-  box-shadow: 0 12px 24px -6px rgba(15, 23, 42, 0.25);
-  border: 1px solid #334155;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.2);
 }
 
 .stats-icon {
   font-size: 32px;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .stats-number {
-  font-size: 40px;
+  font-size: 36px;
   font-weight: 800;
   color: #60a5fa;
-  margin-bottom: 6px;
-  letter-spacing: -0.02em;
+  margin-bottom: 4px;
 }
 
 .stats-label {
   font-size: 13px;
   color: #94a3b8;
   line-height: 1.4;
-  font-weight: 500;
 }
 
 /* Boutons */
 .modern-button {
   background-color: #2563eb;
-  color: #ffffff;
+  color: white;
   padding: 14px 28px;
   border: none;
   border-radius: 10px;
   font-weight: 600;
   font-size: 15px;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
 }
 
 .modern-button:hover:not(:disabled) {
   background-color: #1d4ed8;
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
-}
-
-.modern-button:active:not(:disabled) {
-  transform: translateY(0);
 }
 
 .modern-button.secondary {
   background-color: #eff6ff;
   color: #2563eb;
   box-shadow: none;
-  border: 1px solid #dbeafe;
 }
 
 .modern-button.secondary:hover:not(:disabled) {
   background-color: #dbeafe;
-  box-shadow: none;
 }
 
 .modern-button:disabled {
   background-color: #94a3b8;
-  color: #f1f5f9;
   cursor: not-allowed;
   box-shadow: none;
-  opacity: 0.8;
 }
 
-/* Responsive Mobile */
+/* Responsivité Mobile */
 @media (max-width: 768px) {
-  .about-container {
-    padding: 20px 16px;
-  }
-
-  .hero-card {
-    padding: 40px 20px;
-    border-radius: 16px;
-    margin-bottom: 40px;
-  }
-
   .hero-title {
-    font-size: 34px;
+    font-size: 32px;
   }
-
-  .hero-subtitle {
-    font-size: 17px;
-  }
-
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .why-card {
-    padding: 32px 20px;
-  }
-
+  
   .why-content {
     flex-direction: column;
-    gap: 32px;
   }
 
   .stats-card {
@@ -515,5 +421,3 @@ const started = () => {
   }
 }
 </style>
-
-
