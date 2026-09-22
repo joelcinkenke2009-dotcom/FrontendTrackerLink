@@ -2,6 +2,7 @@ import About from '@/components/About.vue'
 import AdAuditor from '@/components/AdAuditor.vue'
 import ConnAdmins from '@/components/ConnAdmins.vue'
 import Dashboard from '@/components/Dashboard.vue'
+import GuideTraqueur from '@/components/GuideTraqueur.vue'
 import DashboardAdmins from '@/components/DashboardAdmins.vue'
 import Connexion from '@/pages/Connexion.vue'
 import Inscription from '@/pages/inscription.vue'
@@ -44,6 +45,11 @@ const router = createRouter({
       path:"/dashboardADS",
       name:"dashboardADS",
       component: AdAuditor
+    },  
+    {
+      path:"/guideTraqueur",
+      name:"guide",
+      component: GuideTraqueur
     },
   ],
 })
