@@ -90,7 +90,7 @@ const started = () => {
           <h3 class="feature-title">Testez Sans Risque</h3>
           <p class="feature-text">Démarrez dès aujourd'hui avec notre offre d'essai :</p>
           <ul class="feature-list">
-            <li>✓ 14 jours d'essai gratuit complet</li>
+            <li>✓ 7 jours d'essai gratuit complet</li>
             <li>✓ Aucune carte bancaire requise</li>
             <li>✓ Configuration rapide en moins de 3 minutes</li>
           </ul>
@@ -101,7 +101,7 @@ const started = () => {
           <div class="icon-wrapper emerald-bg">💼</div>
           <h3 class="feature-title">Abonnement Flexible</h3>
           <p class="feature-text">
-            Paiement sécurisé par <strong>Mobile Money</strong> ou <strong>Carte Bancaire</strong> à partir de <strong>30 $ / mois</strong>. Annulable en un clic à tout moment.
+            Paiement sécurisé par <strong>Mobile Money</strong> ou <strong>Carte Bancaire</strong> à partir de <strong>15 $ / mois</strong>. Annulable en un clic à tout moment.
           </p>
         </div>
       </div>
