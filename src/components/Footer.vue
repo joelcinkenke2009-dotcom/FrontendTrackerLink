@@ -10,7 +10,7 @@
 
       <!-- Section Brand / Logo & Réseaux Sociaux -->
       <div class="footer-brand">
-        <img src="/1787669531705" alt="Logo" class="footer-logo" />
+        <img src="/1787669531705.jpg" alt="Logo" class="footer-logo" />
         
         <div class="social-links">
           <a 
