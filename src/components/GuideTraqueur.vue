@@ -24,7 +24,7 @@
         <div class="step-content">
           <h3>Copier le nouveau lien</h3>
           <p>
-            Une fois le lien généré, repérez-le dans la section <strong>"Vos Liens Récents"</strong>. Cliquez sur l'icône dans la colonne <strong>"Copier"</strong> pour placer le lien traqué dans votre presse-papier[span_0](start_span)[span_0](end_span).
+            Une fois le lien généré, repérez-le dans la section <strong>"Vos Liens Récents"</strong>. Cliquez sur l'icône dans la colonne <strong>"Copier"</strong> pour placer le lien traqué dans votre presse-papier.
           </p>
           <div class="image-wrapper">
             <img src="/step2.jpg" alt="Étape 2 - Copier le lien" class="step-img" />
@@ -38,7 +38,7 @@
         <div class="step-content">
           <h3>Tester le lien dans un navigateur</h3>
           <p>
-            Ouvrez un nouvel onglet dans votre navigateur Web, collez le lien généré (ex: <code>https://back-end-tracker-yhwf.onrender.com/link/...</code>) dans la barre d'adresse et validez[span_1](start_span)[span_1](end_span).
+            Ouvrez un nouvel onglet dans votre navigateur Web, collez le lien généré (ex: <code>https://back-end-tracker-yhwf.onrender.com/link/...</code>) dans la barre d'adresse et validez.
           </p>
           <div class="image-wrapper">
             <img src="/step3.jpg" alt="Étape 3 - Rechercher le lien" class="step-img" />
@@ -52,7 +52,7 @@
         <div class="step-content">
           <h3>Redirection automatique</h3>
           <p>
-            Le traqueur enregistre discrètement le clic et redirige immédiatement l'utilisateur vers la page de destination d'origine[span_2](start_span)[span_2](end_span)[span_3](start_span)[span_3](end_span).
+            Le traqueur enregistre discrètement le clic et redirige immédiatement l'utilisateur vers la page de destination.
           </p>
           <div class="image-wrapper">
             <img src="/step4.jpg" alt="Étape 4 - Redirection" class="step-img" />
@@ -66,7 +66,7 @@
         <div class="step-content">
           <h3>Vérifier les statistiques</h3>
           <p>
-            Retournez sur votre dashboard ADPulse et rafraîchissez la page[span_4](start_span)[span_4](end_span). Les métriques <strong>Clicks Total</strong>, <strong>Clicks Mobile</strong> et <strong>Clicks PC</strong> sont automatiquement mises à jour[span_5](start_span)[span_5](end_span).
+            Retournez sur votre dashboard ADPulse et rafraîchissez la page. Les métriques <strong>Clicks Total</strong>, <strong>Clicks Mobile</strong> et <strong>Clicks PC</strong> sont automatiquement mises à jour.
           </p>
           <div class="image-wrapper">
             <img src="/step5.jpg" alt="Étape 5 - Statistiques" class="step-img" />
