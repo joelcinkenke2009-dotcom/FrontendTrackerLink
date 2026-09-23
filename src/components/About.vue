@@ -1,4 +1,4 @@
-<script setup>
+  <script setup>
 import { ref } from "vue";
 import { apiUrl } from "@/config/env";
 
@@ -107,13 +107,36 @@ const started = () => {
       </div>
     </section>
 
+    <!-- Section Retours Utilisateurs / Feedback -->
+    <section class="feedback-card">
+      <div class="feedback-content">
+        <div class="feedback-icon">💬</div>
+        <div class="feedback-text">
+          <h3>Votre avis compte pour nous !</h3>
+          <p>
+            Aidez-nous à faire d'<strong>ADPulse</strong> la meilleure solution pour optimiser vos publicités Meta. Prenez 1 minute pour nous partager vos retours et vos suggestions.
+          </p>
+        </div>
+        <div class="feedback-action">
+          <a 
+            href="https://forms.gle/FZh5ckiiUY5HJf9Q8" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="feedback-button"
+          >
+            Donner mon avis 📝
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- Section Pourquoi Nous Choisir -->
     <section class="why-card">
       <div class="why-content">
         <div class="why-text">
           <h2>🚀 Reprenez le contrôle de vos dépenses publicitaires</h2>
           <p>
-            Jusqu'à <strong>30 % du budget Meta Ads</strong> est souvent dépensé dans des publicités à faible rendement sans que vous ne m'en aperceviez à temps.
+            Jusqu'à <strong>30 % du budget Meta Ads</strong> est souvent dépensé dans des publicités à faible rendement sans que vous ne vous en aperceviez à temps.
           </p>
           <p>
             <strong>ADPulse</strong> simplifie l'analyse de vos performances : un coup d'œil suffit pour repérer les fuites de budget et réaffecter vos capitaux vers vos meilleurs visuels.
@@ -296,6 +319,71 @@ const started = () => {
   margin-bottom: 6px;
 }
 
+/* Section Feedback Google Form */
+.feedback-card {
+  background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%);
+  border: 1px solid #bfdbfe;
+  border-radius: 20px;
+  padding: 28px 32px;
+  margin-bottom: 48px;
+}
+
+.feedback-content {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.feedback-icon {
+  font-size: 36px;
+  background-color: #ffffff;
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+}
+
+.feedback-text {
+  flex-grow: 1;
+}
+
+.feedback-text h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin: 0 0 6px 0;
+}
+
+.feedback-text p {
+  font-size: 14px;
+  color: #3b82f6;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.feedback-button {
+  display: inline-block;
+  background-color: #2563eb;
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+}
+
+.feedback-button:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
 /* Section "Pourquoi nous choisir" */
 .why-card {
   background: #ffffff;
@@ -408,6 +496,15 @@ const started = () => {
     font-size: 32px;
   }
   
+  .feedback-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .feedback-button {
+    width: 100%;
+  }
+
   .why-content {
     flex-direction: column;
   }
