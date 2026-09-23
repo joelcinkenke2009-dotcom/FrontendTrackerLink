@@ -37,9 +37,22 @@ fetch(apiUrl + "/api/facebook/response", { credentials: "include" })
       <span class="dot"></span>
       <span>Votre abonnement a expiré depuis le <strong>{{ date.expire }}</strong></span>
     </div>
-
+     <div v-if="data.login" class="card">
+      <h3>{{ data.login }}</h3>
+      <br>
+      <a href="/inscription" class="button" style="text-decoration: none;">Commencer maintenant</a>
+    </div>
+    
+    <div v-else-if="data.Paiement" class="card">
+      <h3>{{ data.Paiement }}</h3>
+      <div style="display: flex; justify-content: flex-end;">
+        <form :action="`${apiUrl}/paiement/initialisation`" method="post">
+          <button class="button" type="submit">Souscrire maintenant</button>
+        </form>
+      </div>
+    </div>
     <!-- Header Dashboard -->
-    <div class="dashboard-header">
+    <div class="dashboard-header" v-else>
       <div>
         <h2>Statistiques publicitaires</h2>
         <p class="subtitle">Aperçu des performances sur les 30 derniers jours</p>
@@ -236,6 +249,37 @@ fetch(apiUrl + "/api/facebook/response", { credentials: "include" })
   color: #334155;
   font-size: 14px;
 }
+  
+.card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  margin-bottom: 24px;
+  padding: 24px;
+  }
+  .button {
+  background: #3b82f6;
+  color: white;
+  margin-bottom: 10px;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.5s, box-shadow 0.5s, transform 0.5s;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.button:hover {
+  background: #2563eb;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.button:active {
+  transform: scale(0.98);
+  }
 
 .ad-name-cell {
   max-width: 220px;
