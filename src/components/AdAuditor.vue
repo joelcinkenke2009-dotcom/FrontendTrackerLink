@@ -37,20 +37,7 @@ fetch(apiUrl + "/api/facebook/response", { credentials: "include" })
       <span class="dot"></span>
       <span>Votre abonnement a expiré depuis le <strong>{{ date.expire }}</strong></span>
     </div>
-     <div v-if="data.login" class="card">
-      <h3>{{ data.login }}</h3>
-      <br>
-      <a href="/inscription" class="button" style="text-decoration: none;">Commencer maintenant</a>
-    </div>
-    
-    <div v-else-if="data.Paiement" class="card">
-      <h3>{{ data.Paiement }}</h3>
-      <div style="display: flex; justify-content: flex-end;">
-        <form :action="`${apiUrl}/paiement/initialisation`" method="post">
-          <button class="button" type="submit">Souscrire maintenant</button>
-        </form>
-      </div>
-    </div>
+
     <!-- Header Dashboard -->
     <div class="dashboard-header" v-else>
       <div>
