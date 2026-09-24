@@ -1,4 +1,4 @@
-  <script setup>
+<script setup>
 import { ref } from "vue";
 import { apiUrl } from "@/config/env";
 
@@ -20,14 +20,14 @@ const started = () => {
     <!-- Hero Section -->
     <section class="hero-card">
       <div class="hero-badge">
-        <span class="pulse-dot"></span> Ne laissez plus Meta brûler votre budget
+        <span class="pulse-dot"></span> Traqueur de Liens & Redirection Dynamique
       </div>
       <h1 class="hero-title">📊 AD<span class="brand-blue">Pulse</span></h1>
       <p class="hero-subtitle">
-        Identifiez les publicités qui vous font perdre de l'argent et multipliez votre ROAS Meta Ads.
+        Suivez, analysez et pilotez vos liens d'acquisition en temps réel sans perdre vos données publicitaires.
       </p>
       <p class="hero-description">
-        Un tableau de bord ultra-simple pour auditer vos campagnes en temps réel : coupez instantanément les annonces dans le <strong>rouge</strong>, réallouez votre budget sur ce qui fonctionne en <strong>vert</strong>, et suivez vos conversions réelles par appareil.
+        Bien plus qu'un réducteur d'URL : une plateforme complète de tracking publicitaire pour analyser la provenance exacte de votre trafic, effectuer des redirections dynamiques à la volée et maximiser votre ROI.
       </p>
       <div class="hero-action">
         <button 
@@ -35,52 +35,52 @@ const started = () => {
           class="modern-button" 
           :disabled="connect.connected"
         >
-          {{ connect.connected ? 'Accéder au tableau de bord' : 'Tester gratuitement pendant 14 jours' }}
+          {{ connect.connected ? 'Accéder au tableau de bord' : 'Tester gratuitement pendant 7 jours' }}
         </button>
       </div>
     </section>
 
-    <!-- Section Fonctionnalités -->
+    <!-- Section Fonctionnalités (Centrées sur le Tracking) -->
     <section class="features-section">
       <div class="section-header">
-        <h2 class="section-title">Tout ce dont vous avez besoin pour maximiser votre rentabilité</h2>
-        <p class="section-subtitle">Prenez des décisions éclairées sans perdre des heures dans l'Ads Manager.</p>
+        <h2 class="section-title">La puissance d'un véritable traqueur publicitaire</h2>
+        <p class="section-subtitle">Gardez le contrôle total sur la provenance de votre trafic et l'optimisation de vos conversions.</p>
       </div>
 
       <div class="features-grid">
         <!-- Carte 1 -->
         <div class="feature-card">
-          <div class="icon-wrapper red-bg">🚨</div>
-          <h3 class="feature-title">Audit Visuel Rouge / Vert</h3>
+          <div class="icon-wrapper blue-bg">📡</div>
+          <h3 class="feature-title">Tracking Avancé & Attributs</h3>
           <p class="feature-text">
-            Détection automatique des publicités non rentables. Les annonces qui performent apparaissent en <strong>vert</strong>, celles qui gaspillent votre budget passent au <strong>rouge</strong> pour une décision immédiate.
+            Traquez l'origine précise de chaque clic. Identifiez en un clin d'œil les canaux, visuels et campagnes qui génèrent le plus de conversions réelles.
           </p>
         </div>
 
         <!-- Carte 2 -->
         <div class="feature-card">
-          <div class="icon-wrapper blue-bg">🔗</div>
-          <h3 class="feature-title">Tracking par Liens Dynamiques</h3>
+          <div class="icon-wrapper yellow-bg">⚡</div>
+          <h3 class="feature-title">Redirection Dynamique à la Volée</h3>
           <p class="feature-text">
-            Créez des liens d'acquisition courts et personnalisés pour chaque visuel. Ne dépendez plus de l'attribution incertaine de Meta et vérifiez la provenance exacte de vos clics.
+            Modifiez la destination cible de vos liens de tracking à tout moment, sans retoucher vos publicités actives ni perdre votre "Social Proof" (likes et commentaires).
           </p>
         </div>
 
         <!-- Carte 3 -->
         <div class="feature-card">
-          <div class="icon-wrapper yellow-bg">✏️</div>
-          <h3 class="feature-title">Redirection Instantanée</h3>
+          <div class="icon-wrapper purple-bg">📱</div>
+          <h3 class="feature-title">Routage Intelligent (Smart Routing)</h3>
           <p class="feature-text">
-            Changez l'URL de destination de vos annonces actives en un clic sans modifier vos campagnes publicitaires ni perdre votre historique de clics.
+            Le traqueur détecte l'appareil au moment du clic : redirigez automatiquement les utilisateurs Mobile vers une landing page dédiée et le Desktop vers votre site principal.
           </p>
         </div>
 
         <!-- Carte 4 -->
         <div class="feature-card">
-          <div class="icon-wrapper purple-bg">📱</div>
-          <h3 class="feature-title">Segmentation Mobile vs Desktop</h3>
+          <div class="icon-wrapper red-bg">🛡️</div>
+          <h3 class="feature-title">Failover & Secours Automatique</h3>
           <p class="feature-text">
-            Identifiez quel appareil convertit réellement. Évitez de payer pour du trafic Desktop coûteux si 90 % de vos ventes se font sur Mobile.
+            En cas de panne de votre serveur ou page de vente, le traqueur prend le relais et redirige instantanément vos visiteurs vers une page d'attente pour protéger votre budget publicitaire.
           </p>
         </div>
 
@@ -88,20 +88,20 @@ const started = () => {
         <div class="feature-card highlight-card">
           <div class="icon-wrapper green-bg">🎁</div>
           <h3 class="feature-title">Testez Sans Risque</h3>
-          <p class="feature-text">Démarrez dès aujourd'hui avec notre offre d'essai :</p>
+          <p class="feature-text">Démarrez dès aujourd'hui sans aucun engagement :</p>
           <ul class="feature-list">
             <li>✓ 7 jours d'essai gratuit complet</li>
             <li>✓ Aucune carte bancaire requise</li>
-            <li>✓ Configuration rapide en moins de 3 minutes</li>
+            <li>✓ Configuration de vos premiers liens en 3 min</li>
           </ul>
         </div>
 
         <!-- Carte 6 : Tarification -->
         <div class="feature-card highlight-card">
           <div class="icon-wrapper emerald-bg">💼</div>
-          <h3 class="feature-title">Abonnement Flexible</h3>
+          <h3 class="feature-title">Abonnement Transparent</h3>
           <p class="feature-text">
-            Paiement sécurisé par <strong>Mobile Money</strong> ou <strong>Carte Bancaire</strong> à partir de <strong>15 $ / mois</strong>. Annulable en un clic à tout moment.
+            Accès complet pour <strong>30 $ / mois</strong>. Paiement sécurisé par <strong>Carte Bancaire</strong> ou <strong>Mobile Money</strong>. Annulable à tout moment.
           </p>
         </div>
       </div>
@@ -114,7 +114,7 @@ const started = () => {
         <div class="feedback-text">
           <h3>Votre avis compte pour nous !</h3>
           <p>
-            Aidez-nous à faire d'<strong>ADPulse</strong> la meilleure solution pour optimiser vos publicités Meta. Prenez 1 minute pour nous partager vos retours et vos suggestions.
+            Aidez-nous à faire d'<strong>ADPulse</strong> l'outil de tracking ultime pour vos campagnes d'acquisition. Partagez-nous vos retours et suggestions.
           </p>
         </div>
         <div class="feedback-action">
@@ -134,29 +134,26 @@ const started = () => {
     <section class="why-card">
       <div class="why-content">
         <div class="why-text">
-          <h2>🚀 Reprenez le contrôle de vos dépenses publicitaires</h2>
+          <h2>🚀 Pourquoi utiliser un traqueur dynamique ?</h2>
           <p>
-            Jusqu'à <strong>30 % du budget Meta Ads</strong> est souvent dépensé dans des publicités à faible rendement sans que vous ne vous en aperceviez à temps.
+            Changer l'URL d'une publicité active sur Facebook, TikTok ou Google Ads casse l'apprentissage des algorithmes, réinitialise la campagne et détruit les interactions accumulées.
           </p>
           <p>
-            <strong>ADPulse</strong> simplifie l'analyse de vos performances : un coup d'œil suffit pour repérer les fuites de budget et réaffecter vos capitaux vers vos meilleurs visuels.
-          </p>
-          <p>
-            Alliez puissance d'audit et précision de tracking grâce à des <strong>liens dynamiques personnalisés</strong> qui protègent votre coût par acquisition (CPA).
+            <strong>ADPulse</strong> agit comme une couche d'intelligence intermédiaire : votre traqueur reste fixe dans votre annonce, tandis que vous contrôlez et analysez tout ce qui se passe en arrière-plan.
           </p>
 
           <div class="why-cta-wrapper">
             <button @click="started" class="modern-button secondary" :disabled="connect.connected">
-              Lancer mon essai gratuit de 14 jours →
+              Lancer mon essai gratuit de 7 jours →
             </button>
           </div>
         </div>
 
         <div class="why-image">
           <div class="stats-card">
-            <div class="stats-icon">📉</div>
-            <div class="stats-number">-30%</div>
-            <div class="stats-label">de budget publicitaire gaspillé économisé</div>
+            <div class="stats-icon">🎯</div>
+            <div class="stats-number">100%</div>
+            <div class="stats-label">du contrôle et de l'historique de vos données de tracking conservés</div>
           </div>
         </div>
       </div>
@@ -174,7 +171,7 @@ const started = () => {
   color: #0f172a;
 }
 
-/* Hero Section moderne */
+/* Hero Section */
 .hero-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
@@ -384,7 +381,7 @@ const started = () => {
   transform: translateY(-1px);
 }
 
-/* Section "Pourquoi nous choisir" */
+/* Section Pourquoi Nous Choisir */
 .why-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
