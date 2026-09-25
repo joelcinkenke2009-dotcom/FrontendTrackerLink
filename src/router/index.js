@@ -3,6 +3,8 @@ import AdAuditor from '@/components/AdAuditor.vue'
 import ConnAdmins from '@/components/ConnAdmins.vue'
 import Dashboard from '@/components/Dashboard.vue'
 import GuideTraqueur from '@/components/GuideTraqueur.vue'
+import ToutesNosFonctionnalites from '@/components/ToutesNosFonctionnalites.vue'
+import TrucsEtAstuces from '@/components/TrucsEtAstuces.vue'
 import DashboardAdmins from '@/components/DashboardAdmins.vue'
 import Connexion from '@/pages/Connexion.vue'
 import Inscription from '@/pages/inscription.vue'
@@ -50,6 +52,15 @@ const router = createRouter({
       path:"/guideTraqueur",
       name:"guide",
       component: GuideTraqueur
+    }, 
+    {
+      path:"/guideAstuces",
+      name:"guideAstuce",
+      component: TrucsEtAstuces
+    }, {
+      path:"/guideFonctionnalités",
+      name:"guideFonctionnalités",
+      component: ToutesNosFonctionnalites
     },
   ],
 })
