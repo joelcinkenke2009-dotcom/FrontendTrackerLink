@@ -5,6 +5,12 @@
       <div class="footer-links">
         <RouterLink to="/guideTraqueur" class="footer-link">Comment ça marche</RouterLink>
       </div>
+      <div class="footer-links">
+        <RouterLink to="/guideAstuces" class="footer-link">Truc et astuce</RouterLink>
+      </div>
+      <div class="footer-links">
+        <RouterLink to="/guideFonctionnalités" class="footer-link">Toutes nos fonctionnalités</RouterLink>
+      </div>
 
       <div class="footer-divider"></div>
 
