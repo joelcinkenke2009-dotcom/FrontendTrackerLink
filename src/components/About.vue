@@ -75,15 +75,6 @@ const started = () => {
           </p>
         </div>
 
-        <!-- Carte 4 -->
-        <div class="feature-card">
-          <div class="icon-wrapper red-bg">🛡️</div>
-          <h3 class="feature-title">Failover & Secours Automatique</h3>
-          <p class="feature-text">
-            En cas de panne de votre serveur ou page de vente, le traqueur prend le relais et redirige instantanément vos visiteurs vers une page d'attente pour protéger votre budget publicitaire.
-          </p>
-        </div>
-
         <!-- Carte 5 : Offre Découverte -->
         <div class="feature-card highlight-card">
           <div class="icon-wrapper green-bg">🎁</div>
@@ -101,7 +92,7 @@ const started = () => {
           <div class="icon-wrapper emerald-bg">💼</div>
           <h3 class="feature-title">Abonnement Transparent</h3>
           <p class="feature-text">
-            Accès complet pour <strong>30 $ / mois</strong>. Paiement sécurisé par <strong>Carte Bancaire</strong> ou <strong>Mobile Money</strong>. Annulable à tout moment.
+            Accès complet pour <strong>30 $ / mois</strong>. Paiement sécurisé par <strong>Carte Bancaire</strong> ou <strong>Mobile Money</strong>.
           </p>
         </div>
       </div>
