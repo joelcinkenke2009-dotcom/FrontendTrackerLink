@@ -40,7 +40,6 @@ onMounted(() => {
     <nav class="nav-menu" :class="{ 'active': isNavOpen }">
       <RouterLink to="/" class="nav-link" @click="isNavOpen = false">Accueil</RouterLink>
       <RouterLink to="/dashboard" class="nav-link" @click="isNavOpen = false">Link Track</RouterLink>
-      <RouterLink to="/dashboardADS" class="nav-link" @click="isNavOpen = false">AD Auditor</RouterLink>
       
       <span v-if="connect.connected" class="nav-co">Connecté</span>
       <RouterLink v-else to="/inscription" class="nav-link btn-connexion" @click="isNavOpen = false">
