@@ -22,7 +22,7 @@ const started = () => {
       <div class="hero-badge">
         <span class="pulse-dot"></span> Traqueur de Liens & Redirection Dynamique
       </div>
-      <h1 class="hero-title">📊 AD<span class="brand-blue">Pulse</span></h1>
+      <h1 class="hero-title">📊 Tracker<span class="brand-blue">Link</span></h1>
       <p class="hero-subtitle">
         Suivez, analysez et pilotez vos liens d'acquisition en temps réel sans perdre vos données publicitaires.
       </p>
@@ -105,7 +105,7 @@ const started = () => {
         <div class="feedback-text">
           <h3>Votre avis compte pour nous !</h3>
           <p>
-            Aidez-nous à faire d'<strong>ADPulse</strong> l'outil de tracking ultime pour vos campagnes d'acquisition. Partagez-nous vos retours et suggestions.
+            Aidez-nous à faire d'<strong>TrackerLink</strong> l'outil de tracking ultime pour vos campagnes d'acquisition. Partagez-nous vos retours et suggestions.
           </p>
         </div>
         <div class="feedback-action">
@@ -130,7 +130,7 @@ const started = () => {
             Changer l'URL d'une publicité active sur Facebook, TikTok ou Google Ads casse l'apprentissage des algorithmes, réinitialise la campagne et détruit les interactions accumulées.
           </p>
           <p>
-            <strong>ADPulse</strong> agit comme une couche d'intelligence intermédiaire : votre traqueur reste fixe dans votre annonce, tandis que vous contrôlez et analysez tout ce qui se passe en arrière-plan.
+            <strong>TrackerLink</strong> agit comme une couche d'intelligence intermédiaire : votre traqueur reste fixe dans votre annonce, tandis que vous contrôlez et analysez tout ce qui se passe en arrière-plan.
           </p>
 
           <div class="why-cta-wrapper">
