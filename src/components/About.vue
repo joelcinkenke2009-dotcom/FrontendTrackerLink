@@ -92,7 +92,7 @@ const started = () => {
           <div class="icon-wrapper emerald-bg">💼</div>
           <h3 class="feature-title">Abonnement Transparent</h3>
           <p class="feature-text">
-            Accès complet pour <strong>30 $ / mois</strong>. Paiement sécurisé par <strong>Carte Bancaire</strong> ou <strong>Mobile Money</strong>.
+            Accès complet pour <strong>5 $ / mois</strong>. Paiement sécurisé par <strong>Carte Bancaire</strong> ou <strong>Mobile Money</strong>.
           </p>
         </div>
       </div>
