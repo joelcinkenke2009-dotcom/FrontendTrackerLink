@@ -26,7 +26,7 @@ onMounted(() => {
 <template>
   <header class="header-container">
     <div class="logo-navbar">
-      <h2 class="brand-title">AD<span>Pulse</span></h2>
+      <h2 class="brand-title">Tracker<span>Link</span></h2>
       <button 
         class="hamburger-btn" 
         :aria-expanded="isNavOpen"
