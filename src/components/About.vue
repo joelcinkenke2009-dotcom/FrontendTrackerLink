@@ -24,10 +24,10 @@ const started = () => {
       </div>
       <h1 class="hero-title">📊 Tracker<span class="brand-blue">Link</span></h1>
       <p class="hero-subtitle">
-        Suivez, analysez et pilotez vos liens d'acquisition en temps réel sans perdre vos données publicitaires.
+        L'outil de suivi de lien simple et minimaliste avec un tableau de bord clair.
       </p>
       <p class="hero-description">
-        Bien plus qu'un réducteur d'URL : une plateforme complète de tracking publicitaire pour analyser la provenance exacte de votre trafic, effectuer des redirections dynamiques à la volée et maximiser votre ROI.
+        Suivez, analysez et pilotez vos liens d'acquisition en temps réel sans alourdir votre gestion. Analysez la provenance exacte de votre trafic et effectuez des redirections dynamiques à la volée pour maximiser votre ROI.
       </p>
       <div class="hero-action">
         <button 
@@ -35,16 +35,23 @@ const started = () => {
           class="modern-button" 
           :disabled="connect.connected"
         >
-          {{ connect.connected ? 'Accéder au tableau de bord' : 'Tester gratuitement pendant 7 jours' }}
+          {{ connect.connected ? 'Accéder au tableau de bord' : 'Démarrer maintenant pour 5 $ / mois' }}
         </button>
+        
+        <!-- Contact WhatsApp & Garantie -->
+        <div class="hero-guarantee">
+          💬 Une question ? Écrivez-nous sur WhatsApp : 
+          <a href="https://wa.me/243990937099" target="_blank" class="whatsapp-link">+243 990 937 099</a>
+          <span class="guarantee-badge">🔒 Satisfait ou remboursé</span>
+        </div>
       </div>
     </section>
 
-    <!-- Section Fonctionnalités (Centrées sur le Tracking) -->
+    <!-- Section Fonctionnalités -->
     <section class="features-section">
       <div class="section-header">
-        <h2 class="section-title">La puissance d'un véritable traqueur publicitaire</h2>
-        <p class="section-subtitle">Gardez le contrôle total sur la provenance de votre trafic et l'optimisation de vos conversions.</p>
+        <h2 class="section-title">La puissance d'un traqueur publicitaire minimaliste</h2>
+        <p class="section-subtitle">Gardez le contrôle total sur votre trafic grâce à un tableau de bord clair et intuitif.</p>
       </div>
 
       <div class="features-grid">
@@ -75,15 +82,15 @@ const started = () => {
           </p>
         </div>
 
-        <!-- Carte 5 : Offre Découverte -->
+        <!-- Carte 5 : Simplicité & Clarté -->
         <div class="feature-card highlight-card">
-          <div class="icon-wrapper green-bg">🎁</div>
-          <h3 class="feature-title">Testez Sans Risque</h3>
-          <p class="feature-text">Démarrez dès aujourd'hui sans aucun engagement :</p>
+          <div class="icon-wrapper green-bg">✨</div>
+          <h3 class="feature-title">Tableau de Bord Intuitif</h3>
+          <p class="feature-text">Une interface minimaliste conçue pour aller à l'essentiel :</p>
           <ul class="feature-list">
-            <li>✓ 7 jours d'essai gratuit complet</li>
-            <li>✓ Aucune carte bancaire requise</li>
             <li>✓ Configuration de vos premiers liens en 3 min</li>
+            <li>✓ Visualisation instantanée de vos clics</li>
+            <li>✓ Aucune compétence technique requise</li>
           </ul>
         </div>
 
@@ -105,7 +112,7 @@ const started = () => {
         <div class="feedback-text">
           <h3>Votre avis compte pour nous !</h3>
           <p>
-            Aidez-nous à faire d'<strong>TrackerLink</strong> l'outil de tracking ultime pour vos campagnes d'acquisition. Partagez-nous vos retours et suggestions.
+            Aidez-nous à faire de <strong>TrackerLink</strong> l'outil de tracking ultime pour vos campagnes d'acquisition. Partagez-nous vos retours et suggestions.
           </p>
         </div>
         <div class="feedback-action">
@@ -130,12 +137,12 @@ const started = () => {
             Changer l'URL d'une publicité active sur Facebook, TikTok ou Google Ads casse l'apprentissage des algorithmes, réinitialise la campagne et détruit les interactions accumulées.
           </p>
           <p>
-            <strong>TrackerLink</strong> agit comme une couche d'intelligence intermédiaire : votre traqueur reste fixe dans votre annonce, tandis que vous contrôlez et analysez tout ce qui se passe en arrière-plan.
+            <strong>TrackerLink</strong> agit comme une couche d'intelligence intermédiaire : votre traqueur reste fixe dans votre annonce, tandis que vous contrôlez et analysez tout ce qui se passe en arrière-plan depuis un tableau de bord clair.
           </p>
 
           <div class="why-cta-wrapper">
             <button @click="started" class="modern-button secondary" :disabled="connect.connected">
-              Lancer mon essai gratuit de 7 jours →
+              Obtenir mon accès instantané pour 5 $ / mois →
             </button>
           </div>
         </div>
@@ -218,6 +225,37 @@ const started = () => {
   font-size: 15px;
   line-height: 1.6;
   color: #64748b;
+}
+
+.hero-guarantee {
+  margin-top: 18px;
+  font-size: 14px;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.whatsapp-link {
+  color: #16a34a;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.whatsapp-link:hover {
+  text-decoration: underline;
+}
+
+.guarantee-badge {
+  background-color: #f0fdf4;
+  color: #16a34a;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  border: 1px solid #bbf7d0;
 }
 
 /* Grille des fonctionnalités */
@@ -503,6 +541,11 @@ const started = () => {
 
   .modern-button {
     width: 100%;
+  }
+
+  .hero-guarantee {
+    flex-direction: column;
+    gap: 4px;
   }
 }
 </style>
