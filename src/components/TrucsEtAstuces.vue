@@ -126,7 +126,7 @@ const started = () => {
         class="cta-button" 
         :disabled="connect.connected"
       >
-        {{ connect.connected ? 'Accéder à mon tableau de bord' : 'Tester gratuitement pendant 7 jours' }}
+        {{ connect.connected ? 'Accéder à mon tableau de bord' : 'Débloquer votre accès}}
       </button>
     </section>
 
