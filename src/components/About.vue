@@ -105,6 +105,61 @@ const started = () => {
       </div>
     </section>
 
+    <!-- Section Témoignages -->
+    <section class="testimonials-section">
+      <div class="section-header">
+        <h2 class="section-title">Ce qu'en pensent nos utilisateurs</h2>
+        <p class="section-subtitle">Des e-commerçants et marketeurs d'Afrique partagent leur expérience avec TrackerLink.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <!-- Témoignage 1 -->
+        <div class="testimonial-card">
+          <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-quote">
+            "Pouvoir modifier le lien de destination de mes publicités Facebook sans perdre mes likes ni relancer la phase d'apprentissage, c'est juste magique. Ça m'a sauvé deux campagnes d'acquisition !"
+          </p>
+          <div class="testimonial-user">
+            <div class="user-avatar">SK</div>
+            <div class="user-info">
+              <strong class="user-name">Serge K.</strong>
+              <span class="user-role">E-commerçant, Abidjan</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Témoignage 2 -->
+        <div class="testimonial-card">
+          <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-quote">
+            "Le tableau de bord est ultra simple. Je vois directement en un coup d'œil si un lien d'influenceur sur TikTok m'apporte du vrai trafic rentable ou juste des clics inutiles. À 5 $/mois, c'est rentable immédiatement."
+          </p>
+          <div class="testimonial-user">
+            <div class="user-avatar">AM</div>
+            <div class="user-info">
+              <strong class="user-name">Aïcha M.</strong>
+              <span class="user-role">Media Buyer Freelance</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Témoignage 3 -->
+        <div class="testimonial-card">
+          <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-quote">
+            "Simple, rapide et sans fioritures. En 3 minutes chrono mes liens étaient configurés. Le paiement par Mobile Money est un vrai plus pour nos équipes ici."
+          </p>
+          <div class="testimonial-user">
+            <div class="user-avatar">JN</div>
+            <div class="user-info">
+              <strong class="user-name">Jean-Noël T.</strong>
+              <span class="user-role">Fondateur d'agence digitale</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Section Retours Utilisateurs / Feedback -->
     <section class="feedback-card">
       <div class="feedback-content">
@@ -343,6 +398,76 @@ const started = () => {
   color: #334155;
   font-weight: 500;
   margin-bottom: 6px;
+}
+
+/* Section Témoignages */
+.testimonials-section {
+  margin-bottom: 48px;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.testimonial-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.testimonial-stars {
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.testimonial-quote {
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.6;
+  font-style: italic;
+  margin: 0 0 20px 0;
+}
+
+.testimonial-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 14px;
+  color: #0f172a;
+}
+
+.user-role {
+  font-size: 12px;
+  color: #64748b;
 }
 
 /* Section Feedback Google Form */
