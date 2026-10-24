@@ -90,13 +90,12 @@ const started = () => {
     <!-- Section CTA vers le Dashboard / Essai -->
     <section class="cta-banner">
       <h2>Prêt à prendre le contrôle de vos liens ?</h2>
-      <p>Testez toutes nos fonctionnalités gratuitement pendant 7 jours.</p>
-      <button 
+     <button 
         @click="started" 
         class="cta-button" 
         :disabled="connect.connected"
       >
-        {{ connect.connected ? 'Accéder au tableau de bord' : 'Commencer mon essai gratuit' }}
+        {{ connect.connected ? 'Accéder au tableau de bord' : 'Commencer dès maintenant ' }}
       </button>
     </section>
 
