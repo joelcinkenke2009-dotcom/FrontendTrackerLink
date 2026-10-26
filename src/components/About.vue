@@ -9,8 +9,16 @@ fetch(apiUrl + "/ISCONNECTED", { credentials: 'include' })
     connect.value = res
   })
 
-const started = () => {
-  window.location.href = "/inscription"
+// Redirection directe vers WhatsApp pour la prise de contact stratégique
+const whatsappNum = "243990937099";
+const defaultMessage = encodeURIComponent("Bonjour Joel, je souhaite réserver mon diagnostic gratuit et en savoir plus sur l'accompagnement stratégique ADPulse.");
+
+const openWhatsApp = () => {
+  window.open(`https://wa.me/${whatsappNum}?text=${defaultMessage}`, '_blank');
+}
+
+const accessDashboard = () => {
+  window.location.href = "/dashboard";
 }
 </script>
 
@@ -20,86 +28,95 @@ const started = () => {
     <!-- Hero Section -->
     <section class="hero-card">
       <div class="hero-badge">
-        <span class="pulse-dot"></span> Traqueur de Liens & Redirection Dynamique
+        <span class="pulse-dot"></span> Accompagnement Stratégique & Audit de Conversion
       </div>
-      <h1 class="hero-title">📊 Tracker<span class="brand-blue">Link</span></h1>
+      <h1 class="hero-title">Multipliez vos ventes Meta Ads avec <span class="brand-blue">ADPulse</span></h1>
       <p class="hero-subtitle">
-        L'outil de suivi de lien simple et minimaliste avec un tableau de bord clair.
+        Arrêtez de brûler votre budget pub : bénéficiez d'un suivi personnalisé pour optimiser votre tunnel de vente et doubler votre ROI.
       </p>
       <p class="hero-description">
-        Suivez, analysez et pilotez vos liens d'acquisition en temps réel sans alourdir votre gestion. Analysez la provenance exacte de votre trafic et effectuez des redirections dynamiques à la volée pour maximiser votre ROI.
+        Je vous accompagne personnellement sur WhatsApp pour auditer vos campagnes publicitaires, éliminer le gaspillage de budget et configurer notre suite de tracking et de redirection dynamique exclusive.
       </p>
+      
       <div class="hero-action">
+        <!-- Bouton d'action selon la connexion -->
         <button 
-          @click="started" 
-          class="modern-button" 
-          :disabled="connect.connected"
+          v-if="!connect.connected"
+          @click="openWhatsApp" 
+          class="modern-button whatsapp-cta" 
         >
-          {{ connect.connected ? 'Accéder au tableau de bord' : 'Démarrer maintenant pour 5 $ / mois' }}
+          💬 Réserver mon diagnostic gratuit sur WhatsApp
         </button>
-        
-        <!-- Contact WhatsApp & Garantie -->
+
+        <button 
+          v-else
+          @click="accessDashboard" 
+          class="modern-button"
+        >
+          Accéder à mon tableau de bord ADPulse
+        </button>
+
+        <!-- Formule & Garantie -->
         <div class="hero-guarantee">
-          💬 Une question ? Écrivez-nous sur WhatsApp : 
-          <a href="https://wa.me/243990937099" target="_blank" class="whatsapp-link">+243 990 937 099</a>
+          <span class="price-tag">⚡ Formule Complète : <strong>100 $ / mois</strong> (Conseil + Suivi + Outil inclus)</span>
           <span class="guarantee-badge">🔒 Satisfait ou remboursé</span>
         </div>
       </div>
     </section>
 
-    <!-- Section Fonctionnalités -->
+    <!-- Section Ce que comprend l'accompagnement -->
     <section class="features-section">
       <div class="section-header">
-        <h2 class="section-title">La puissance d'un traqueur publicitaire minimaliste</h2>
-        <p class="section-subtitle">Gardez le contrôle total sur votre trafic grâce à un tableau de bord clair et intuitif.</p>
+        <h2 class="section-title">Un accompagnement complet sur-mesure pour votre business</h2>
+        <p class="section-subtitle">Combine la puissance du conseil stratégique et la précision d'un outil de tracking propriétaire.</p>
       </div>
 
       <div class="features-grid">
         <!-- Carte 1 -->
         <div class="feature-card">
-          <div class="icon-wrapper blue-bg">📡</div>
-          <h3 class="feature-title">Tracking Avancé & Attributs</h3>
+          <div class="icon-wrapper blue-bg">🔍</div>
+          <h3 class="feature-title">1. Audit de Conversion (CRO)</h3>
           <p class="feature-text">
-            Traquez l'origine précise de chaque clic. Identifiez en un clin d'œil les canaux, visuels et campagnes qui génèrent le plus de conversions réelles.
+            Analyse complète de votre tunnel de vente et de vos publicités. Nous identifions exactement où vos visiteurs abandonnent et comment transformer plus de clics en acheteurs.
           </p>
         </div>
 
         <!-- Carte 2 -->
         <div class="feature-card">
-          <div class="icon-wrapper yellow-bg">⚡</div>
-          <h3 class="feature-title">Redirection Dynamique à la Volée</h3>
+          <div class="icon-wrapper yellow-bg">📱</div>
+          <h3 class="feature-title">2. Suivi WhatsApp Direct</h3>
           <p class="feature-text">
-            Modifiez la destination cible de vos liens de tracking à tout moment, sans retoucher vos publicités actives ni perdre votre "Social Proof" (likes et commentaires).
+            Un accès direct à un consultant stratégique. Posez vos questions, validez vos visuels avant publication et ajustez vos campagnes en temps réel sans attendre.
           </p>
         </div>
 
         <!-- Carte 3 -->
         <div class="feature-card">
-          <div class="icon-wrapper purple-bg">📱</div>
-          <h3 class="feature-title">Routage Intelligent (Smart Routing)</h3>
+          <div class="icon-wrapper purple-bg">⚡</div>
+          <h3 class="feature-title">3. Licences ADPulse Incluses</h3>
           <p class="feature-text">
-            Le traqueur détecte l'appareil au moment du clic : redirigez automatiquement les utilisateurs Mobile vers une landing page dédiée et le Desktop vers votre site principal.
+            Accès illimité à notre traqueur dynamique pour modifier l'URL de vos annonces actives sans détruire votre Social Proof (likes et commentaires) ni l'apprentissage Meta.
           </p>
         </div>
 
-        <!-- Carte 5 : Simplicité & Clarté -->
+        <!-- Carte 4 : Offre détaillée -->
         <div class="feature-card highlight-card">
-          <div class="icon-wrapper green-bg">✨</div>
-          <h3 class="feature-title">Tableau de Bord Intuitif</h3>
-          <p class="feature-text">Une interface minimaliste conçue pour aller à l'essentiel :</p>
+          <div class="icon-wrapper green-bg">🎯</div>
+          <h3 class="feature-title">Ce qui est inclus dans l'offre :</h3>
           <ul class="feature-list">
-            <li>✓ Configuration de vos premiers liens en 3 min</li>
-            <li>✓ Visualisation instantanée de vos clics</li>
-            <li>✓ Aucune compétence technique requise</li>
+            <li>✓ Audit initial complet de vos offres et publicités</li>
+            <li>✓ Recommandations hebdomadaires pour réduire votre CPA</li>
+            <li>✓ Installation & paramétrage complet de vos liens de tracking</li>
+            <li>✓ Accès illimité à la plateforme ADPulse</li>
           </ul>
         </div>
 
-        <!-- Carte 6 : Tarification -->
+        <!-- Carte 5 : Paiement facile -->
         <div class="feature-card highlight-card">
           <div class="icon-wrapper emerald-bg">💼</div>
-          <h3 class="feature-title">Abonnement Transparent</h3>
+          <h3 class="feature-title">Paiement Flexible & Sans Friction</h3>
           <p class="feature-text">
-            Accès complet pour <strong>5 $ / mois</strong>. Paiement sécurisé par <strong>Carte Bancaire</strong> ou <strong>Mobile Money</strong>.
+            Abonnement à <strong>100 $ / mois</strong> résiliable à tout moment. Règlements acceptés via <strong>Mobile Money (M-Pesa, Orange Money, MTN, Wave)</strong> ou <strong>Carte Bancaire</strong>.
           </p>
         </div>
       </div>
@@ -108,8 +125,8 @@ const started = () => {
     <!-- Section Témoignages -->
     <section class="testimonials-section">
       <div class="section-header">
-        <h2 class="section-title">Ce qu'en pensent nos utilisateurs</h2>
-        <p class="section-subtitle">Des e-commerçants et marketeurs d'Afrique partagent leur expérience avec TrackerLink.</p>
+        <h2 class="section-title">Ce que disent les e-commerçants accompagnés</h2>
+        <p class="section-subtitle">Des résultats concrets sur leurs dépenses publicitaires et leurs taux de conversion.</p>
       </div>
 
       <div class="testimonials-grid">
@@ -117,7 +134,7 @@ const started = () => {
         <div class="testimonial-card">
           <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
           <p class="testimonial-quote">
-            "Pouvoir modifier le lien de destination de mes publicités Facebook sans perdre mes likes ni relancer la phase d'apprentissage, c'est juste magique. Ça m'a sauvé deux campagnes d'acquisition !"
+            "L'audit du tunnel de vente a révélé qu'on perdait 40% de nos acheteurs à la livraison. En ajustant notre offre et en utilisant ADPulse pour suivre nos influenceurs, on a doublé nos ventes le mois suivant."
           </p>
           <div class="testimonial-user">
             <div class="user-avatar">SK</div>
@@ -132,7 +149,7 @@ const started = () => {
         <div class="testimonial-card">
           <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
           <p class="testimonial-quote">
-            "Le tableau de bord est ultra simple. Je vois directement en un coup d'œil si un lien d'influenceur sur TikTok m'apporte du vrai trafic rentable ou juste des clics inutiles. À 5 $/mois, c'est rentable immédiatement."
+            "Avoir un spécialiste à disposition sur WhatsApp pour valider nos angles marketing avant d'injecter du budget pub change tout. La combinaison conseil + outil de tracking vaut largement son prix."
           </p>
           <div class="testimonial-user">
             <div class="user-avatar">AM</div>
@@ -147,7 +164,7 @@ const started = () => {
         <div class="testimonial-card">
           <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
           <p class="testimonial-quote">
-            "Simple, rapide et sans fioritures. En 3 minutes chrono mes liens étaient configurés. Le paiement par Mobile Money est un vrai plus pour nos équipes ici."
+            "Pouvoir payer directement par Mobile Money et avoir une assistance directe sans passer par des systèmes compliqués est un vrai soulagement pour nos activités locales."
           </p>
           <div class="testimonial-user">
             <div class="user-avatar">JN</div>
@@ -165,20 +182,15 @@ const started = () => {
       <div class="feedback-content">
         <div class="feedback-icon">💬</div>
         <div class="feedback-text">
-          <h3>Votre avis compte pour nous !</h3>
+          <h3>Besoin d'un avis rapide sur vos publicités actuelles ?</h3>
           <p>
-            Aidez-nous à faire de <strong>TrackerLink</strong> l'outil de tracking ultime pour vos campagnes d'acquisition. Partagez-nous vos retours et suggestions.
+            Envoyez-nous le lien de votre page ou de votre site et nous analyserons gratuitement vos 3 plus grands axes d'amélioration.
           </p>
         </div>
         <div class="feedback-action">
-          <a 
-            href="https://forms.gle/FZh5ckiiUY5HJf9Q8" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            class="feedback-button"
-          >
-            Donner mon avis 📝
-          </a>
+          <button @click="openWhatsApp" class="feedback-button">
+            Demander mon avis gratuit 📲
+          </button>
         </div>
       </div>
     </section>
@@ -187,17 +199,17 @@ const started = () => {
     <section class="why-card">
       <div class="why-content">
         <div class="why-text">
-          <h2>🚀 Pourquoi utiliser un traqueur dynamique ?</h2>
+          <h2>🚀 Pourquoi associer Stratégie & Tracking ?</h2>
           <p>
-            Changer l'URL d'une publicité active sur Facebook, TikTok ou Google Ads casse l'apprentissage des algorithmes, réinitialise la campagne et détruit les interactions accumulées.
+            Avoir un traqueur comme ADPulse est indispensable pour conserver vos likes et piloter vos données, mais **l'outil seul ne remplace pas une stratégie d'acquisition éprouvée**.
           </p>
           <p>
-            <strong>TrackerLink</strong> agit comme une couche d'intelligence intermédiaire : votre traqueur reste fixe dans votre annonce, tandis que vous contrôlez et analysez tout ce qui se passe en arrière-plan depuis un tableau de bord clair.
+            Grâce à notre accompagnement mensuel, vous ne vous contentez plus de regarder des métriques : vous comprenez exactement quelle décision prendre pour baisser vos coûts publicitaires et faire grandir votre entreprise.
           </p>
 
           <div class="why-cta-wrapper">
-            <button @click="started" class="modern-button secondary" :disabled="connect.connected">
-              Obtenir mon accès instantané pour 5 $ / mois →
+            <button @click="openWhatsApp" class="modern-button whatsapp-cta">
+              Démarrer mon accompagnement à 100 $ / mois →
             </button>
           </div>
         </div>
@@ -205,8 +217,8 @@ const started = () => {
         <div class="why-image">
           <div class="stats-card">
             <div class="stats-icon">🎯</div>
-            <div class="stats-number">100%</div>
-            <div class="stats-label">du contrôle et de l'historique de vos données de tracking conservés</div>
+            <div class="stats-number">+100%</div>
+            <div class="stats-label">de clarté stratégique et de maîtrise sur le retour sur investissement (ROI) de vos publicités</div>
           </div>
         </div>
       </div>
@@ -256,11 +268,12 @@ const started = () => {
 }
 
 .hero-title {
-  font-size: 42px;
+  font-size: 40px;
   font-weight: 800;
   color: #0f172a;
   margin: 0 0 16px 0;
   letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
 .brand-blue {
@@ -289,18 +302,15 @@ const started = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
-.whatsapp-link {
-  color: #16a34a;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.whatsapp-link:hover {
-  text-decoration: underline;
+.price-tag {
+  background-color: #f1f5f9;
+  padding: 4px 12px;
+  border-radius: 8px;
+  color: #1e293b;
 }
 
 .guarantee-badge {
@@ -308,7 +318,7 @@ const started = () => {
   color: #16a34a;
   font-size: 12px;
   font-weight: 700;
-  padding: 3px 10px;
+  padding: 4px 10px;
   border-radius: 9999px;
   border: 1px solid #bbf7d0;
 }
@@ -366,7 +376,6 @@ const started = () => {
   margin-bottom: 16px;
 }
 
-.red-bg { background-color: #fef2f2; }
 .blue-bg { background-color: #eff6ff; }
 .yellow-bg { background-color: #fefce8; }
 .purple-bg { background-color: #faf5ff; }
@@ -470,7 +479,7 @@ const started = () => {
   color: #64748b;
 }
 
-/* Section Feedback Google Form */
+/* Section Feedback / Contact */
 .feedback-card {
   background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%);
   border: 1px solid #bfdbfe;
@@ -517,14 +526,14 @@ const started = () => {
 }
 
 .feedback-button {
-  display: inline-block;
   background-color: #2563eb;
   color: #ffffff;
   padding: 12px 24px;
+  border: none;
   border-radius: 10px;
   font-weight: 600;
   font-size: 14px;
-  text-decoration: none;
+  cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
   box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
@@ -620,31 +629,25 @@ const started = () => {
   box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
 }
 
-.modern-button:hover:not(:disabled) {
-  background-color: #1d4ed8;
+.modern-button.whatsapp-cta {
+  background-color: #16a34a;
+  box-shadow: 0 2px 4px rgba(22, 163, 74, 0.2);
+}
+
+.modern-button.whatsapp-cta:hover {
+  background-color: #15803d;
   transform: translateY(-1px);
 }
 
-.modern-button.secondary {
-  background-color: #eff6ff;
-  color: #2563eb;
-  box-shadow: none;
-}
-
-.modern-button.secondary:hover:not(:disabled) {
-  background-color: #dbeafe;
-}
-
-.modern-button:disabled {
-  background-color: #94a3b8;
-  cursor: not-allowed;
-  box-shadow: none;
+.modern-button:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
 }
 
 /* Responsivité Mobile */
 @media (max-width: 768px) {
   .hero-title {
-    font-size: 32px;
+    font-size: 30px;
   }
   
   .feedback-content {
@@ -670,7 +673,7 @@ const started = () => {
 
   .hero-guarantee {
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
   }
 }
 </style>
