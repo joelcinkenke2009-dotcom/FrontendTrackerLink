@@ -126,7 +126,7 @@ const started = () => {
         class="cta-button" 
         :disabled="connect.connected"
       >
-        {{ connect.connected ? 'Accéder à mon tableau de bord' : 'Débloquer votre accès}}
+        {{ connect.connected ? 'Accéder à mon tableau de bord' : 'Débloquer votre accès'}}
       </button>
     </section>
 
