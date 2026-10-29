@@ -17,10 +17,10 @@ const started = () => {
 <template>
   <div class="about-container">
     
-    <!-- Bannière d'urgence défilante (Marquee) -->
+    <!-- Bannière d'urgence défilante (Démarrage immédiat) -->
     <div class="marquee-banner">
       <div class="marquee-content">
-        🔥 OFFRE SPÉCIALE DE LANCEMENT : 50% de réduction pour votre premier abonnement ! Profitez de TrackerLink à seulement 2,5 $ (ou son équivalent en FCFA, CDF, EUR) pour une durée limitée ! 🚀
+        🔥 OFFRE SPÉCIALE DE LANCEMENT : 50% de réduction pour votre premier abonnement ! Profitez d'AdPulse à seulement 2,5 $ (ou son équivalent en FCFA, CDF, EUR) pour une durée limitée ! 🚀
       </div>
     </div>
 
@@ -34,7 +34,7 @@ const started = () => {
         L'outil de suivi de lien simple et minimaliste avec un tableau de bord clair.
       </p>
       <p class="hero-description">
-        Suivez, analysez et pilotez vos liens d'acquisition en temps réel. Ne perdez plus vos likes Meta Ads lors des changements d'URL et identifiez précisément les canaux qui vous apportent des clients rentables.
+        Suivez, analysez et pilotez vos liens d'acquisition en temps réel. Ne perdez plus vos likes sur vos campagnes publicitaires (Meta, Google, TikTok, YouTube, etc.) lors des changements d'URL et identifiez précisément les canaux qui vous apportent des clients rentables.
       </p>
       
       <div class="hero-action">
@@ -167,8 +167,12 @@ const started = () => {
     <!-- Section Témoignages -->
     <section class="testimonials-section">
       <div class="section-header">
+        <!-- Badge de réassurance -->
+        <div class="social-proof-badge">
+          ⚡ <strong>+1 000 marketeurs et e-commerçants</strong> ont déjà testé et approuvé AdPulse
+        </div>
         <h2 class="section-title">Ce qu'en pensent nos utilisateurs</h2>
-        <p class="section-subtitle">Des e-commerçants et marketeurs d'Afrique partagent their expérience avec AdPulse.</p>
+        <p class="section-subtitle">Des e-commerçants et marketeurs d'Afrique partagent leur expérience avec AdPulse.</p>
       </div>
 
       <div class="testimonials-grid">
@@ -176,7 +180,7 @@ const started = () => {
         <div class="testimonial-card">
           <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
           <p class="testimonial-quote">
-            "Pouvoir modifier le lien de destination de mes publicités Facebook sans perdre mes likes ni relancer la phase d'apprentissage, c'est juste magique. Ça m'a sauvé deux campagnes d'acquisition !"
+            "Pouvoir modifier le lien de destination de mes publicités sans perdre mes likes ni relancer la phase d'apprentissage, c'est juste magique. Ça m'a sauvé deux campagnes d'acquisition !"
           </p>
           <div class="testimonial-user">
             <div class="user-avatar">SK</div>
@@ -248,7 +252,7 @@ const started = () => {
         <div class="why-text">
           <h2>🚀 Pourquoi utiliser un traqueur dynamique ?</h2>
           <p>
-            Changer l'URL d'une publicité active sur Facebook, TikTok ou Google Ads casse l'apprentissage des algorithmes, réinitialise la campagne et détruit les interactions accumulées.
+            Changer l'URL d'une publicité active (sur Meta, Google, TikTok, etc.) casse l'apprentissage des algorithmes, réinitialise la campagne et détruit les interactions accumulées.
           </p>
           <p>
             <strong>AdPulse</strong> agit comme une couche d'intelligence intermédiaire : votre traqueur reste fixe dans votre annonce, tandis que vous contrôlez et analysez tout ce qui se passe en arrière-plan depuis un tableau de bord clair.
@@ -283,7 +287,7 @@ const started = () => {
   color: #0f172a;
 }
 
-/* Bannière d'urgence défilante */
+/* Bannière d'urgence défilante (Démarrage immédiat depuis la droite) */
 .marquee-banner {
   background: linear-gradient(90deg, #1d4ed8, #2563eb, #3b82f6);
   color: #ffffff;
@@ -299,11 +303,11 @@ const started = () => {
 
 .marquee-content {
   display: inline-block;
-  animation: marquee 20s linear infinite;
+  animation: marquee 15s linear infinite;
 }
 
 @keyframes marquee {
-  0% { transform: translateX(100%); }
+  0% { transform: translateX(100vw); }
   100% { transform: translateX(-100%); }
 }
 
@@ -577,6 +581,17 @@ const started = () => {
 .section-header {
   text-align: center;
   margin-bottom: 36px;
+}
+
+.social-proof-badge {
+  display: inline-block;
+  background-color: #eff6ff;
+  color: #1e40af;
+  font-size: 14px;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  margin-bottom: 16px;
+  border: 1px solid #dbeafe;
 }
 
 .section-title {
