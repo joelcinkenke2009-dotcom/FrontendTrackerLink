@@ -299,7 +299,7 @@ const started = () => {
 
 .marquee-content {
   display: inline-block;
-  animation: marquee 10s linear infinite;
+  animation: marquee 20s linear infinite;
 }
 
 @keyframes marquee {
