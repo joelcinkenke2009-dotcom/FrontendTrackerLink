@@ -99,6 +99,7 @@ h2 {
 }
 
 .form-row {
+  display: flex;
   gap: 1rem;
   margin-bottom: 1.2rem;
 }
