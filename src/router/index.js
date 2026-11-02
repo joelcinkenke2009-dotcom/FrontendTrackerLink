@@ -1,5 +1,4 @@
 import About from '@/components/About.vue'
-import AdAuditor from '@/components/AdAuditor.vue'
 import ConnAdmins from '@/components/ConnAdmins.vue'
 import Dashboard from '@/components/Dashboard.vue'
 import GuideTraqueur from '@/components/GuideTraqueur.vue'
@@ -43,12 +42,15 @@ const router = createRouter({
       name:"principalDash",
       component: DashboardAdmins
     },
+    // AdAuditor temporairement désactivé : réactiver cette route après validation.
+    /*
     {
-      path:"/dashboardADS",
-      name:"dashboardADS",
+      path: "/dashboardADS",
+      name: "dashboardADS",
       component: AdAuditor
-    },  
-    {
+    },
+    */
+{
       path:"/guideTraqueur",
       name:"guide",
       component: GuideTraqueur
