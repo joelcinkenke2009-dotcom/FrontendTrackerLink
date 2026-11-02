@@ -107,6 +107,32 @@ const started = () => {
       </div>
     </section>
 
+    <!-- Qualité des données : détection des visites automatisées et répétitives -->
+    <section class="data-quality-section" aria-labelledby="data-quality-title">
+      <div class="data-quality-icon" aria-hidden="true">🛡️</div>
+      <div class="data-quality-copy">
+        <span class="data-quality-eyebrow">Fiabilité des statistiques</span>
+        <h2 id="data-quality-title">Des données plus cohérentes grâce à la détection des comportements inhabituels</h2>
+        <p>
+          Pour mieux comprendre les performances réelles de vos campagnes, AdPulse peut
+          distinguer les visites humaines des comportements qui ressemblent à du trafic automatisé.
+          Les signaux techniques et les répétitions anormales aident à repérer les bots, les
+          rafales de clics et les visites répétées provenant d'un même utilisateur ou appareil.
+        </p>
+        <p>
+          Cette analyse permet d'identifier les événements potentiellement artificiels ou redondants
+          afin de limiter leur impact sur la lecture des statistiques. Vous obtenez ainsi une vision
+          plus claire de votre trafic et pouvez comparer vos campagnes sur des indicateurs plus
+          représentatifs.
+        </p>
+        <div class="data-quality-note">
+          <strong>À retenir :</strong> la détection repose sur des indices et des règles d'analyse.
+          Elle améliore la qualité de l'interprétation, sans garantir l'identification parfaite de
+          chaque bot ni l'unicité absolue de chaque visiteur.
+        </div>
+      </div>
+    </section>
+
     <!-- Section Fonctionnalités -->
     <section class="features-section">
       <div class="section-header">
