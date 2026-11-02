@@ -33,21 +33,21 @@ const validatePasswords = (event) => {
       <div class="form-row">
         <div class="form-group">
           <label for="signup-name">Nom</label>
-          <input type="text" id="signup-name" name="name" placeholder="Ex: Jean" autocomplete="given-name" required minlength="3" autocomplete="off">
+          <input type="text" id="signup-name" name="name" placeholder="Ex: Jean" autocomplete="given-name" required minlength="3">
         </div>
         <div class="form-group">
           <label for="signup-firstname">Prénom</label>
-          <input type="text" id="signup-firstname" name="firstName" placeholder="Ex: Dupont" autocomplete="family-name" required minlength="3" autocomplete="off">
+          <input type="text" id="signup-firstname" name="firstName" placeholder="Ex: Dupont" autocomplete="family-name" required minlength="3">
         </div>
       </div>
       <div class="form-group">
         <label for="signup-email">Email</label>
-        <input type="email" id="signup-email" name="email" placeholder="nom@exemple.com" autocomplete="email" required autocomplete="off">
+        <input type="email" id="signup-email" name="email" placeholder="nom@exemple.com" autocomplete="email" required>
       </div>
       <div class="form-row2">
         <div class="form-group">
           <label for="signup-password">Mot de passe</label>
-          <input :type="view ? 'text': 'password'" id="signup-password" name="password" placeholder="********" autocomplete="new-password" required :minlength="8" autocomplete="off" v-model=password>
+          <input :type="view ? 'text': 'password'" id="signup-password" name="password" placeholder="********" autocomplete="new-password" required :minlength="8" v-model=password>
         </div>
         <div class="form-group">
           <label for="signup-confirm">Confirmation</label>
