@@ -153,11 +153,6 @@ onMounted(async () => {
       <!-- Loading State -->
       <div v-else-if="!loading && !loadError" class="empty-state"><p>Aucune donnée exploitable n’a été retournée.</p></div>
 
-      <div v-if="false" class="loading-state">
-        <div class="spinner"></div>
-        <p>Chargement des statistiques...</p>
-      </div>
-
     </div>
   </div>
 </template>
