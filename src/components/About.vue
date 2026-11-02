@@ -261,7 +261,7 @@ const started = () => {
           </p>
 
           <div class="why-cta-wrapper">
-            <button @click="started" class="modern-button secondary" :disabled="connect.connected">
+            <button @click="started" class="modern-button secondary">
               Profiter des 50% de réduction maintenant →
             </button>
           </div>
