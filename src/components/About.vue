@@ -1,16 +1,17 @@
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { apiUrl } from "@/config/env";
 
+const router = useRouter();
 const connect = ref([])
 fetch(apiUrl + "/ISCONNECTED", { credentials: 'include' })
-  .then(req => req.json())
-  .then(res => {
-    connect.value = res
-  })
+  .then(req => { if (!req.ok) throw new Error(`HTTP ${req.status}`); return req.json(); })
+  .then(res => { connect.value = res; })
+  .catch(err => console.error("Impossible de vérifier la session :", err))
 
 const started = () => {
-  window.location.href = "/inscription"
+  router.push(connect.value.connected ? "/dashboard" : "/inscription")
 }
 </script>
 
@@ -42,7 +43,7 @@ const started = () => {
           <button 
             @click="started" 
             class="modern-button pulse-effect" 
-            :disabled="connect.connected"
+            
           >
             {{ connect.connected ? 'Accéder au tableau de bord' : 'Démarrer maintenant (Promo -50%)' }}
           </button>
@@ -259,7 +260,7 @@ const started = () => {
           </p>
 
           <div class="why-cta-wrapper">
-            <button @click="started" class="modern-button secondary" :disabled="connect.connected">
+            <button @click="started" class="modern-button secondary">
               Profiter des 50% de réduction maintenant →
             </button>
           </div>

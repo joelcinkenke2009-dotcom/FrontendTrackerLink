@@ -13,14 +13,17 @@ const date = ref({});
 const verify = ref(false);
 const message = ref('');
 const copied = ref('');
+const loadError = ref('');
 
 // Récupération de l'état d'abonnement
 const fetchDate = async () => {
   try {
     const res = await fetch(`${apiUrl}/isActive`, { credentials: 'include' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
     date.value = await res.json();
   } catch (err) {
     console.error('Erreur fetchDate:', err);
+    loadError.value = 'Impossible de récupérer le statut de votre abonnement.';
   }
 };
 
@@ -28,11 +31,13 @@ const fetchDate = async () => {
 const fetchItems = async () => {
   try {
     const res = await fetch(`${apiUrl}/protected/data`, { credentials: 'include' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const value = await res.json();
     data.value = value || [];
   } catch (err) {
     console.error('Erreur fetchItems:', err);
     data.value = [];
+    loadError.value = 'Impossible de charger vos liens. Veuillez actualiser la page.';
   }
 };
 
@@ -50,6 +55,10 @@ const copyText = async (text) => {
 };
 
 // Basculer l'affichage du formulaire de modification
+const confirmDelete = (event) => {
+  if (!window.confirm('Voulez-vous vraiment supprimer ce lien ? Cette action est irréversible.')) event.preventDefault();
+};
+
 const activeModify = () => {
   modify.value = !modify.value;
 };
@@ -102,6 +111,7 @@ onMounted(async () => {
 
 <template>
   <div id="principal" class="main-wrapper" style="min-height: 65vh;">
+    <p v-if="loadError" class="dashboard-error" role="alert">{{ loadError }}</p>
     <!-- Statut d'abonnement -->
     <h4 v-if="date.date_limite" class="alert-banner success">
       Votre abonnement est valide jusqu'au {{ date.date_limite }}
@@ -215,18 +225,18 @@ onMounted(async () => {
                 <td class="col-click"><strong>{{ item.ClickMobile }}</strong></td>
                 <td class="col-click"><strong>{{ item.ClickPC }}</strong></td>
                 <td style="text-align: center;">
-                  <button class="modern-button-variante" style="font-size: 1.6rem;" @click="copyText(item.UrlGenerate)">
+                  <button type="button" class="modern-button-variante" :aria-label="`Copier le lien ${item.Slug}`" @click="copyText(item.UrlGenerate)">
                     📑
                   </button>
                 </td>
                 <td style="text-align: center;">
-                  <button class="modern-button-variante" :disabled="verify" style="font-size: 1.7rem;" @click="verifyLink(item.Link)">
+                  <button type="button" class="modern-button-variante" :disabled="verify" :aria-label="`Vérifier le lien ${item.Slug}`" @click="verifyLink(item.Link)">
                     🔍
                   </button>
                 </td>
                 <td style="text-align: center;">
-                  <form :action="`${apiUrl}/protected/delete`" method="post">
-                    <button class="modern-button-delete" :value="item.Slug" name="slug" style="font-size: 1.6rem;">
+                  <form :action="`${apiUrl}/protected/delete`" method="post" @submit="confirmDelete">
+                    <button type="submit" class="modern-button-delete" :value="item.Slug" name="slug" :aria-label="`Supprimer le lien ${item.Slug}`">
                       🗑️
                     </button>
                   </form>

@@ -12,6 +12,7 @@ const toggleNav = () => {
 const checkAuthStatus = async () => {
   try {
     const res = await fetch(`${apiUrl}/ISCONNECTED`, { credentials: 'include' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
     connect.value = await res.json();
   } catch (err) {
     console.error('Erreur lors de la vérification de connexion:', err);
@@ -42,7 +43,7 @@ onMounted(() => {
       <RouterLink to="/dashboard" class="nav-link" @click="isNavOpen = false">Link Track</RouterLink>
       
       <span v-if="connect.connected" class="nav-co">Connecté</span>
-      <RouterLink v-else to="/inscription" class="nav-link btn-connexion" @click="isNavOpen = false">
+      <RouterLink v-else to="/connexion" class="nav-link btn-connexion" @click="isNavOpen = false">
         Connexion
       </RouterLink>
     </nav>
@@ -83,11 +84,11 @@ onMounted(() => {
 }
 
 .hamburger-btn {
+  display: none;
   background: transparent;
   border: none;
   cursor: pointer;
   padding: 0;
-  display: flex;
   align-items: center;
 }
 
@@ -100,16 +101,8 @@ onMounted(() => {
   border-radius: 0 0 20px 20px;
   background-color: #0f172a;
   padding: 0 20px;
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  visibility: hidden;
-  transition: max-height 0.3s ease-out, opacity 0.2s ease-out, padding 0.3s ease, visibility 0.3s;
-}
-
-.nav-menu.active {
-  max-height: 300px;
-  padding: 20px;
+  max-height: none;
+  overflow: visible;
   opacity: 1;
   visibility: visible;
 }
@@ -151,6 +144,7 @@ onMounted(() => {
   .logo-navbar {
     padding: 1rem 1.5rem;
   }
+  .hamburger-btn { display: flex; }
   
   .brand-title {
     font-size: 1.2rem;
@@ -159,6 +153,18 @@ onMounted(() => {
   .nav-menu {
     flex-direction: column;
     gap: 1.2rem;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    padding: 0 20px;
+    transition: max-height 0.3s ease, opacity 0.2s ease, padding 0.3s ease, visibility 0.3s;
+  }
+  .nav-menu.active {
+    max-height: 300px;
+    padding: 20px;
+    opacity: 1;
+    visibility: visible;
   }
 }
 </style>

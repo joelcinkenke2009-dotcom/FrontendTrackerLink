@@ -1,66 +1,60 @@
 <script setup>
-import { apiUrl } from '@/config/env';
 import { ref } from 'vue';
-const view = ref(false)
-const password = ref("")
-const passwordConfirm = ref("")
-</script>
+import { useRoute } from 'vue-router';
+import { apiUrl } from '@/config/env';
 
-<script>
-export default{
-  data(){
-    return{
-      errorMessage:''
-    }
-  },
-  mounted(){
-    const error = this.$route.query.error;
-    if(error === "401"){
-      this.errorMessage = "Cette email a déjà été utilisé veuillez vous connecter"
-    }
-    if (error === "402") {
-      this.errorMessage = "Vous étés déjà connecté actuellement"
-    }
-    if (error === "403") {
-      this.errorMessage = "les mot de passe ne correspond pas"
-    }
+const route = useRoute();
+const view = ref(false);
+const password = ref('');
+const passwordConfirm = ref('');
+const errorMessages = {
+  '401': 'Cette adresse e-mail est déjà utilisée. Veuillez vous connecter.',
+  '402': 'Vous êtes déjà connecté actuellement.',
+  '403': 'Les mots de passe ne correspondent pas.'
+};
+const errorMessage = errorMessages[String(route.query.error || '')] || '';
+const validatePasswords = (event) => {
+  if (password.value !== passwordConfirm.value) {
+    event.preventDefault();
+    window.alert('Les mots de passe ne correspondent pas.');
   }
-}
-
+};
 </script>
+
+
 
 <template>
   <div class="auth-container">
-    <form :action="apiUrl + '/users/inscription'" method="post" class="auth-form">
+    <form :action="apiUrl + '/users/inscription'" method="post" class="auth-form" @submit="validatePasswords">
       <h4 class="subtitle" style="color: red;">{{ errorMessage }}</h4>
       <h2>Créer un compte</h2>
       <p class="subtitle">Entrez vos informations pour configurer votre base de données</p>
       <div class="form-row">
         <div class="form-group">
-          <label>Nom</label>
-          <input type="text" name="name" placeholder="Ex: Jean" required minlength="3" autocomplete="off">
+          <label for="signup-name">Nom</label>
+          <input type="text" id="signup-name" name="name" placeholder="Ex: Jean" autocomplete="given-name" required minlength="3">
         </div>
         <div class="form-group">
-          <label>Prénom</label>
-          <input type="text" name="firstName" placeholder="Ex: Dupont" required minlength="3" autocomplete="off">
+          <label for="signup-firstname">Prénom</label>
+          <input type="text" id="signup-firstname" name="firstName" placeholder="Ex: Dupont" autocomplete="family-name" required minlength="3">
         </div>
       </div>
       <div class="form-group">
-        <label>Email</label>
-        <input type="email" name="email" placeholder="nom@exemple.com" required autocomplete="off">
+        <label for="signup-email">Email</label>
+        <input type="email" id="signup-email" name="email" placeholder="nom@exemple.com" autocomplete="email" required>
       </div>
       <div class="form-row2">
         <div class="form-group">
-          <label>Mot de passe</label>
-          <input :type="view ? 'text': 'password'" name="password" placeholder="********" required :minlength="8" autocomplete="off" v-model=password>
+          <label for="signup-password">Mot de passe</label>
+          <input :type="view ? 'text': 'password'" id="signup-password" name="password" placeholder="********" autocomplete="new-password" required :minlength="8" v-model=password>
         </div>
         <div class="form-group">
-          <label>Confirmation</label>
-          <input name="passwordConfirm" :type="view ? 'text': 'password'" placeholder="********" required :minlength="8" autocomplete="off" v-model="passwordConfirm">
+          <label for="signup-confirm">Confirmation</label>
+          <input id="signup-confirm" name="passwordConfirm" :type="view ? 'text': 'password'" placeholder="********" required :minlength="8" autocomplete="new-password" v-model="passwordConfirm">
         </div>
       </div>
-      <input type="checkbox" name="checs" id="" v-model="view">
-      <label>Afficher le mot de passe</label>
+      <input type="checkbox" name="checs" id="show-password" v-model="view">
+      <label for="show-password">Afficher le mot de passe</label>
       <hr class="divider">
       <button type="submit" class="btn-submit">S'inscrire</button>
       <p class="footer-text"> Déjà un compte ? <RouterLink to="/connexion">Se connecter</RouterLink> </p>
@@ -104,6 +98,7 @@ h2 {
 }
 
 .form-row {
+  display: flex;
   gap: 1rem;
   margin-bottom: 1.2rem;
 }
