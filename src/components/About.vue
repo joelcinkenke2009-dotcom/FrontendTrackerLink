@@ -6,13 +6,12 @@ import { apiUrl } from "@/config/env";
 const router = useRouter();
 const connect = ref([])
 fetch(apiUrl + "/ISCONNECTED", { credentials: 'include' })
-  .then(req => req.json())
-  .then(res => {
-    connect.value = res
-  })
+  .then(req => { if (!req.ok) throw new Error(`HTTP ${req.status}`); return req.json(); })
+  .then(res => { connect.value = res; })
+  .catch(err => console.error("Impossible de vérifier la session :", err))
 
 const started = () => {
-  window.location.href = "/inscription"
+  router.push(connect.value.connected ? "/dashboard" : "/inscription")
 }
 </script>
 
