@@ -19,11 +19,11 @@ const errorMessage = computed(() => route.query.status === '403' ? 'Ce mot de pa
       <div class="form-row">
         <div class="form-group">
           <label for="admin-email">Email</label>
-          <input type="email" id="admin-email" name="email" autocomplete="username" placeholder="nom@exemple.com" required autocomplete="off">
+          <input type="email" id="admin-email" name="email" autocomplete="username" placeholder="nom@exemple.com" required>
         </div>
         <div class="form-group">
           <label for="admin-password">Mot de passe</label>
-          <input :type="view ? 'text': 'password'" id="admin-password" name="password" autocomplete="current-password" placeholder="********" required :minlength="8" autocomplete="off" v-model="password">
+          <input :type="view ? 'text': 'password'" id="admin-password" name="password" autocomplete="current-password" placeholder="********" required :minlength="8" v-model="password">
         </div>
       </div>
       <input type="checkbox" name="checs" id="admin-show-password" v-model="view">
