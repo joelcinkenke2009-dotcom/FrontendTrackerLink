@@ -1,8 +1,10 @@
 <script setup>
-import { ref } from "vue";\nimport { useRouter } from "vue-router";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { apiUrl } from "@/config/env";
 
-const router = useRouter();\nconst connect = ref([])
+const router = useRouter();
+const connect = ref([])
 fetch(apiUrl + "/ISCONNECTED", { credentials: 'include' })
   .then(req => req.json())
   .then(res => {
