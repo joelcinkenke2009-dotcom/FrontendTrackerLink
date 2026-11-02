@@ -64,7 +64,9 @@ onMounted(async () => {
     </div>
 
     <!-- Container Principal -->
-    <div id="principal" class="main-card">\n      <div v-if="loadError" class="empty-state" role="alert"><p>{{ loadError }}</p></div>\n      <div v-else-if="loading" class="loading-state" role="status"><div class="spinner"></div><p>Chargement des statistiques...</p></div>
+    <div id="principal" class="main-card">
+      <div v-if="loadError" class="empty-state" role="alert"><p>{{ loadError }}</p></div>
+      <div v-else-if="loading" class="loading-state" role="status"><div class="spinner"></div><p>Chargement des statistiques...</p></div>
       
       <!-- État : Bouton Connexion Meta -->
       <div v-if="!loading && !loadError && data && data.login" class="empty-state">
@@ -149,7 +151,9 @@ onMounted(async () => {
       </div>
 
       <!-- Loading State -->
-      <div v-else-if="!loading && !loadError" class="empty-state"><p>Aucune donnée exploitable n’a été retournée.</p></div>\n\n      <div v-if="false" class="loading-state">
+      <div v-else-if="!loading && !loadError" class="empty-state"><p>Aucune donnée exploitable n’a été retournée.</p></div>
+
+      <div v-if="false" class="loading-state">
         <div class="spinner"></div>
         <p>Chargement des statistiques...</p>
       </div>
