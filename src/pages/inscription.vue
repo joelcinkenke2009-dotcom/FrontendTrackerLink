@@ -16,7 +16,6 @@ const errorMessage = errorMessages[String(route.query.error || '')] || '';
 const validatePasswords = (event) => {
   if (password.value !== passwordConfirm.value) {
     event.preventDefault();
-    passwordConfirm.value = passwordConfirm.value;
     window.alert('Les mots de passe ne correspondent pas.');
   }
 };
