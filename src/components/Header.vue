@@ -84,6 +84,7 @@ onMounted(() => {
 }
 
 .hamburger-btn {
+  display: none;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -144,6 +145,7 @@ onMounted(() => {
   .logo-navbar {
     padding: 1rem 1.5rem;
   }
+  .hamburger-btn { display: flex; }
   
   .brand-title {
     font-size: 1.2rem;
@@ -152,6 +154,18 @@ onMounted(() => {
   .nav-menu {
     flex-direction: column;
     gap: 1.2rem;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    padding: 0 20px;
+    transition: max-height 0.3s ease, opacity 0.2s ease, padding 0.3s ease, visibility 0.3s;
+  }
+  .nav-menu.active {
+    max-height: 300px;
+    padding: 20px;
+    opacity: 1;
+    visibility: visible;
   }
 }
 </style>
