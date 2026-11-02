@@ -1,8 +1,8 @@
 <script setup>
-import { ref } from "vue";
+import { ref } from "vue";\nimport { useRouter } from "vue-router";
 import { apiUrl } from "@/config/env";
 
-const connect = ref([])
+const router = useRouter();\nconst connect = ref([])
 fetch(apiUrl + "/ISCONNECTED", { credentials: 'include' })
   .then(req => req.json())
   .then(res => {
@@ -42,7 +42,7 @@ const started = () => {
           <button 
             @click="started" 
             class="modern-button pulse-effect" 
-            :disabled="connect.connected"
+            
           >
             {{ connect.connected ? 'Accéder au tableau de bord' : 'Démarrer maintenant (Promo -50%)' }}
           </button>
