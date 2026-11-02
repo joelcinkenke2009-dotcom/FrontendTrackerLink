@@ -1,29 +1,14 @@
 <script setup>
+import { ref, computed } from 'vue';
+import { useRoute } from 'vue-router';
 import { apiUrl } from '@/config/env';
-import { ref } from 'vue';
-
-const view = ref(false)
-const password = ref("")
-
+const route = useRoute();
+const view = ref(false);
+const password = ref('');
+const errorMessage = computed(() => route.query.status === '403' ? 'Ce mot de passe est incorrect.' : route.query.status === '401' ? 'Cette adresse e-mail est incorrecte.' : '');
 </script>
 
-<script>
-export default {
-  data() {
-    return {
-      errorMessage: ''
-    }
-  }, mounted() {
-    const error = this.$route.query.status; 
-    if(error === "403"){
-      this.errorMessage = "Ce mot de passe est incorrecte"
-    }
-    if (error === "401") {
-      this.errorMessage = "Cette email est incorrecte"
-    }
-  }
-}
-</script>
+
 <template>
       <div class="auth-container">
     <form :action="apiUrl + '/admins/connexion'" method="post" class="auth-form">
@@ -33,16 +18,16 @@ export default {
       <br>
       <div class="form-row">
         <div class="form-group">
-          <label>Email</label>
-          <input type="email" name="email" placeholder="nom@exemple.com" required autocomplete="off">
+          <label for="admin-email">Email</label>
+          <input type="email" id="admin-email" name="email" autocomplete="username" placeholder="nom@exemple.com" required autocomplete="off">
         </div>
         <div class="form-group">
-          <label>Mot de passe</label>
-          <input :type="view ? 'text': 'password'" name="password" placeholder="********" required :minlength="8" autocomplete="off" v-model="password">
+          <label for="admin-password">Mot de passe</label>
+          <input :type="view ? 'text': 'password'" id="admin-password" name="password" autocomplete="current-password" placeholder="********" required :minlength="8" autocomplete="off" v-model="password">
         </div>
       </div>
-      <input type="checkbox" name="checs" id="" v-model="view">
-      <label>Afficher le mot de passe</label>
+      <input type="checkbox" name="checs" id="admin-show-password" v-model="view">
+      <label for="admin-show-password">Afficher le mot de passe</label>
       <button type="submit" class="btn-submit">Se connecter</button>
     </form>
     </div>
