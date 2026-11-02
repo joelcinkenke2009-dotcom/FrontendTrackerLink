@@ -12,6 +12,7 @@ const toggleNav = () => {
 const checkAuthStatus = async () => {
   try {
     const res = await fetch(`${apiUrl}/ISCONNECTED`, { credentials: 'include' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
     connect.value = await res.json();
   } catch (err) {
     console.error('Erreur lors de la vérification de connexion:', err);
@@ -42,7 +43,7 @@ onMounted(() => {
       <RouterLink to="/dashboard" class="nav-link" @click="isNavOpen = false">Link Track</RouterLink>
       
       <span v-if="connect.connected" class="nav-co">Connecté</span>
-      <RouterLink v-else to="/inscription" class="nav-link btn-connexion" @click="isNavOpen = false">
+      <RouterLink v-else to="/connexion" class="nav-link btn-connexion" @click="isNavOpen = false">
         Connexion
       </RouterLink>
     </nav>
