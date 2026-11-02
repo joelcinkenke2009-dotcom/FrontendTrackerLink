@@ -1,29 +1,46 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { metaApp, config_id, apiUrl } from "../config/env";
 
 const data = ref(null);
 const date = ref({});
+const loading = ref(true);
+const loadError = ref("");
 const appId = metaApp;
 const config = config_id;
-const redirectApp = encodeURIComponent(apiUrl+"/api/auth/facebook/callback");
+const redirectApp = encodeURIComponent(apiUrl + "/api/auth/facebook/callback");
 
 const connectMeta = () => {
-  const metaUrl = `https://www.facebook.com/v19.0/dialog/oauth?client_id=${appId}&redirect_uri=${redirectApp}&config_id=${config}&response_type=code`;
-  window.location.href = metaUrl;
+  const params = new URLSearchParams({
+    client_id: appId,
+    redirect_uri: decodeURIComponent(redirectApp),
+    config_id: config,
+    response_type: "code"
+  });
+  window.location.href = `https://www.facebook.com/v19.0/dialog/oauth?${params.toString()}`;
 };
 
-fetch(apiUrl + "/isActive", { credentials: "include" })
-  .then((req) => req.json())
-  .then((res) => {
-    date.value = res;
-  });
-
-fetch(apiUrl + "/api/facebook/response", { credentials: "include" })
-  .then((req) => req.json())
-  .then((res) => {
-    data.value = res;
-  });
+onMounted(async () => {
+  try {
+    const [subscriptionResponse, adsResponse] = await Promise.all([
+      fetch(apiUrl + "/isActive", { credentials: "include" }),
+      fetch(apiUrl + "/api/facebook/response", { credentials: "include" })
+    ]);
+    if (!subscriptionResponse.ok || !adsResponse.ok) {
+      throw new Error("Impossible de récupérer les statistiques. Vérifiez votre connexion puis réessayez.");
+    }
+    const [subscription, ads] = await Promise.all([
+      subscriptionResponse.json(),
+      adsResponse.json()
+    ]);
+    date.value = subscription || {};
+    data.value = ads;
+  } catch (error) {
+    loadError.value = error.message || "Une erreur inattendue est survenue.";
+  } finally {
+    loading.value = false;
+  }
+});
 </script>
 
 <template>
@@ -47,10 +64,10 @@ fetch(apiUrl + "/api/facebook/response", { credentials: "include" })
     </div>
 
     <!-- Container Principal -->
-    <div id="principal" class="main-card">
+    <div id="principal" class="main-card">\n      <div v-if="loadError" class="empty-state" role="alert"><p>{{ loadError }}</p></div>\n      <div v-else-if="loading" class="loading-state" role="status"><div class="spinner"></div><p>Chargement des statistiques...</p></div>
       
       <!-- État : Bouton Connexion Meta -->
-      <div v-if="data && data.login" class="empty-state">
+      <div v-if="!loading && !loadError && data && data.login" class="empty-state">
         <div class="icon-wrapper">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
@@ -64,7 +81,7 @@ fetch(apiUrl + "/api/facebook/response", { credentials: "include" })
       </div>
 
       <!-- État : Message d'information/Erreur renvoyé par le backend -->
-      <div v-else-if="data && data.message" class="empty-state">
+      <div v-else-if="!loading && !loadError && data && data.message" class="empty-state">
         <div class="icon-wrapper info-icon">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"></circle>
@@ -77,7 +94,7 @@ fetch(apiUrl + "/api/facebook/response", { credentials: "include" })
       </div>
 
       <!-- État : Tableau vide (Aucune publicité trouvée) -->
-      <div v-else-if="Array.isArray(data) && data.length === 0" class="empty-state">
+      <div v-else-if="!loading && !loadError && Array.isArray(data) && data.length === 0" class="empty-state">
         <div class="icon-wrapper neutral">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
@@ -90,7 +107,7 @@ fetch(apiUrl + "/api/facebook/response", { credentials: "include" })
       </div>
 
       <!-- État : Tableau de Données rempli -->
-      <div v-else-if="Array.isArray(data) && data.length > 0" class="table-container">
+      <div v-else-if="!loading && !loadError && Array.isArray(data) && data.length > 0" class="table-container">
         <table class="dashboard-table">
           <thead>
             <tr>
@@ -132,7 +149,7 @@ fetch(apiUrl + "/api/facebook/response", { credentials: "include" })
       </div>
 
       <!-- Loading State -->
-      <div v-else class="loading-state">
+      <div v-else-if="!loading && !loadError" class="empty-state"><p>Aucune donnée exploitable n’a été retournée.</p></div>\n\n      <div v-if="false" class="loading-state">
         <div class="spinner"></div>
         <p>Chargement des statistiques...</p>
       </div>
