@@ -101,16 +101,8 @@ onMounted(() => {
   border-radius: 0 0 20px 20px;
   background-color: #0f172a;
   padding: 0 20px;
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  visibility: hidden;
-  transition: max-height 0.3s ease-out, opacity 0.2s ease-out, padding 0.3s ease, visibility 0.3s;
-}
-
-.nav-menu.active {
-  max-height: 300px;
-  padding: 20px;
+  max-height: none;
+  overflow: visible;
   opacity: 1;
   visibility: visible;
 }
