@@ -8,6 +8,7 @@ const fraud = ref([])
 const conversions = ref([])
 const links = ref([])
 const loading = ref(true)
+const premiumRequired = ref(false)
 const error = ref('')
 const lastUpdated = ref('')
 const form = ref({ slug: '', event_name: 'purchase', value: 0, currency: 'USD' })
@@ -34,6 +35,15 @@ async function api(path, options = {}) {
 
 async function refreshAll() {
   try {
+    const planResponse = await api('/isActive')
+    const plan = await planResponse.json()
+    if (!plan.analytics_enabled) {
+      premiumRequired.value = true
+      error.value = ''
+      loading.value = false
+      return
+    }
+    premiumRequired.value = false
     const [stats, activity, quality, conv, linksResponse] = await Promise.all([
       api('/protected/analytics/summary').then(r => r.json()),
       api('/protected/analytics/live').then(r => r.json()),
@@ -115,7 +125,7 @@ onUnmounted(() => window.clearInterval(refreshTimer))
         <h1>Analytics <span>Dashboard</span></h1>
         <p class="subtitle">Comprenez vos performances, suivez vos conversions et surveillez la qualité du trafic.</p>
       </div>
-      <div class="heading-actions">
+      <div v-if="!premiumRequired" class="heading-actions">
         <span class="live-indicator"><i></i> Actualisation automatique · 15 s</span>
         <button class="report-button" @click="downloadReport">↓ Exporter le rapport</button>
       </div>
@@ -124,7 +134,23 @@ onUnmounted(() => window.clearInterval(refreshTimer))
     <p v-if="error" class="notice error" role="alert">{{ error }}</p>
     <p v-if="notice" class="notice" role="status">{{ notice }}</p>
 
-    <section class="metric-grid" aria-label="Indicateurs clés">
+    <section v-if="premiumRequired" class="panel premium-wall">
+      <p class="eyebrow">ADPULSE · ANALYTICS PREMIUM</p>
+      <h2>L'analyse est incluse dans les formules Avancé et Illimité.</h2>
+      <p>Choisissez l'offre à 19 $ pour 20 liens et 1 250 clics, ou l'offre à 59 $ pour des liens et clics illimités.</p>
+      <div class="payment-grid">
+        <form :action="apiUrl + '/paiement/initialisation3'" method="post" class="payment-plan">
+          <h3>Avancé · 19 $</h3><p>20 liens · 1 250 clics · Analytics</p>
+          <button class="report-button" type="submit">S'abonner à 17,10 $</button>
+        </form>
+        <form :action="apiUrl + '/paiement/initialisation2'" method="post" class="payment-plan">
+          <h3>Illimité · 59 $</h3><p>Liens et clics illimités · Analytics</p>
+          <button class="report-button" type="submit">S'abonner à 53,10 $</button>
+        </form>
+      </div>
+    </section>
+
+    <section v-if="!premiumRequired" class="metric-grid" aria-label="Indicateurs clés">
       <article class="metric-card primary">
         <span class="metric-icon">↗</span><p>Clics suivis</p>
         <strong>{{ Number(summary.clicks || 0).toLocaleString('fr-FR') }}</strong>
@@ -147,7 +173,7 @@ onUnmounted(() => window.clearInterval(refreshTimer))
       </article>
     </section>
 
-    <section class="analytics-columns">
+    <section v-if="!premiumRequired" class="analytics-columns">
       <article class="panel chart-panel">
         <div class="panel-heading">
           <div><p class="eyebrow">TENDANCE</p><h2>Activité sur 14 jours</h2></div>
@@ -184,7 +210,7 @@ onUnmounted(() => window.clearInterval(refreshTimer))
       </article>
     </section>
 
-    <section class="analytics-columns lower-columns">
+    <section v-if="!premiumRequired" class="analytics-columns lower-columns">
       <article class="panel fraud-panel">
         <div class="panel-heading">
           <div><p class="eyebrow">PROTECTION</p><h2>Détection intelligente</h2></div>
@@ -231,12 +257,12 @@ onUnmounted(() => window.clearInterval(refreshTimer))
       </article>
     </section>
 
-    <section class="panel report-panel">
+    <section v-if="!premiumRequired" class="panel report-panel">
       <div><p class="eyebrow">RAPPORTS</p><h2>Vos performances, prêtes à partager</h2><p class="panel-description">Export CSV des événements des 30 derniers jours : clics, conversions, paramètres UTM et signaux de trafic suspect.</p></div>
       <button class="report-button" @click="downloadReport">Générer le rapport CSV ↓</button>
     </section>
 
-    <section class="panel conversion-history">
+    <section v-if="!premiumRequired" class="panel conversion-history">
       <div class="panel-heading"><div><p class="eyebrow">RÉSULTATS</p><h2>Dernières conversions</h2></div><span class="panel-tag">{{ conversions.length }} événement(s)</span></div>
       <div v-if="conversions.length" class="history-table">
         <div class="history-head"><span>Lien</span><span>Événement</span><span>Valeur</span><span>Date</span></div>
@@ -259,4 +285,12 @@ onUnmounted(() => window.clearInterval(refreshTimer))
 .report-panel{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:16px;background:linear-gradient(110deg,#f8faff,#fff)}.report-panel .panel-description{max-width:680px}.history-table{width:100%;overflow-x:auto}.history-head,.history-row{min-width:580px;display:grid;grid-template-columns:1.2fr 1fr .8fr 1fr;gap:12px;padding:12px 8px;border-bottom:1px solid #f0f2f7;font-size:11px}.history-head{font-size:9px;color:#8c98ac;text-transform:uppercase;font-weight:800;letter-spacing:.8px}.history-row span,.history-row time{color:#66748d}.history-row strong{color:#20345e}.empty-state{padding:28px 12px;text-align:center;color:#9aa4b5;font-size:12px;line-height:1.6}.analytics-footer{text-align:center;color:#9aa4b5;font-size:10px;margin-top:28px}.analytics-footer span{color:#66748d}
 @media(max-width:900px){.metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.analytics-columns{grid-template-columns:1fr}.analytics-heading{align-items:flex-start;flex-direction:column}.heading-actions{width:100%;justify-content:space-between}}
 @media(max-width:560px){.analytics-page{padding:25px 13px 38px}.metric-card{padding:15px}.metric-card strong{font-size:25px}.panel{padding:17px}.report-panel{align-items:flex-start;flex-direction:column}.report-panel .report-button{width:100%}.heading-actions{align-items:flex-start;flex-direction:column}.bar-chart{gap:5px}.bar-column small{font-size:8px}}
+
+.premium-wall { margin: 18px 0; }
+.premium-wall h2 { font-size: 21px; margin: 8px 0; color: #20345e; }
+.premium-wall > p:not(.eyebrow) { color: #71809b; line-height: 1.6; }
+.premium-wall .payment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 18px; }
+.premium-wall .payment-plan { padding: 18px; border: 1px solid var(--line); border-radius: 12px; background: #f8faff; }
+.premium-wall .payment-plan h3 { margin: 0 0 8px; color: #20345e; }
+.premium-wall .payment-plan p { color: #71809b; font-size: 12px; }
 </style>

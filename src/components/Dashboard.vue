@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { apiUrl } from '@/config/env';
 
@@ -10,6 +10,10 @@ const data = ref([]);
 const url = ref('');
 const modify = ref(false);
 const date = ref({});
+const subscription = ref({ plan: 'free', links_limit: 1, links_used: 0, clicks_limit: 30, clicks_used: 0, analytics_enabled: false });
+const linksLimitReached = computed(() => subscription.value.links_limit >= 0 && data.value.length >= subscription.value.links_limit);
+const clicksLimitReached = computed(() => subscription.value.clicks_limit >= 0 && Number(subscription.value.clicks_used || 0) >= subscription.value.clicks_limit);
+const showUpgrade = computed(() => linksLimitReached.value || clicksLimitReached.value);
 const verify = ref(false);
 const message = ref('');
 const copied = ref('');
@@ -21,6 +25,7 @@ const fetchDate = async () => {
     const res = await fetch(`${apiUrl}/isActive`, { credentials: 'include' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     date.value = await res.json();
+    subscription.value = date.value;
   } catch (err) {
     console.error('Erreur fetchDate:', err);
     loadError.value = 'Impossible de récupérer le statut de votre abonnement.';
@@ -100,25 +105,35 @@ onMounted(async () => {
     '500': 'Ce lien a déjà été enregistré',
     '200': 'Le lien est valide',
     '404': 'Le lien est invalide',
-    '409': 'Timeout'
+    '409': 'Timeout',
+    'links': 'La limite de liens de votre formule est atteinte.',
+    'success': 'Votre abonnement a été activé avec succès.',
+    'failed': 'Le paiement n’a pas été confirmé.',
+    'error': 'Impossible de vérifier le paiement.'
   };
 
   if (status && statusMessages[status]) {
     alert(statusMessages[status]);
   }
+  if (route.query.limit === 'links') alert(statusMessages.links);
+  if (route.query.payment && statusMessages[route.query.payment]) alert(statusMessages[route.query.payment]);
 });
 </script>
 
 <template>
   <div id="principal" class="main-wrapper" style="min-height: 65vh;">
     <p v-if="loadError" class="dashboard-error" role="alert">{{ loadError }}</p>
+    <div v-if="subscription.plan" class="alert-banner success">
+      Offre {{ subscription.plan }} · {{ subscription.links_limit < 0 ? 'Liens illimités' : subscription.links_used + '/' + subscription.links_limit + ' liens' }}
+      · {{ subscription.clicks_limit < 0 ? 'Clics illimités' : subscription.clicks_used + '/' + subscription.clicks_limit + ' clics' }}
+      <span v-if="date.date_limite"> · valable jusqu'au {{ date.date_limite }}</span>
+    </div>
+    <div v-if="showUpgrade" class="alert-banner danger">
+      Votre quota est atteint. Choisissez une formule supérieure pour continuer à créer des liens ou compter les clics.
+    </div>
+
     <!-- Statut d'abonnement -->
-    <h4 v-if="date.date_limite" class="alert-banner success">
-      Votre abonnement est valide jusqu'au {{ date.date_limite }}
-    </h4>
-    <h4 v-else-if="date.expire" class="alert-banner danger">
-      Votre abonnement a expiré depuis le {{ date.expire }}
-    </h4>
+
 
     <!-- Formulaire principal de création -->
     <div class="card form-section">
@@ -132,9 +147,9 @@ onMounted(async () => {
             placeholder="Entrez votre lien (ex: google.com)"
             class="modern-input"
             autocomplete="off"
-            :disabled="!!data.Paiement"
+            :disabled="linksLimitReached"
           >
-          <button class="modern-button" :disabled="!!data.Paiement || !!data.login" type="submit">
+          <button class="modern-button" :disabled="linksLimitReached || !!data.login" type="submit">
             Créer un lien
           </button>
         </div>
@@ -148,30 +163,30 @@ onMounted(async () => {
       <a href="/inscription" class="button" style="text-decoration: none;">Commencer maintenant</a>
     </div>
 
-    <div v-else-if="data.Paiement" class="card payment-options">
-      <h3>{{ data.Paiement }}</h3>
+    <div v-if="showUpgrade" class="card payment-options">
+      <h3>{{ clicksLimitReached ? 'Votre quota de clics est atteint.' : 'Votre quota de liens est atteint.' }}</h3>
       <p class="payment-intro">Choisissez la formule qui correspond à vos besoins.</p>
       <div class="payment-grid">
         <form :action="`${apiUrl}/paiement/initialisation`" method="post" class="payment-plan">
           <h4>Formule standard</h4>
           <p><s>9 $</s> <strong>8,10 $</strong> <small>— 10 % de réduction</small></p>
-          <button class="button" type="submit">Activer à 8,10 $</button>
+          <p>5 liens · 350 clics</p><button class="button" type="submit">Choisir Standard · 8,10 $</button>
         </form>
         <form :action="`${apiUrl}/paiement/initialisation2`" method="post" class="payment-plan">
-          <h4>Formule avancée</h4>
+          <h4>Formule illimitée</h4>
           <p><s>59 $</s> <strong>53,10 $</strong> <small>— 10 % de réduction</small></p>
-          <button class="button" type="submit">Activer à 53,10 $</button>
+          <p>Liens et clics illimités · Analytics</p><button class="button" type="submit">Choisir Illimité · 53,10 $</button>
         </form>
         <form :action="`${apiUrl}/paiement/initialisation3`" method="post" class="payment-plan">
-          <h4>Formule essentielle</h4>
+          <h4>Formule avancée</h4>
           <p><s>19 $</s> <strong>17,10 $</strong> <small>— 10 % de réduction</small></p>
-          <button class="button" type="submit">Activer à 17,10 $</button>
+          <p>20 liens · 1 250 clics · accès Analytics</p><button class="button" type="submit">Choisir Avancé · 17,10 $</button>
         </form>
       </div>
     </div>
 
     <!-- Affichage principal des données -->
-    <div v-else>
+    <div>
       <div>
         <button class="modern-button" style="margin-bottom: 25px;" @click="activeModify">
           Modifier

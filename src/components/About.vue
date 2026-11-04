@@ -180,10 +180,20 @@ const started = () => {
           </ul>
         </div>
 
+        <!-- Formule gratuite -->
+        <div class="feature-card billing-card">
+          <div class="icon-wrapper green-bg">🆓</div>
+          <h3 class="feature-title">Gratuit · 1 lien</h3>
+          <p class="feature-text">Créez un lien et suivez jusqu'à 30 clics. Sans accès aux analyses avancées.</p>
+          <span class="tag-promo">Pour commencer</span>
+          <button class="billing-button" type="button" @click="started">Commencer gratuitement</button>
+        </div>
+
         <!-- Tarification et accès direct au checkout -->
         <div class="feature-card highlight-card billing-card">
           <div class="icon-wrapper emerald-bg">💼</div>
-          <h3 class="feature-title">Formule standard</h3>
+          <h3 class="feature-title">Standard · 5 liens</h3>
+          <p class="feature-text">Jusqu’à 350 clics par période de 30 jours.</p>
           <p class="billing-price"><s>9 $</s> <strong>8,10 $</strong></p>
           <span class="tag-promo">10 % de réduction</span>
           <form :action="`${apiUrl}/paiement/initialisation`" method="post">
@@ -193,21 +203,23 @@ const started = () => {
 
         <div class="feature-card highlight-card billing-card">
           <div class="icon-wrapper blue-bg">🚀</div>
-          <h3 class="feature-title">Formule avancée</h3>
+          <h3 class="feature-title">Illimité · Analytics</h3>
+          <p class="feature-text">Liens et clics illimités avec accès complet aux analyses.</p>
           <p class="billing-price"><s>59 $</s> <strong>53,10 $</strong></p>
           <span class="tag-promo">10 % de réduction</span>
           <form :action="`${apiUrl}/paiement/initialisation2`" method="post">
-            <button class="billing-button" type="submit">Choisir la formule avancée</button>
+            <button class="billing-button" type="submit">Choisir Illimité</button>
           </form>
         </div>
 
         <div class="feature-card highlight-card billing-card">
           <div class="icon-wrapper purple-bg">⚡</div>
-          <h3 class="feature-title">Formule essentielle</h3>
+          <h3 class="feature-title">Avancé · Analytics</h3>
+          <p class="feature-text">20 liens, 1 250 clics par période de 30 jours et accès aux analyses.</p>
           <p class="billing-price"><s>19 $</s> <strong>17,10 $</strong></p>
           <span class="tag-promo">10 % de réduction</span>
           <form :action="`${apiUrl}/paiement/initialisation3`" method="post">
-            <button class="billing-button" type="submit">Choisir la formule essentielle</button>
+            <button class="billing-button" type="submit">Choisir Avancé</button>
           </form>
         </div>
       </div>
