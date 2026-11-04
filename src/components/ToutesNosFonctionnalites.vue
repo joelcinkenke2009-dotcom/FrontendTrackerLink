@@ -45,7 +45,7 @@ const accessDashboard = () => {
           @click="openWhatsApp" 
           class="modern-button whatsapp-cta" 
         >
-          💬 Réserver mon diagnostic gratuit sur WhatsApp
+          💬 Découvrir TrackerLink et profiter de mon offre sur WhatsApp
         </button>
 
         <button 
@@ -209,7 +209,7 @@ const accessDashboard = () => {
 
           <div class="why-cta-wrapper">
             <button @click="openWhatsApp" class="modern-button whatsapp-cta">
-              Démarrer mon accompagnement à 100 $ / mois →
+              Profiter de mon offre TrackerLink sur WhatsApp →
             </button>
           </div>
         </div>
