@@ -298,4 +298,53 @@ onUnmounted(() => window.clearInterval(refreshTimer))
 .premium-wall .payment-plan { padding: 18px; border: 1px solid var(--line); border-radius: 12px; background: #f8faff; }
 .premium-wall .payment-plan h3 { margin: 0 0 8px; color: #20345e; }
 .premium-wall .payment-plan p { color: #71809b; font-size: 12px; }
+
+/* Correctifs responsive dédiés à la page Analytics */
+.analytics-page{width:100%;min-width:0;max-width:1440px;overflow-x:clip}
+.analytics-heading,.analytics-columns,.metric-grid,.panel,.metric-card{min-width:0}
+.analytics-heading h1,.subtitle,.panel h2,.panel-description{overflow-wrap:anywhere}
+.metric-card{min-width:0}
+.bar-chart{max-width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scrollbar-width:thin}
+.bar-column{flex:0 0 28px}
+.history-table{max-width:100%;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+.conversion-form,.conversion-form label,.conversion-form input,.conversion-form select{min-width:0;max-width:100%}
+@media(max-width:640px){
+  .analytics-page{padding:22px 14px 34px}
+  .analytics-heading{gap:14px;margin-bottom:20px}
+  .analytics-heading h1{font-size:clamp(25px,7vw,34px);line-height:1.12;letter-spacing:-1px}
+  .subtitle{font-size:13px;line-height:1.55}
+  .heading-actions{gap:11px}
+  .heading-actions .report-button{width:100%;min-height:44px}
+  .metric-grid{grid-template-columns:minmax(0,1fr);gap:10px;margin-bottom:12px}
+  .metric-card{padding:16px;display:grid;grid-template-columns:36px minmax(0,1fr);column-gap:10px;align-items:center}
+  .metric-card .metric-icon{grid-row:1 / span 3}
+  .metric-card p{margin:0 0 2px;overflow-wrap:anywhere}
+  .metric-card strong{font-size:26px;line-height:1.1}
+  .metric-card small{margin-top:3px;overflow-wrap:anywhere}
+  .analytics-columns{grid-template-columns:minmax(0,1fr);gap:12px;margin-bottom:12px}
+  .panel{padding:16px;border-radius:14px}
+  .panel-heading{align-items:flex-start;gap:8px;margin-bottom:14px}
+  .panel-heading h2,.report-panel h2{font-size:16px;line-height:1.3}
+  .panel-tag{white-space:normal;text-align:right;max-width:45%}
+  .bar-chart{height:190px;gap:7px;padding-top:10px}
+  .bar-track{height:130px}
+  .bar-column small{font-size:9px}
+  .activity-row{gap:8px}
+  .activity-row time{font-size:9px}
+  .form-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+  .conversion-form input,.conversion-form select{font-size:12px;padding:10px 8px}
+  .submit-button,.report-panel .report-button{width:100%;min-height:44px;white-space:normal}
+  .report-panel{gap:14px}
+  .history-head,.history-row{min-width:540px}
+  .analytics-footer{padding-inline:8px;line-height:1.6}
+}
+@media(max-width:380px){
+  .analytics-page{padding-inline:10px}
+  .panel{padding:13px}
+  .metric-card{padding:14px}
+  .form-row{grid-template-columns:minmax(0,1fr)}
+  .panel-heading{flex-wrap:wrap}
+  .panel-tag{max-width:100%;text-align:left}
+}
+
 </style>
