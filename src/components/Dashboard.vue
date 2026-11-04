@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { apiUrl } from '@/config/env';
 
@@ -10,6 +10,10 @@ const data = ref([]);
 const url = ref('');
 const modify = ref(false);
 const date = ref({});
+const subscription = ref({ plan: 'free', links_limit: 1, links_used: 0, clicks_limit: 30, clicks_used: 0, analytics_enabled: false });
+const linksLimitReached = computed(() => subscription.value.links_limit >= 0 && data.value.length >= subscription.value.links_limit);
+const clicksLimitReached = computed(() => subscription.value.clicks_limit >= 0 && Number(subscription.value.clicks_used || 0) >= subscription.value.clicks_limit);
+const showUpgrade = computed(() => linksLimitReached.value || clicksLimitReached.value);
 const verify = ref(false);
 const message = ref('');
 const copied = ref('');
@@ -21,6 +25,7 @@ const fetchDate = async () => {
     const res = await fetch(`${apiUrl}/isActive`, { credentials: 'include' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     date.value = await res.json();
+    subscription.value = date.value;
   } catch (err) {
     console.error('Erreur fetchDate:', err);
     loadError.value = 'Impossible de récupérer le statut de votre abonnement.';
@@ -132,9 +137,9 @@ onMounted(async () => {
             placeholder="Entrez votre lien (ex: google.com)"
             class="modern-input"
             autocomplete="off"
-            :disabled="!!data.Paiement"
+            :disabled="linksLimitReached"
           >
-          <button class="modern-button" :disabled="!!data.Paiement || !!data.login" type="submit">
+          <button class="modern-button" :disabled="linksLimitReached || !!data.login" type="submit">
             Créer un lien
           </button>
         </div>
