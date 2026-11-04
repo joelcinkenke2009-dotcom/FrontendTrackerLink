@@ -117,6 +117,15 @@ onMounted(async () => {
 <template>
   <div id="principal" class="main-wrapper" style="min-height: 65vh;">
     <p v-if="loadError" class="dashboard-error" role="alert">{{ loadError }}</p>
+    <div v-if="subscription.plan" class="alert-banner success">
+      Offre {{ subscription.plan }} · {{ subscription.links_limit < 0 ? 'Liens illimités' : subscription.links_used + '/' + subscription.links_limit + ' liens' }}
+      · {{ subscription.clicks_limit < 0 ? 'Clics illimités' : subscription.clicks_used + '/' + subscription.clicks_limit + ' clics' }}
+      <span v-if="date.date_limite"> · valable jusqu'au {{ date.date_limite }}</span>
+    </div>
+    <div v-if="showUpgrade" class="alert-banner danger">
+      Votre quota est atteint. Choisissez une formule supérieure pour continuer à créer des liens ou compter les clics.
+    </div>
+
     <!-- Statut d'abonnement -->
     <h4 v-if="date.date_limite" class="alert-banner success">
       Votre abonnement est valide jusqu'au {{ date.date_limite }}
@@ -153,30 +162,30 @@ onMounted(async () => {
       <a href="/inscription" class="button" style="text-decoration: none;">Commencer maintenant</a>
     </div>
 
-    <div v-else-if="data.Paiement" class="card payment-options">
+    <div v-if="showUpgrade" class="card payment-options">
       <h3>{{ data.Paiement }}</h3>
       <p class="payment-intro">Choisissez la formule qui correspond à vos besoins.</p>
       <div class="payment-grid">
         <form :action="`${apiUrl}/paiement/initialisation`" method="post" class="payment-plan">
           <h4>Formule standard</h4>
           <p><s>9 $</s> <strong>8,10 $</strong> <small>— 10 % de réduction</small></p>
-          <button class="button" type="submit">Activer à 8,10 $</button>
+          <p>5 liens · 350 clics</p><button class="button" type="submit">Choisir Standard · 8,10 $</button>
         </form>
         <form :action="`${apiUrl}/paiement/initialisation2`" method="post" class="payment-plan">
-          <h4>Formule avancée</h4>
+          <h4>Formule illimitée</h4>
           <p><s>59 $</s> <strong>53,10 $</strong> <small>— 10 % de réduction</small></p>
-          <button class="button" type="submit">Activer à 53,10 $</button>
+          <p>Liens et clics illimités · Analytics</p><button class="button" type="submit">Choisir Illimité · 53,10 $</button>
         </form>
         <form :action="`${apiUrl}/paiement/initialisation3`" method="post" class="payment-plan">
-          <h4>Formule essentielle</h4>
+          <h4>Formule avancée</h4>
           <p><s>19 $</s> <strong>17,10 $</strong> <small>— 10 % de réduction</small></p>
-          <button class="button" type="submit">Activer à 17,10 $</button>
+          <p>20 liens · 1 250 clics · accès Analytics</p><button class="button" type="submit">Choisir Avancé · 17,10 $</button>
         </form>
       </div>
     </div>
 
     <!-- Affichage principal des données -->
-    <div v-else>
+    <div>
       <div>
         <button class="modern-button" style="margin-bottom: 25px;" @click="activeModify">
           Modifier
