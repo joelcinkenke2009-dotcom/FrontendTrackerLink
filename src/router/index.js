@@ -5,6 +5,7 @@ import GuideTraqueur from '@/components/GuideTraqueur.vue'
 import ToutesNosFonctionnalites from '@/components/ToutesNosFonctionnalites.vue'
 import TrucsEtAstuces from '@/components/TrucsEtAstuces.vue'
 import DashboardAdmins from '@/components/DashboardAdmins.vue'
+import Analytics from '@/components/Analytics.vue'
 import Connexion from '@/pages/Connexion.vue'
 import Inscription from '@/pages/inscription.vue'
 import { createRouter, createWebHistory } from 'vue-router'
@@ -31,6 +32,11 @@ const router = createRouter({
       path:"/dashboard",
       name:"principalPage",
       component: Dashboard
+    },
+    {
+      path: "/analytics",
+      name: "analytics",
+      component: Analytics
     },
     {
       path:"/connexion/admins",
