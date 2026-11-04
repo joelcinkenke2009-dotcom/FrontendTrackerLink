@@ -27,8 +27,9 @@ const chartBars = computed(() => summary.value.daily.map(item => ({
 async function api(path, options = {}) {
   const response = await fetch(`${apiUrl}${path}`, { credentials: 'include', ...options })
   if (!response.ok) {
-    if (response.status === 401) throw new Error('Votre session a expiré. Reconnectez-vous pour consulter vos statistiques.')
-    throw new Error(`Erreur serveur (${response.status})`)
+    if (response.status === 401) throw new Error(`${path} : votre session a expiré. Reconnectez-vous.`)
+    const detail = (await response.clone().text()).trim().replace(/\\s+/g, ' ').slice(0, 180)
+    throw new Error(`${path} → HTTP ${response.status}${detail ? ` : ${detail}` : ''}`)
   }
   return response
 }
@@ -44,20 +45,24 @@ async function refreshAll() {
       return
     }
     premiumRequired.value = false
-    const [stats, activity, quality, conv, linksResponse] = await Promise.all([
-      api('/protected/analytics/summary').then(r => r.json()),
-      api('/protected/analytics/live').then(r => r.json()),
-      api('/protected/analytics/fraud').then(r => r.json()),
-      api('/protected/analytics/conversions').then(r => r.json()),
-      api('/protected/data').then(r => r.json())
-    ])
-    summary.value = stats
-    live.value = activity.events || []
-    fraud.value = quality.alerts || []
-    conversions.value = conv.conversions || []
-    links.value = Array.isArray(linksResponse) ? linksResponse : []
+    const requests = [
+      ['statistiques', api('/protected/analytics/summary').then(r => r.json()), data => { summary.value = data }],
+      ['activité', api('/protected/analytics/live').then(r => r.json()), data => { live.value = data.events || [] }],
+      ['trafic suspect', api('/protected/analytics/fraud').then(r => r.json()), data => { fraud.value = data.alerts || [] }],
+      ['conversions', api('/protected/analytics/conversions').then(r => r.json()), data => { conversions.value = data.conversions || [] }],
+      ['liens', api('/protected/data').then(r => r.json()), data => { links.value = Array.isArray(data) ? data : [] }]
+    ]
+    const results = await Promise.allSettled(requests.map(item => item[1]))
+    const failures = []
+    results.forEach((result, index) => {
+      if (result.status === 'fulfilled') requests[index][2](result.value)
+      else failures.push(`${requests[index][0]} : ${result.reason?.message || 'erreur inconnue'}`)
+    })
+    error.value = failures.length
+      ? `Certaines données Analytics sont indisponibles : ${failures.join(' | ')}`
+      : ''
     lastUpdated.value = new Date().toLocaleTimeString('fr-FR')
-    error.value = ''
+    if (!error.value) error.value = ''
   } catch (err) {
     error.value = err.message || 'Impossible de charger les analyses.'
   } finally {
