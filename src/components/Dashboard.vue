@@ -153,16 +153,19 @@ onMounted(async () => {
       <p class="payment-intro">Choisissez la formule qui correspond à vos besoins.</p>
       <div class="payment-grid">
         <form :action="`${apiUrl}/paiement/initialisation`" method="post" class="payment-plan">
-          <h4>Abonnement standard</h4>
-          <button class="button" type="submit">Souscrire maintenant</button>
+          <h4>Formule standard</h4>
+          <p><s>9 $</s> <strong>8,10 $</strong> <small>— 10 % de réduction</small></p>
+          <button class="button" type="submit">Activer à 8,10 $</button>
         </form>
         <form :action="`${apiUrl}/paiement/initialisation2`" method="post" class="payment-plan">
-          <h4>Formule 59 $</h4>
-          <button class="button" type="submit">Payer 59 $</button>
+          <h4>Formule avancée</h4>
+          <p><s>59 $</s> <strong>53,10 $</strong> <small>— 10 % de réduction</small></p>
+          <button class="button" type="submit">Activer à 53,10 $</button>
         </form>
         <form :action="`${apiUrl}/paiement/initialisation3`" method="post" class="payment-plan">
-          <h4>Formule 19 $</h4>
-          <button class="button" type="submit">Payer 19 $</button>
+          <h4>Formule essentielle</h4>
+          <p><s>19 $</s> <strong>17,10 $</strong> <small>— 10 % de réduction</small></p>
+          <button class="button" type="submit">Activer à 17,10 $</button>
         </form>
       </div>
     </div>
