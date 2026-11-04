@@ -148,11 +148,21 @@ onMounted(async () => {
       <a href="/inscription" class="button" style="text-decoration: none;">Commencer maintenant</a>
     </div>
 
-    <div v-else-if="data.Paiement" class="card">
+    <div v-else-if="data.Paiement" class="card payment-options">
       <h3>{{ data.Paiement }}</h3>
-      <div style="display: flex; justify-content: flex-end;">
-        <form :action="`${apiUrl}/paiement/initialisation`" method="post">
+      <p class="payment-intro">Choisissez la formule qui correspond à vos besoins.</p>
+      <div class="payment-grid">
+        <form :action="`${apiUrl}/paiement/initialisation`" method="post" class="payment-plan">
+          <h4>Abonnement standard</h4>
           <button class="button" type="submit">Souscrire maintenant</button>
+        </form>
+        <form :action="`${apiUrl}/paiement/initialisation2`" method="post" class="payment-plan">
+          <h4>Formule 59 $</h4>
+          <button class="button" type="submit">Payer 59 $</button>
+        </form>
+        <form :action="`${apiUrl}/paiement/initialisation3`" method="post" class="payment-plan">
+          <h4>Formule 19 $</h4>
+          <button class="button" type="submit">Payer 19 $</button>
         </form>
       </div>
     </div>
@@ -292,6 +302,10 @@ onMounted(async () => {
   flex-direction: column;
 }
 
+.payment-intro { color: #64748b; margin: 8px 0 18px; }
+.payment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+.payment-plan { display: flex; flex-direction: column; justify-content: space-between; gap: 14px; padding: 18px; border: 1px solid #dbe3ef; border-radius: 12px; background: #f8fafc; }
+.payment-plan h4 { margin: 0; color: #1e293b; }
 .button {
   background: #3b82f6;
   color: white;
