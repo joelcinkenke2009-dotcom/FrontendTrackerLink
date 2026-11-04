@@ -28,14 +28,14 @@ const started = () => {
     <!-- Hero Section -->
     <section class="hero-card">
       <div class="hero-badge">
-        <span class="pulse-dot"></span> Traqueur de liens minimaliste adapté pour l'Afrique
+        <span class="pulse-dot"></span> Le suivi de vos campagnes, sans complexité
       </div>
       <h1 class="hero-title">📊 Ad<span class="brand-blue">Pulse</span></h1>
       <p class="hero-subtitle">
-        L'outil de suivi de lien simple et minimaliste avec un tableau de bord clair.
+        Comprenez vos clics. Améliorez vos campagnes. Développez vos ventes.
       </p>
       <p class="hero-description">
-        Suivez, analysez et pilotez vos liens d'acquisition en temps réel. Ne perdez plus vos likes sur vos campagnes publicitaires (Meta, Google, TikTok, YouTube, etc.) lors des changements d'URL et identifiez précisément les canaux qui vous apportent des clients rentables.
+        AdPulse vous aide à savoir d'où viennent vos visiteurs, quels liens attirent l'attention et quelles campagnes génèrent des résultats. Gardez un lien stable dans vos publicités et changez sa destination quand vous en avez besoin, sans modifier l'annonce.
       </p>
       
       <div class="hero-action">
@@ -48,7 +48,7 @@ const started = () => {
             {{ connect.connected ? 'Accéder au tableau de bord' : 'Découvrir les abonnements (-10 %)' }}
           </button>
           <a href="https://adauditor.netlify.app/guideAstuces" target="_blank" class="sub-cta-link">
-            ✨ Savoir ce que vous gagnez en nous choisissant →
+            ✨ Voir les avantages concrets d'AdPulse →
           </a>
         </div>
         
@@ -57,7 +57,7 @@ const started = () => {
           target="_blank" 
           class="whatsapp-direct-button"
         >
-          📲 Payer par Mobile Money via WhatsApp
+          📲 Une question ? Écrivez-nous sur WhatsApp
         </a>
       </div>
 
@@ -66,7 +66,7 @@ const started = () => {
         <div class="payment-methods">
           💳 Carte Bancaire • 📱 Mobile Money (Wave, Orange, MTN, M-Pesa)
         </div>
-        <span class="guarantee-badge">🔒 Satisfait ou remboursé</span>
+        <span class="guarantee-badge">🔒 Paiement via le checkout sécurisé</span>
       </div>
 
       <!-- APERÇU DU DASHBOARD EN HERO -->
@@ -80,7 +80,7 @@ const started = () => {
         <div class="preview-body">
           <div class="dashboard-mockup">
             <div class="mockup-bar">
-              <span class="mockup-label">Entrez votre lien de destination :</span>
+              <span class="mockup-label">Collez l'adresse de votre page :</span>
               <div class="mockup-input-group">
                 <input type="text" readonly value="https://votre-site.com/page-de-vente" class="mockup-input" />
                 <button class="mockup-btn">Créer un lien</button>
@@ -88,8 +88,8 @@ const started = () => {
             </div>
             <div class="mockup-table">
               <div class="table-row header">
-                <span>Lien Traqué</span>
-                <span>Clicks Total</span>
+                <span>Lien suivi</span>
+                <span>Clics au total</span>
                 <span>Mobile</span>
                 <span>PC</span>
                 <span>Actions</span>
@@ -144,7 +144,7 @@ const started = () => {
         <!-- Carte 1 -->
         <div class="feature-card">
           <div class="icon-wrapper blue-bg">📡</div>
-          <h3 class="feature-title">Tracking Avancé & Attributs</h3>
+          <h3 class="feature-title">Comprenez d'où viennent vos visiteurs</h3>
           <p class="feature-text">
             Traquez l'origine précise de chaque clic. Identifiez en un clin d'œil les canaux, visuels et campagnes qui génèrent le plus de conversions réelles.
           </p>
@@ -153,7 +153,7 @@ const started = () => {
         <!-- Carte 2 -->
         <div class="feature-card">
           <div class="icon-wrapper yellow-bg">⚡</div>
-          <h3 class="feature-title">Redirection Dynamique à la Volée</h3>
+          <h3 class="feature-title">Changez de destination sans refaire vos publicités</h3>
           <p class="feature-text">
             Modifiez la destination cible de vos liens de tracking à tout moment, sans retoucher vos publicités actives ni perdre votre "Social Proof" (likes et commentaires).
           </p>
@@ -162,7 +162,7 @@ const started = () => {
         <!-- Carte 3 -->
         <div class="feature-card">
           <div class="icon-wrapper purple-bg">📱</div>
-          <h3 class="feature-title">Routage Intelligent (Smart Routing)</h3>
+          <h3 class="feature-title">Une expérience adaptée à chaque appareil</h3>
           <p class="feature-text">
             Le traqueur détecte l'appareil au moment du clic : redirigez automatiquement les utilisateurs Mobile vers une landing page dédiée et le Desktop vers votre site principal.
           </p>
@@ -171,19 +171,19 @@ const started = () => {
         <!-- Carte 4 : Simplicité -->
         <div class="feature-card highlight-card">
           <div class="icon-wrapper green-bg">✨</div>
-          <h3 class="feature-title">Tableau de Bord Intuitif</h3>
-          <p class="feature-text">Une interface minimaliste conçue pour aller à l'essentiel :</p>
+          <h3 class="feature-title">Toutes vos performances au même endroit</h3>
+          <p class="feature-text">Retrouvez l'essentiel pour décider plus facilement :</p>
           <ul class="feature-list">
-            <li>✓ Configuration de vos premiers liens en 3 min</li>
-            <li>✓ Visualisation instantanée de vos clics</li>
-            <li>✓ Aucune compétence technique requise</li>
+            <li>✓ Créez votre premier lien en quelques étapes</li>
+            <li>✓ Consultez vos clics au même endroit</li>
+            <li>✓ Utilisation simple, sans expertise technique</li>
           </ul>
         </div>
 
         <!-- Formule gratuite -->
         <div class="feature-card billing-card">
           <div class="icon-wrapper green-bg">🆓</div>
-          <h3 class="feature-title">Gratuit · 1 lien</h3>
+          <h3 class="feature-title">Gratuit · Pour découvrir AdPulse</h3>
           <p class="feature-text">Créez un lien et suivez jusqu'à 30 clics. Sans accès aux analyses avancées.</p>
           <span class="tag-promo">Pour commencer</span>
           <button class="billing-button" type="button" @click="started">Commencer gratuitement</button>
@@ -192,7 +192,7 @@ const started = () => {
         <!-- Tarification et accès direct au checkout -->
         <div class="feature-card highlight-card billing-card">
           <div class="icon-wrapper emerald-bg">💼</div>
-          <h3 class="feature-title">Standard · 5 liens</h3>
+          <h3 class="feature-title">Standard · Pour suivre vos campagnes</h3>
           <p class="feature-text">Jusqu’à 350 clics par période de 30 jours.</p>
           <p class="billing-price"><s>9 $</s> <strong>8,10 $</strong></p>
           <span class="tag-promo">10 % de réduction</span>
@@ -203,7 +203,7 @@ const started = () => {
 
         <div class="feature-card highlight-card billing-card">
           <div class="icon-wrapper blue-bg">🚀</div>
-          <h3 class="feature-title">Illimité · Analytics</h3>
+          <h3 class="feature-title">Illimité · Pour aller plus loin</h3>
           <p class="feature-text">Liens et clics illimités avec accès complet aux analyses.</p>
           <p class="billing-price"><s>59 $</s> <strong>53,10 $</strong></p>
           <span class="tag-promo">10 % de réduction</span>
@@ -214,7 +214,7 @@ const started = () => {
 
         <div class="feature-card highlight-card billing-card">
           <div class="icon-wrapper purple-bg">⚡</div>
-          <h3 class="feature-title">Avancé · Analytics</h3>
+          <h3 class="feature-title">Avancé · Pour mieux décider</h3>
           <p class="feature-text">20 liens, 1 250 clics par période de 30 jours et accès aux analyses.</p>
           <p class="billing-price"><s>19 $</s> <strong>17,10 $</strong></p>
           <span class="tag-promo">10 % de réduction</span>
@@ -311,7 +311,7 @@ const started = () => {
     <section class="why-card">
       <div class="why-content">
         <div class="why-text">
-          <h2>🚀 Pourquoi utiliser un traqueur dynamique ?</h2>
+          <h2>🚀 Gardez la maîtrise de vos liens publicitaires</h2>
           <p>
             Changer l'URL d'une publicité active (sur Meta, Google, TikTok, etc.) casse l'apprentissage des algorithmes, réinitialise la campagne et détruit les interactions accumulées.
           </p>
@@ -321,7 +321,7 @@ const started = () => {
 
           <div class="why-cta-wrapper">
             <button @click="started" class="modern-button secondary">
-              Choisir mon abonnement AdPulse →
+              Commencer à mieux suivre mes campagnes →
             </button>
           </div>
         </div>

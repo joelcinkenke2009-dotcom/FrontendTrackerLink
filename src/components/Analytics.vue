@@ -126,13 +126,13 @@ onUnmounted(() => window.clearInterval(refreshTimer))
   <main class="analytics-page">
     <section class="analytics-heading">
       <div>
-        <p class="eyebrow">ADPULSE · INTELLIGENCE</p>
-        <h1>Analytics <span>Dashboard</span></h1>
-        <p class="subtitle">Comprenez vos performances, suivez vos conversions et surveillez la qualité du trafic.</p>
+        <p class="eyebrow">ADPULSE · VOS RÉSULTATS</p>
+        <h1>Vos résultats, en toute clarté</h1>
+        <p class="subtitle">Voyez ce qui attire des visiteurs, ce qui déclenche des actions et où améliorer vos campagnes.</p>
       </div>
       <div v-if="!premiumRequired" class="heading-actions">
-        <span class="live-indicator"><i></i> Actualisation automatique · 15 s</span>
-        <button class="report-button" @click="downloadReport">↓ Exporter le rapport</button>
+        <span class="live-indicator"><i></i> Mise à jour automatique</span>
+        <button class="report-button" @click="downloadReport">↓ Télécharger mon rapport</button>
       </div>
     </section>
 
@@ -141,8 +141,8 @@ onUnmounted(() => window.clearInterval(refreshTimer))
 
     <section v-if="premiumRequired" class="panel premium-wall">
       <p class="eyebrow">ADPULSE · ANALYTICS PREMIUM</p>
-      <h2>L'analyse est incluse dans les formules Avancé et Illimité.</h2>
-      <p>Choisissez l'offre à 19 $ pour 20 liens et 1 250 clics, ou l'offre à 59 $ pour des liens et clics illimités.</p>
+      <h2>Découvrez ce qui fonctionne avec les analyses avancées.</h2>
+      <p>Choisissez Avancé pour suivre jusqu'à 20 liens et 1 250 clics, ou Illimité pour ne plus compter vos liens et vos clics.</p>
       <div class="payment-grid">
         <form :action="apiUrl + '/paiement/initialisation3'" method="post" class="payment-plan">
           <h3>Avancé · 19 $</h3><p>20 liens · 1 250 clics · Analytics</p>
@@ -157,22 +157,22 @@ onUnmounted(() => window.clearInterval(refreshTimer))
 
     <section v-if="!premiumRequired" class="metric-grid" aria-label="Indicateurs clés">
       <article class="metric-card primary">
-        <span class="metric-icon">↗</span><p>Clics suivis</p>
+        <span class="metric-icon">↗</span><p>Visites suivies</p>
         <strong>{{ Number(summary.clicks || 0).toLocaleString('fr-FR') }}</strong>
         <small>Depuis la création de vos liens</small>
       </article>
       <article class="metric-card">
-        <span class="metric-icon">◎</span><p>Conversions · 30 jours</p>
+        <span class="metric-icon">◎</span><p>Actions réalisées · 30 jours</p>
         <strong>{{ Number(summary.conversions || 0).toLocaleString('fr-FR') }}</strong>
         <small>Taux de conversion : {{ conversionRate }} %</small>
       </article>
       <article class="metric-card">
-        <span class="metric-icon">▣</span><p>Trafic mobile</p>
+        <span class="metric-icon">▣</span><p>Visites sur téléphone</p>
         <strong>{{ Number(summary.mobile || 0).toLocaleString('fr-FR') }}</strong>
         <small>{{ summary.clicks ? (summary.mobile / summary.clicks * 100).toFixed(1) : 0 }} % des clics suivis</small>
       </article>
       <article class="metric-card warning">
-        <span class="metric-icon">⛨</span><p>Signaux suspects · 30 jours</p>
+        <span class="metric-icon">⛨</span><p>Activité inhabituelle repérée</p>
         <strong>{{ Number(summary.suspicious || 0).toLocaleString('fr-FR') }}</strong>
         <small>Bots et clics répétés détectés</small>
       </article>
@@ -181,7 +181,7 @@ onUnmounted(() => window.clearInterval(refreshTimer))
     <section v-if="!premiumRequired" class="analytics-columns">
       <article class="panel chart-panel">
         <div class="panel-heading">
-          <div><p class="eyebrow">TENDANCE</p><h2>Activité sur 14 jours</h2></div>
+          <div><p class="eyebrow">TENDANCE</p><h2>Vos visites sur 14 jours</h2></div>
           <span class="panel-tag">Clics valides</span>
         </div>
         <div v-if="chartBars.length" class="bar-chart">
@@ -197,7 +197,7 @@ onUnmounted(() => window.clearInterval(refreshTimer))
 
       <article class="panel live-panel">
         <div class="panel-heading">
-          <div><p class="eyebrow">EN DIRECT</p><h2>Activité récente</h2></div>
+          <div><p class="eyebrow">EN DIRECT</p><h2>Les dernières visites</h2></div>
           <span class="live-pill"><i></i> LIVE</span>
         </div>
         <div v-if="live.length" class="activity-list">

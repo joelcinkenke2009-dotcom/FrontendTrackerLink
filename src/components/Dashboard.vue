@@ -124,12 +124,12 @@ onMounted(async () => {
   <div id="principal" class="main-wrapper" style="min-height: 65vh;">
     <p v-if="loadError" class="dashboard-error" role="alert">{{ loadError }}</p>
     <div v-if="subscription.plan" class="alert-banner success">
-      Offre {{ subscription.plan }} · {{ subscription.links_limit < 0 ? 'Liens illimités' : subscription.links_used + '/' + subscription.links_limit + ' liens' }}
+      Votre formule : {{ subscription.plan }} · {{ subscription.links_limit < 0 ? 'Liens illimités' : subscription.links_used + '/' + subscription.links_limit + ' liens' }}
       · {{ subscription.clicks_limit < 0 ? 'Clics illimités' : subscription.clicks_used + '/' + subscription.clicks_limit + ' clics' }}
       <span v-if="date.date_limite"> · valable jusqu'au {{ date.date_limite }}</span>
     </div>
     <div v-if="showUpgrade" class="alert-banner danger">
-      Votre quota est atteint. Choisissez une formule supérieure pour continuer à créer des liens ou compter les clics.
+      Vous avez atteint la limite de votre formule. Passez à l'offre supérieure pour suivre davantage de liens et de visites.
     </div>
 
     <!-- Statut d'abonnement -->
@@ -144,7 +144,7 @@ onMounted(async () => {
             type="text"
             required
             name="url"
-            placeholder="Entrez votre lien (ex: google.com)"
+            placeholder="Collez l'adresse de la page à partager"
             class="modern-input"
             autocomplete="off"
             :disabled="linksLimitReached"
@@ -173,12 +173,12 @@ onMounted(async () => {
           <p>5 liens · 350 clics</p><button class="button" type="submit">Choisir Standard · 8,10 $</button>
         </form>
         <form :action="`${apiUrl}/paiement/initialisation2`" method="post" class="payment-plan">
-          <h4>Formule illimitée</h4>
+          <h4>Formule Illimité</h4>
           <p><s>59 $</s> <strong>53,10 $</strong> <small>— 10 % de réduction</small></p>
           <p>Liens et clics illimités · Analytics</p><button class="button" type="submit">Choisir Illimité · 53,10 $</button>
         </form>
         <form :action="`${apiUrl}/paiement/initialisation3`" method="post" class="payment-plan">
-          <h4>Formule avancée</h4>
+          <h4>Formule Avancé</h4>
           <p><s>19 $</s> <strong>17,10 $</strong> <small>— 10 % de réduction</small></p>
           <p>20 liens · 1 250 clics · accès Analytics</p><button class="button" type="submit">Choisir Avancé · 17,10 $</button>
         </form>
@@ -224,7 +224,7 @@ onMounted(async () => {
       
       <!-- Tableau des liens -->
       <div id="div-data" class="card table-section">
-        <h2 class="table-title">Vos Liens Récents</h2>
+        <h2 class="table-title">Vos liens et leurs résultats</h2>
         <div class="table-container">
           <table class="dashbord-table">
             <thead>
@@ -234,8 +234,8 @@ onMounted(async () => {
                 <th>Slug</th>
                 <th>Lien généré</th>
                 <th>Clicks</th>
-                <th>Clicks mobile</th>
-                <th>Clicks pc</th>
+                <th>Clics sur mobile</th>
+                <th>Clics sur ordinateur</th>
                 <th>Copier</th>
                 <th>Vérification</th>
                 <th>Suppression</th>

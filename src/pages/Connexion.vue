@@ -19,10 +19,10 @@ export default{
       this.errorMessage = "Trop de tentatives. Réessayez dans 24h."
     }
     if (error === "401") {
-      this.errorMessage = "Cette email n'existe pas"
+      this.errorMessage = "Cette adresse e-mail n'est pas associée à un compte."
     }
     if (error === "401Unautorized") {
-      this.errorMessage = "Mot de passe incorrecte"
+      this.errorMessage = "Le mot de passe saisi est incorrect."
     }
     if (error === "402") {
       this.errorMessage = "Vous étés déjà connecté"
@@ -37,7 +37,7 @@ export default{
     <form :action="apiUrl + '/users/connexion'" method="post" class="auth-form">
       <h4 class="subtitle" style="color: red;">{{ errorMessage }}</h4>
       <h2>Se connecter</h2>
-      <p class="subtitle">Entrez votre identifiant et mot de passe</p>
+      <p class="subtitle">Retrouvez vos liens, vos statistiques et vos campagnes.</p>
       <br>
       <div class="form-row">
         <div class="form-group">

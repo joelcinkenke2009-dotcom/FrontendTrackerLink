@@ -3,20 +3,20 @@
     <div class="footer-content">
       <!-- Section Liens Utiles -->
       <div class="footer-links">
-        <RouterLink to="/guideTraqueur" class="footer-link">Comment ça marche</RouterLink>
+        <RouterLink to="/guideTraqueur" class="footer-link">Bien démarrer</RouterLink>
       </div>
       <div class="footer-links">
-        <RouterLink to="/guideAstuces" class="footer-link">Truc et astuce</RouterLink>
+        <RouterLink to="/guideAstuces" class="footer-link">Conseils pratiques</RouterLink>
       </div>
       <div class="footer-links">
-        <RouterLink to="/guideFonctionnalités" class="footer-link">Toutes nos fonctionnalités</RouterLink>
+        <RouterLink to="/guideFonctionnalités" class="footer-link">Découvrir AdPulse</RouterLink>
       </div>
 
       <div class="footer-divider"></div>
 
       <!-- Section Brand / Logo & Réseaux Sociaux -->
       <div class="footer-brand">
-        <img src="/1787669531705.png" alt="Logo" class="footer-logo" />
+        <img src="/1787669531705.png" alt="Logo AdPulse" class="footer-logo" />
         
         <div class="social-links">
           <a 
