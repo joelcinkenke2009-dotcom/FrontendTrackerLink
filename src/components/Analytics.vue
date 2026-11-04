@@ -8,6 +8,7 @@ const fraud = ref([])
 const conversions = ref([])
 const links = ref([])
 const loading = ref(true)
+const premiumRequired = ref(false)
 const error = ref('')
 const lastUpdated = ref('')
 const form = ref({ slug: '', event_name: 'purchase', value: 0, currency: 'USD' })
@@ -34,6 +35,15 @@ async function api(path, options = {}) {
 
 async function refreshAll() {
   try {
+    const planResponse = await api('/isActive')
+    const plan = await planResponse.json()
+    if (!plan.analytics_enabled) {
+      premiumRequired.value = true
+      error.value = ''
+      loading.value = false
+      return
+    }
+    premiumRequired.value = false
     const [stats, activity, quality, conv, linksResponse] = await Promise.all([
       api('/protected/analytics/summary').then(r => r.json()),
       api('/protected/analytics/live').then(r => r.json()),
@@ -115,7 +125,7 @@ onUnmounted(() => window.clearInterval(refreshTimer))
         <h1>Analytics <span>Dashboard</span></h1>
         <p class="subtitle">Comprenez vos performances, suivez vos conversions et surveillez la qualité du trafic.</p>
       </div>
-      <div class="heading-actions">
+      <div v-if="!premiumRequired" class="heading-actions">
         <span class="live-indicator"><i></i> Actualisation automatique · 15 s</span>
         <button class="report-button" @click="downloadReport">↓ Exporter le rapport</button>
       </div>
@@ -124,7 +134,23 @@ onUnmounted(() => window.clearInterval(refreshTimer))
     <p v-if="error" class="notice error" role="alert">{{ error }}</p>
     <p v-if="notice" class="notice" role="status">{{ notice }}</p>
 
-    <section class="metric-grid" aria-label="Indicateurs clés">
+    <section v-if="premiumRequired" class="panel premium-wall">
+      <p class="eyebrow">ADPULSE · ANALYTICS PREMIUM</p>
+      <h2>L'analyse est incluse dans les formules Avancé et Illimité.</h2>
+      <p>Choisissez l'offre à 19 $ pour 20 liens et 1 250 clics, ou l'offre à 59 $ pour des liens et clics illimités.</p>
+      <div class="payment-grid">
+        <form :action="apiUrl + '/paiement/initialisation3'" method="post" class="payment-plan">
+          <h3>Avancé · 19 $</h3><p>20 liens · 1 250 clics · Analytics</p>
+          <button class="report-button" type="submit">S'abonner à 17,10 $</button>
+        </form>
+        <form :action="apiUrl + '/paiement/initialisation2'" method="post" class="payment-plan">
+          <h3>Illimité · 59 $</h3><p>Liens et clics illimités · Analytics</p>
+          <button class="report-button" type="submit">S'abonner à 53,10 $</button>
+        </form>
+      </div>
+    </section>
+
+    <section v-if="!premiumRequired" class="metric-grid" aria-label="Indicateurs clés">
       <article class="metric-card primary">
         <span class="metric-icon">↗</span><p>Clics suivis</p>
         <strong>{{ Number(summary.clicks || 0).toLocaleString('fr-FR') }}</strong>
@@ -147,7 +173,7 @@ onUnmounted(() => window.clearInterval(refreshTimer))
       </article>
     </section>
 
-    <section class="analytics-columns">
+    <section v-if="!premiumRequired" class="analytics-columns">
       <article class="panel chart-panel">
         <div class="panel-heading">
           <div><p class="eyebrow">TENDANCE</p><h2>Activité sur 14 jours</h2></div>
@@ -184,7 +210,7 @@ onUnmounted(() => window.clearInterval(refreshTimer))
       </article>
     </section>
 
-    <section class="analytics-columns lower-columns">
+    <section v-if="!premiumRequired" class="analytics-columns lower-columns">
       <article class="panel fraud-panel">
         <div class="panel-heading">
           <div><p class="eyebrow">PROTECTION</p><h2>Détection intelligente</h2></div>
@@ -231,12 +257,12 @@ onUnmounted(() => window.clearInterval(refreshTimer))
       </article>
     </section>
 
-    <section class="panel report-panel">
+    <section v-if="!premiumRequired" class="panel report-panel">
       <div><p class="eyebrow">RAPPORTS</p><h2>Vos performances, prêtes à partager</h2><p class="panel-description">Export CSV des événements des 30 derniers jours : clics, conversions, paramètres UTM et signaux de trafic suspect.</p></div>
       <button class="report-button" @click="downloadReport">Générer le rapport CSV ↓</button>
     </section>
 
-    <section class="panel conversion-history">
+    <section v-if="!premiumRequired" class="panel conversion-history">
       <div class="panel-heading"><div><p class="eyebrow">RÉSULTATS</p><h2>Dernières conversions</h2></div><span class="panel-tag">{{ conversions.length }} événement(s)</span></div>
       <div v-if="conversions.length" class="history-table">
         <div class="history-head"><span>Lien</span><span>Événement</span><span>Valeur</span><span>Date</span></div>
