@@ -285,4 +285,12 @@ onUnmounted(() => window.clearInterval(refreshTimer))
 .report-panel{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:16px;background:linear-gradient(110deg,#f8faff,#fff)}.report-panel .panel-description{max-width:680px}.history-table{width:100%;overflow-x:auto}.history-head,.history-row{min-width:580px;display:grid;grid-template-columns:1.2fr 1fr .8fr 1fr;gap:12px;padding:12px 8px;border-bottom:1px solid #f0f2f7;font-size:11px}.history-head{font-size:9px;color:#8c98ac;text-transform:uppercase;font-weight:800;letter-spacing:.8px}.history-row span,.history-row time{color:#66748d}.history-row strong{color:#20345e}.empty-state{padding:28px 12px;text-align:center;color:#9aa4b5;font-size:12px;line-height:1.6}.analytics-footer{text-align:center;color:#9aa4b5;font-size:10px;margin-top:28px}.analytics-footer span{color:#66748d}
 @media(max-width:900px){.metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.analytics-columns{grid-template-columns:1fr}.analytics-heading{align-items:flex-start;flex-direction:column}.heading-actions{width:100%;justify-content:space-between}}
 @media(max-width:560px){.analytics-page{padding:25px 13px 38px}.metric-card{padding:15px}.metric-card strong{font-size:25px}.panel{padding:17px}.report-panel{align-items:flex-start;flex-direction:column}.report-panel .report-button{width:100%}.heading-actions{align-items:flex-start;flex-direction:column}.bar-chart{gap:5px}.bar-column small{font-size:8px}}
+
+.premium-wall { margin: 18px 0; }
+.premium-wall h2 { font-size: 21px; margin: 8px 0; color: #20345e; }
+.premium-wall > p:not(.eyebrow) { color: #71809b; line-height: 1.6; }
+.premium-wall .payment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 18px; }
+.premium-wall .payment-plan { padding: 18px; border: 1px solid var(--line); border-radius: 12px; background: #f8faff; }
+.premium-wall .payment-plan h3 { margin: 0 0 8px; color: #20345e; }
+.premium-wall .payment-plan p { color: #71809b; font-size: 12px; }
 </style>
