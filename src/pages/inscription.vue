@@ -27,8 +27,8 @@ const validatePasswords = (event) => {
   <div class="auth-container">
     <form :action="apiUrl + '/users/inscription'" method="post" class="auth-form" @submit="validatePasswords">
       <h4 class="subtitle" style="color: red;">{{ errorMessage }}</h4>
-      <h2>Créer un compte</h2>
-      <p class="subtitle">Entrez vos informations pour configurer votre base de données</p>
+      <h2>Commencez gratuitement avec AdPulse</h2>
+      <p class="subtitle">Créez votre compte et commencez à suivre vos liens gratuitement.</p>
       <div class="form-row">
         <div class="form-group">
           <label for="signup-name">Nom</label>
@@ -56,7 +56,7 @@ const validatePasswords = (event) => {
       <input type="checkbox" name="checs" id="show-password" v-model="view">
       <label for="show-password">Afficher le mot de passe</label>
       <hr class="divider">
-      <button type="submit" class="btn-submit">S'inscrire</button>
+      <button type="submit" class="btn-submit">Créer mon compte gratuitement</button>
       <p class="footer-text"> Déjà un compte ? <RouterLink to="/connexion">Se connecter</RouterLink> </p>
     </form>
   </div>
