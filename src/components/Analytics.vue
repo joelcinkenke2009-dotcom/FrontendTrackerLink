@@ -28,7 +28,7 @@ async function api(path, options = {}) {
   const response = await fetch(`${apiUrl}${path}`, { credentials: 'include', ...options })
   if (!response.ok) {
     if (response.status === 401) throw new Error(`${path} : votre session a expiré. Reconnectez-vous.`)
-    const detail = (await response.clone().text()).trim().replace(/\\s+/g, ' ').slice(0, 180)
+    const detail = (await response.clone().text()).trim().replace(/\s+/g, ' ').slice(0, 180)
     throw new Error(`${path} → HTTP ${response.status}${detail ? ` : ${detail}` : ''}`)
   }
   return response
