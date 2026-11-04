@@ -105,12 +105,18 @@ onMounted(async () => {
     '500': 'Ce lien a déjà été enregistré',
     '200': 'Le lien est valide',
     '404': 'Le lien est invalide',
-    '409': 'Timeout'
+    '409': 'Timeout',
+    'links': 'La limite de liens de votre formule est atteinte.',
+    'success': 'Votre abonnement a été activé avec succès.',
+    'failed': 'Le paiement n’a pas été confirmé.',
+    'error': 'Impossible de vérifier le paiement.'
   };
 
   if (status && statusMessages[status]) {
     alert(statusMessages[status]);
   }
+  if (route.query.limit === 'links') alert(statusMessages.links);
+  if (route.query.payment && statusMessages[route.query.payment]) alert(statusMessages[route.query.payment]);
 });
 </script>
 
@@ -127,12 +133,7 @@ onMounted(async () => {
     </div>
 
     <!-- Statut d'abonnement -->
-    <h4 v-if="date.date_limite" class="alert-banner success">
-      Votre abonnement est valide jusqu'au {{ date.date_limite }}
-    </h4>
-    <h4 v-else-if="date.expire" class="alert-banner danger">
-      Votre abonnement a expiré depuis le {{ date.expire }}
-    </h4>
+
 
     <!-- Formulaire principal de création -->
     <div class="card form-section">
@@ -163,7 +164,7 @@ onMounted(async () => {
     </div>
 
     <div v-if="showUpgrade" class="card payment-options">
-      <h3>{{ data.Paiement }}</h3>
+      <h3>{{ clicksLimitReached ? 'Votre quota de clics est atteint.' : 'Votre quota de liens est atteint.' }}</h3>
       <p class="payment-intro">Choisissez la formule qui correspond à vos besoins.</p>
       <div class="payment-grid">
         <form :action="`${apiUrl}/paiement/initialisation`" method="post" class="payment-plan">
