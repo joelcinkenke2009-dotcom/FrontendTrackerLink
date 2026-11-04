@@ -180,6 +180,15 @@ const started = () => {
           </ul>
         </div>
 
+        <!-- Formule gratuite -->
+        <div class="feature-card billing-card">
+          <div class="icon-wrapper green-bg">🆓</div>
+          <h3 class="feature-title">Gratuit · 1 lien</h3>
+          <p class="feature-text">Créez un lien et suivez jusqu'à 30 clics. Sans accès aux analyses avancées.</p>
+          <span class="tag-promo">Pour commencer</span>
+          <button class="billing-button" type="button" @click="started">Commencer gratuitement</button>
+        </div>
+
         <!-- Tarification et accès direct au checkout -->
         <div class="feature-card highlight-card billing-card">
           <div class="icon-wrapper emerald-bg">💼</div>
