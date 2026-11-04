@@ -21,7 +21,7 @@ const started = () => {
     <!-- Bannière d'urgence défilante (Démarrage immédiat) -->
     <div class="marquee-banner">
       <div class="marquee-content">
-        🔥 OFFRE SPÉCIALE DE LANCEMENT : 50% de réduction pour votre premier abonnement ! Profitez d'AdPulse à seulement 2,5 $ (ou son équivalent en FCFA, CDF, EUR) pour une durée limitée ! 🚀
+        🔥 OFFRE SPÉCIALE : profitez de 10 % de réduction sur chacune de nos trois formules AdPulse ! 🚀
       </div>
     </div>
 
@@ -45,7 +45,7 @@ const started = () => {
             class="modern-button pulse-effect" 
             
           >
-            {{ connect.connected ? 'Accéder au tableau de bord' : 'Démarrer maintenant (Promo -50%)' }}
+            {{ connect.connected ? 'Accéder au tableau de bord' : 'Découvrir les abonnements (-10 %)' }}
           </button>
           <a href="https://adauditor.netlify.app/guideAstuces" target="_blank" class="sub-cta-link">
             ✨ Savoir ce que vous gagnez en nous choisissant →
@@ -53,7 +53,7 @@ const started = () => {
         </div>
         
         <a 
-          href="https://wa.me/243990937099?text=Bonjour,%20je%20souhaite%20m'abonner%20à%20AdPulse%20à%202.5$%20(promo%2050%25)%20via%20Mobile%20Money" 
+          href="https://wa.me/243990937099?text=Bonjour,%20je%20souhaite%20m'abonner%20à%20AdPulse%20et%20connaître%20les%20trois%20formules" 
           target="_blank" 
           class="whatsapp-direct-button"
         >
@@ -180,13 +180,35 @@ const started = () => {
           </ul>
         </div>
 
-        <!-- Carte 5 : Tarification & Promo -->
-        <div class="feature-card highlight-card promo-card">
+        <!-- Tarification et accès direct au checkout -->
+        <div class="feature-card highlight-card billing-card">
           <div class="icon-wrapper emerald-bg">💼</div>
-          <h3 class="feature-title">Abonnement Transparent & Promo</h3>
-          <p class="feature-text">
-            Accès complet pour <span class="old-price">5 $</span> <strong class="highlight-price">2,5 $ / mois</strong> (ou son équivalent en FCFA, CDF, Euro, etc.) avec <span class="tag-promo">50% de réduction pour votre premier abonnement</span>. Paiement sécurisé par <strong>Carte Bancaire</strong> ou <strong>Mobile Money</strong>.
-          </p>
+          <h3 class="feature-title">Formule standard</h3>
+          <p class="billing-price"><s>9 $</s> <strong>8,10 $</strong></p>
+          <span class="tag-promo">10 % de réduction</span>
+          <form :action="`${apiUrl}/paiement/initialisation`" method="post">
+            <button class="billing-button" type="submit">Choisir la formule standard</button>
+          </form>
+        </div>
+
+        <div class="feature-card highlight-card billing-card">
+          <div class="icon-wrapper blue-bg">🚀</div>
+          <h3 class="feature-title">Formule avancée</h3>
+          <p class="billing-price"><s>59 $</s> <strong>53,10 $</strong></p>
+          <span class="tag-promo">10 % de réduction</span>
+          <form :action="`${apiUrl}/paiement/initialisation2`" method="post">
+            <button class="billing-button" type="submit">Choisir la formule avancée</button>
+          </form>
+        </div>
+
+        <div class="feature-card highlight-card billing-card">
+          <div class="icon-wrapper purple-bg">⚡</div>
+          <h3 class="feature-title">Formule essentielle</h3>
+          <p class="billing-price"><s>19 $</s> <strong>17,10 $</strong></p>
+          <span class="tag-promo">10 % de réduction</span>
+          <form :action="`${apiUrl}/paiement/initialisation3`" method="post">
+            <button class="billing-button" type="submit">Choisir la formule essentielle</button>
+          </form>
         </div>
       </div>
     </section>
@@ -287,7 +309,7 @@ const started = () => {
 
           <div class="why-cta-wrapper">
             <button @click="started" class="modern-button secondary">
-              Profiter des 50% de réduction maintenant →
+              Choisir mon abonnement AdPulse →
             </button>
           </div>
         </div>
@@ -1013,4 +1035,14 @@ const started = () => {
     gap: 6px;
   }
 }
+
+
+/* Tarifs et facturation */
+.billing-card { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.billing-price { margin: 0; color: #64748b; font-size: 17px; }
+.billing-price strong { color: #0f172a; font-size: 28px; margin-left: 8px; }
+.billing-card form { width: 100%; margin-top: auto; }
+.billing-button { width: 100%; border: 0; border-radius: 10px; padding: 12px 16px; background: #2563eb; color: #fff; font-weight: 700; cursor: pointer; transition: background .2s ease, transform .2s ease; }
+.billing-button:hover { background: #1d4ed8; transform: translateY(-1px); }
+
 </style>
