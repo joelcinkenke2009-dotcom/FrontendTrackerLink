@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from "vue";
-import { apiUrl } from "@/config/env";
 import { useRouter } from "vue-router";
 import { apiUrl } from "@/config/env";
 
@@ -58,7 +57,7 @@ const started = () => {
           target="_blank" 
           class="whatsapp-direct-button"
         >
-          📲 Payer par Mobile Money via WhatsApp
+          📲 Une question ? Écrivez-nous sur WhatsApp
         </a>
       </div>
 
@@ -67,7 +66,7 @@ const started = () => {
         <div class="payment-methods">
           💳 Carte Bancaire • 📱 Mobile Money (Wave, Orange, MTN, M-Pesa)
         </div>
-        <span class="guarantee-badge">🔒 Satisfait ou remboursé</span>
+        <span class="guarantee-badge">🔒 Paiement via le checkout sécurisé</span>
       </div>
 
       <!-- APERÇU DU DASHBOARD EN HERO -->
@@ -81,7 +80,7 @@ const started = () => {
         <div class="preview-body">
           <div class="dashboard-mockup">
             <div class="mockup-bar">
-              <span class="mockup-label">Entrez votre lien de destination :</span>
+              <span class="mockup-label">Collez l'adresse de votre page :</span>
               <div class="mockup-input-group">
                 <input type="text" readonly value="https://votre-site.com/page-de-vente" class="mockup-input" />
                 <button class="mockup-btn">Créer un lien</button>
@@ -89,8 +88,8 @@ const started = () => {
             </div>
             <div class="mockup-table">
               <div class="table-row header">
-                <span>Lien Traqué</span>
-                <span>Clicks Total</span>
+                <span>Lien suivi</span>
+                <span>Clics au total</span>
                 <span>Mobile</span>
                 <span>PC</span>
                 <span>Actions</span>
@@ -173,11 +172,11 @@ const started = () => {
         <div class="feature-card highlight-card">
           <div class="icon-wrapper green-bg">✨</div>
           <h3 class="feature-title">Toutes vos performances au même endroit</h3>
-          <p class="feature-text">Une interface minimaliste conçue pour aller à l'essentiel :</p>
+          <p class="feature-text">Retrouvez l'essentiel pour décider plus facilement :</p>
           <ul class="feature-list">
-            <li>✓ Configuration de vos premiers liens en 3 min</li>
-            <li>✓ Visualisation instantanée de vos clics</li>
-            <li>✓ Aucune compétence technique requise</li>
+            <li>✓ Créez votre premier lien en quelques étapes</li>
+            <li>✓ Consultez vos clics au même endroit</li>
+            <li>✓ Utilisation simple, sans expertise technique</li>
           </ul>
         </div>
 
