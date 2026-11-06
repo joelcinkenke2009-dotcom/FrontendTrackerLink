@@ -19,6 +19,7 @@ let refreshInFlight = false
 let requestController
 let pageVisible = true
 let accessChecked = false
+let lastMetaRefresh = 0
 
 const conversionRate = computed(() => summary.value.clicks ? (summary.value.conversions / summary.value.clicks * 100).toFixed(1) : '0.0')
 const chartMax = computed(() => Math.max(1, ...summary.value.daily.map(item => Number(item.clicks || 0))))
@@ -47,16 +48,18 @@ async function refreshAll(force = false) {
   const signal = requestController.signal
 
   try {
-    if (!accessChecked) {
+    // Revalider abonnement et liste de liens toutes les 60 s pour refléter
+    // un changement de forfait ou une modification faite dans un autre onglet.
+    if (!accessChecked || Date.now() - lastMetaRefresh >= 60000) {
       const planResponse = await api('/isActive', { signal })
       const plan = await planResponse.json()
       accessChecked = true
-      if (!plan.analytics_enabled) {
-        premiumRequired.value = true
+      lastMetaRefresh = Date.now()
+      premiumRequired.value = !plan.analytics_enabled
+      if (premiumRequired.value) {
         error.value = ''
         return
       }
-      premiumRequired.value = false
       const linksResponse = await api('/protected/data', { signal })
       const linkData = await linksResponse.json()
       links.value = Array.isArray(linkData) ? linkData : []
