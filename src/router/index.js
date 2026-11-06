@@ -1,13 +1,3 @@
-import About from '@/components/About.vue'
-import ConnAdmins from '@/components/ConnAdmins.vue'
-import Dashboard from '@/components/Dashboard.vue'
-import GuideTraqueur from '@/components/GuideTraqueur.vue'
-import ToutesNosFonctionnalites from '@/components/ToutesNosFonctionnalites.vue'
-import TrucsEtAstuces from '@/components/TrucsEtAstuces.vue'
-import DashboardAdmins from '@/components/DashboardAdmins.vue'
-import Analytics from '@/components/Analytics.vue'
-import Connexion from '@/pages/Connexion.vue'
-import Inscription from '@/pages/inscription.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -16,37 +6,37 @@ const router = createRouter({
     {
       path:"/",
       name:"principal",
-      component:About
+      component: () => import('@/components/About.vue')
     },
     {
       path:"/inscription",
       name:"inscription",
-      component: Inscription
+      component: () => import('@/pages/inscription.vue')
     },
     {
       path:"/connexion",
       name:"connexion",
-      component: Connexion
+      component: () => import('@/pages/Connexion.vue')
     },
     {
       path:"/dashboard",
       name:"principalPage",
-      component: Dashboard
+      component: () => import('@/components/Dashboard.vue')
     },
     {
       path: "/analytics",
       name: "analytics",
-      component: Analytics
+      component: () => import('@/components/Analytics.vue')
     },
     {
       path:"/connexion/admins",
       name:"principalAdmins",
-      component: ConnAdmins
+      component: () => import('@/components/ConnAdmins.vue')
     },
     {
       path:"/dashboard/admins",
       name:"principalDash",
-      component: DashboardAdmins
+      component: () => import('@/components/DashboardAdmins.vue')
     },
     // AdAuditor temporairement désactivé : réactiver cette route après validation.
     /*
@@ -59,16 +49,16 @@ const router = createRouter({
 {
       path:"/guideTraqueur",
       name:"guide",
-      component: GuideTraqueur
+      component: () => import('@/components/GuideTraqueur.vue')
     }, 
     {
       path:"/guideAstuces",
       name:"guideAstuce",
-      component: TrucsEtAstuces
+      component: () => import('@/components/TrucsEtAstuces.vue')
     }, {
       path:"/guideFonctionnalités",
       name:"guideFonctionnalités",
-      component: ToutesNosFonctionnalites
+      component: () => import('@/components/ToutesNosFonctionnalites.vue')
     },
   ],
 })

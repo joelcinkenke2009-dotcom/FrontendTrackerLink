@@ -15,6 +15,9 @@ const form = ref({ slug: '', event_name: 'purchase', value: 0, currency: 'USD' }
 const saving = ref(false)
 const notice = ref('')
 let refreshTimer
+let refreshInFlight = false
+let requestController
+let pageVisible = true
 
 const conversionRate = computed(() => summary.value.clicks ? (summary.value.conversions / summary.value.clicks * 100).toFixed(1) : '0.0')
 const chartMax = computed(() => Math.max(1, ...summary.value.daily.map(item => Number(item.clicks || 0))))
@@ -34,39 +37,53 @@ async function api(path, options = {}) {
   return response
 }
 
-async function refreshAll() {
+// Abonnement et liens sont stables pendant la consultation : chargement initial uniquement.
+// Les données Analytics continuent d'être actualisées sans bloquer les unes sur les autres.
+async function refreshAll(force = false) {
+  if (refreshInFlight || (!force && !pageVisible)) return
+  refreshInFlight = true
+  requestController = new AbortController()
+  const signal = requestController.signal
+
   try {
-    const planResponse = await api('/isActive')
-    const plan = await planResponse.json()
-    if (!plan.analytics_enabled) {
-      premiumRequired.value = true
-      error.value = ''
-      loading.value = false
-      return
+    if (!lastUpdated.value) {
+      const planResponse = await api('/isActive', { signal })
+      const plan = await planResponse.json()
+      if (!plan.analytics_enabled) {
+        premiumRequired.value = true
+        error.value = ''
+        return
+      }
+      premiumRequired.value = false
+      const linksResponse = await api('/protected/data', { signal })
+      const linkData = await linksResponse.json()
+      links.value = Array.isArray(linkData) ? linkData : []
     }
-    premiumRequired.value = false
+
+    if (premiumRequired.value) return
+
     const requests = [
-      ['statistiques', api('/protected/analytics/summary').then(r => r.json()), data => { summary.value = data }],
-      ['activité', api('/protected/analytics/live').then(r => r.json()), data => { live.value = data.events || [] }],
-      ['trafic suspect', api('/protected/analytics/fraud').then(r => r.json()), data => { fraud.value = data.alerts || [] }],
-      ['conversions', api('/protected/analytics/conversions').then(r => r.json()), data => { conversions.value = data.conversions || [] }],
-      ['liens', api('/protected/data').then(r => r.json()), data => { links.value = Array.isArray(data) ? data : [] }]
+      ['statistiques', api('/protected/analytics/summary', { signal }).then(r => r.json()), data => { summary.value = data }],
+      ['activité', api('/protected/analytics/live', { signal }).then(r => r.json()), data => { live.value = data.events || [] }],
+      ['trafic suspect', api('/protected/analytics/fraud', { signal }).then(r => r.json()), data => { fraud.value = data.alerts || [] }],
+      ['conversions', api('/protected/analytics/conversions', { signal }).then(r => r.json()), data => { conversions.value = data.conversions || [] }]
     ]
     const results = await Promise.allSettled(requests.map(item => item[1]))
     const failures = []
     results.forEach((result, index) => {
       if (result.status === 'fulfilled') requests[index][2](result.value)
-      else failures.push(`${requests[index][0]} : ${result.reason?.message || 'erreur inconnue'}`)
+      else if (result.reason?.name !== 'AbortError') failures.push(`${requests[index][0]} : ${result.reason?.message || 'erreur inconnue'}`)
     })
     error.value = failures.length
       ? `Certaines données Analytics sont indisponibles : ${failures.join(' | ')}`
       : ''
     lastUpdated.value = new Date().toLocaleTimeString('fr-FR')
-    if (!error.value) error.value = ''
   } catch (err) {
-    error.value = err.message || 'Impossible de charger les analyses.'
+    if (err.name !== 'AbortError') error.value = err.message || 'Impossible de charger les analyses.'
   } finally {
+    refreshInFlight = false
     loading.value = false
+    requestController = undefined
   }
 }
 
@@ -85,7 +102,7 @@ async function recordConversion() {
     })
     notice.value = 'Conversion enregistrée.'
     form.value.value = 0
-    await refreshAll()
+    await refreshAll(true)
   } catch (err) {
     notice.value = err.message
   } finally {
@@ -115,11 +132,23 @@ function formatDate(value) {
   return new Date(value).toLocaleString('fr-FR', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })
 }
 
+function handleVisibilityChange() {
+  pageVisible = document.visibilityState === 'visible'
+  if (pageVisible) refreshAll()
+}
+
 onMounted(() => {
+  pageVisible = document.visibilityState === 'visible'
   refreshAll()
-  refreshTimer = window.setInterval(refreshAll, 15000)
+  refreshTimer = window.setInterval(() => refreshAll(), 15000)
+  document.addEventListener('visibilitychange', handleVisibilityChange)
 })
-onUnmounted(() => window.clearInterval(refreshTimer))
+
+onUnmounted(() => {
+  window.clearInterval(refreshTimer)
+  document.removeEventListener('visibilitychange', handleVisibilityChange)
+  requestController?.abort()
+})
 </script>
 
 <template>
