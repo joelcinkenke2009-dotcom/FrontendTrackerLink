@@ -18,6 +18,7 @@ let refreshTimer
 let refreshInFlight = false
 let requestController
 let pageVisible = true
+let accessChecked = false
 
 const conversionRate = computed(() => summary.value.clicks ? (summary.value.conversions / summary.value.clicks * 100).toFixed(1) : '0.0')
 const chartMax = computed(() => Math.max(1, ...summary.value.daily.map(item => Number(item.clicks || 0))))
@@ -46,9 +47,10 @@ async function refreshAll(force = false) {
   const signal = requestController.signal
 
   try {
-    if (!lastUpdated.value) {
+    if (!accessChecked) {
       const planResponse = await api('/isActive', { signal })
       const plan = await planResponse.json()
+      accessChecked = true
       if (!plan.analytics_enabled) {
         premiumRequired.value = true
         error.value = ''
