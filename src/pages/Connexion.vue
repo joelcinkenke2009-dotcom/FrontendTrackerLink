@@ -1,6 +1,7 @@
 <script setup>
 import { apiUrl } from '@/config/env';
 import { ref } from 'vue';
+import GoogleSignIn from '@/components/GoogleSignIn.vue';
 const view = ref(false)
 const password = ref("")
 
@@ -38,6 +39,7 @@ export default{
       <h4 class="subtitle" style="color: red;">{{ errorMessage }}</h4>
       <h2>Se connecter</h2>
       <p class="subtitle">Retrouvez vos liens, vos statistiques et vos campagnes.</p>
+      <GoogleSignIn mode="signin" />
       <br>
       <div class="form-row">
         <div class="form-group">
