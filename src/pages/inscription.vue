@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { apiUrl } from '@/config/env';
+import GoogleSignIn from '@/components/GoogleSignIn.vue';
 
 const route = useRoute();
 const view = ref(false);
@@ -29,6 +30,7 @@ const validatePasswords = (event) => {
       <h4 class="subtitle" style="color: red;">{{ errorMessage }}</h4>
       <h2>Commencez gratuitement avec AdPulse</h2>
       <p class="subtitle">Créez votre compte et commencez à suivre vos liens gratuitement.</p>
+      <GoogleSignIn mode="signup" />
       <div class="form-row">
         <div class="form-group">
           <label for="signup-name">Nom</label>
