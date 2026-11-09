@@ -26,10 +26,10 @@ const validatePasswords = (event) => {
     const field = form.elements.namedItem(fieldName);
     if (field) {
       field.value = field.value.trim();
-      field.setCustomValidity(field.value ? '' : 'Ce champ est obligatoire.');
       if (!field.value) {
         event.preventDefault();
-        field.reportValidity();
+        formError.value = 'Veuillez renseigner votre nom, votre prénom et une adresse e-mail valide.';
+        field.focus();
         return;
       }
     }
