@@ -22,7 +22,11 @@ let accessChecked = false
 let lastMetaRefresh = 0
 
 // Compare conversions and valid clicks over the same rolling 30-day window.
-const conversionRate = computed(() => summary.value.clicks_30d ? (summary.value.conversions / summary.value.clicks_30d * 100).toFixed(1) : '0.0')
+const conversionRate = computed(() => {
+  // Keep the UI compatible during staggered frontend/backend deployments.
+  const clicksForPeriod = Number(summary.value.clicks_30d ?? summary.value.clicks ?? 0)
+  return clicksForPeriod ? (summary.value.conversions / clicksForPeriod * 100).toFixed(1) : '0.0'
+})
 const chartMax = computed(() => Math.max(1, ...summary.value.daily.map(item => Number(item.clicks || 0))))
 const chartBars = computed(() => summary.value.daily.map(item => ({
   ...item,
