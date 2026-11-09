@@ -45,7 +45,7 @@ const started = () => {
             class="modern-button pulse-effect" 
             
           >
-            {{ connect.connected ? 'Accéder au tableau de bord' : 'Découvrir les abonnements (-10 %)' }}
+            {{ connect.connected ? 'Accéder au tableau de bord' : 'Commencer gratuitement' }}
           </button>
           <a href="https://adauditor.netlify.app/guideAstuces" target="_blank" class="sub-cta-link">
             ✨ Voir les avantages concrets d'AdPulse →
