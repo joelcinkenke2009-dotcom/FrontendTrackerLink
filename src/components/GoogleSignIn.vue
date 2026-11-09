@@ -117,12 +117,15 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <section class="google-auth" aria-label="Authentification Google">
+  <section v-if="clientId" class="google-auth" aria-label="Authentification Google">
     <div class="google-divider"><span>ou</span></div>
     <div ref="container" class="google-button"></div>
     <p v-if="loading" class="google-status" role="status">Connexion en cours…</p>
     <p v-else-if="message" class="google-status" role="status">{{ message }}</p>
   </section>
+  <p v-else class="google-unavailable" role="status">
+    L’inscription avec Google n’est pas encore activée. Vous pouvez créer votre compte avec votre adresse e-mail ci-dessous.
+  </p>
 </template>
 
 <style scoped>
@@ -156,9 +159,20 @@ onBeforeUnmount(() => {
 }
 .google-status {
   margin: .65rem 0 0;
-  color: #fbbf24;
+  color: #b45309;
   text-align: center;
-  font-size: .78rem;
+  font-size: .82rem;
+  line-height: 1.45;
+}
+.google-unavailable {
+  margin: .7rem 0 1.2rem;
+  padding: .75rem .9rem;
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  text-align: center;
+  font-size: .82rem;
   line-height: 1.45;
 }
 @media (max-width: 380px) {

@@ -31,6 +31,9 @@ Les variables d'environnement Vite sont préfixées par `VITE_` et sont intégr�
 - `VITE_API_URL` : URL de l'API backend. Par défaut, le frontend utilise l'instance de production AdPulse.
 - `VITE_META_APP_ID` : identifiant public de l'application Meta (valeur par défaut fournie dans le projet).
 - `VITE_META_CONFIG_ID` : identifiant de configuration Meta (valeur par défaut fournie dans le projet).
+- `VITE_GOOGLE_CLIENT_ID` : identifiant client OAuth 2.0 Google utilisé par Google Identity Services. Il doit être renseigné dans l'environnement de build Netlify pour activer l'inscription et la connexion Google.
+
+Pour activer Google, créez un identifiant de type « application Web » dans Google Cloud Console, ajoutez le domaine de production exact d'AdPulse et les domaines de prévisualisation nécessaires dans les origines JavaScript autorisées, puis renseignez le Client ID dans les variables d'environnement Netlify et relancez le build. Le Client ID est un identifiant public ; ne placez jamais de secret OAuth dans les variables `VITE_*`.
 
 Le fichier `.env.example` documente les variables disponibles. Les autorisations réelles (utilisateur/admin) doivent toujours être vérifiées par le backend ; les protections du routeur frontend ne constituent pas une frontière de sécurité.
 

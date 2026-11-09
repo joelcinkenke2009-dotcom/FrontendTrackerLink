@@ -2,7 +2,7 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { apiUrl } from '@/config/env'
 
-const summary = ref({ clicks: 0, mobile: 0, desktop: 0, conversions: 0, suspicious: 0, daily: [] })
+const summary = ref({ clicks: 0, clicks_30d: 0, mobile: 0, desktop: 0, conversions: 0, suspicious: 0, daily: [] })
 const live = ref([])
 const fraud = ref([])
 const conversions = ref([])
@@ -21,7 +21,12 @@ let pageVisible = true
 let accessChecked = false
 let lastMetaRefresh = 0
 
-const conversionRate = computed(() => summary.value.clicks ? (summary.value.conversions / summary.value.clicks * 100).toFixed(1) : '0.0')
+// Compare conversions and valid clicks over the same rolling 30-day window.
+const conversionRate = computed(() => {
+  // Keep the UI compatible during staggered frontend/backend deployments.
+  const clicksForPeriod = Number(summary.value.clicks_30d ?? summary.value.clicks ?? 0)
+  return clicksForPeriod ? (summary.value.conversions / clicksForPeriod * 100).toFixed(1) : '0.0'
+})
 const chartMax = computed(() => Math.max(1, ...summary.value.daily.map(item => Number(item.clicks || 0))))
 const chartBars = computed(() => summary.value.daily.map(item => ({
   ...item,
